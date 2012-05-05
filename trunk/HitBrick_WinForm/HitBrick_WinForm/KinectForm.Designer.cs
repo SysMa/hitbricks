@@ -30,8 +30,6 @@
         {
             this.manPanel = new System.Windows.Forms.Panel();
             this.manImage = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            // this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.manPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).BeginInit();
             this.SuspendLayout();
@@ -39,7 +37,6 @@
             // manPanel needed
             // 
             this.manPanel.BackColor = System.Drawing.Color.Goldenrod;
-            this.manPanel.Controls.Add(this.label1);
             this.manPanel.Controls.Add(this.manImage);
             this.manPanel.Location = new System.Drawing.Point(2, 358);
             this.manPanel.Name = "manPanel";
@@ -60,7 +57,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(911, 523);
-            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.manPanel);
             this.Name = "KinectForm";
             this.Text = "HitBricks";
@@ -78,8 +74,6 @@
 
         private System.Windows.Forms.Panel manPanel;
         private System.Windows.Forms.PictureBox manImage;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton1;
 
         // Buttons including init deleted by msq
         // time and score added by msq
