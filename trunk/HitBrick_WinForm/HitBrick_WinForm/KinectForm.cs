@@ -60,6 +60,8 @@ namespace HitBrick_WinForm
                 this.CreateGraphics().DrawString("Game Over", new Font("Comic Sans MS", 25), new SolidBrush(Color.Snow), this.Width / 2 - 100, this.Height / 2 - 50);
                 timer_time.Stop();
             }
+
+            KinectForm_Load(sender, e);
         }
 
         private void SabBoy_KeyDown(object sender, KeyEventArgs e)

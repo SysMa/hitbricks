@@ -36,7 +36,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // manPanel
+            // manPanel needed
             // 
             this.manPanel.BackColor = System.Drawing.Color.Goldenrod;
             this.manPanel.Controls.Add(this.label1);
@@ -46,7 +46,7 @@
             this.manPanel.Size = new System.Drawing.Size(906, 163);
             this.manPanel.TabIndex = 0;
             // 
-            // manImage
+            // manImage needed
             // 
             this.manImage.Location = new System.Drawing.Point(37, 2);
             this.manImage.Name = "manImage";
@@ -54,29 +54,6 @@
             this.manImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.manImage.TabIndex = 0;
             this.manImage.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(221, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(519, 35);
-            this.label1.TabIndex = 30;
-            this.label1.Text = "Man shape will be shown here";
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.radioButton1.Font = new System.Drawing.Font("宋体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.radioButton1.Location = new System.Drawing.Point(280, 298);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(429, 39);
-            this.radioButton1.TabIndex = 30;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Ball is not ready yet.";
-            this.radioButton1.UseVisualStyleBackColor = false;
             // 
             // KinectForm
             // 
