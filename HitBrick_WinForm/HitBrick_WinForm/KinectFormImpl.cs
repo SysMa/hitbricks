@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Kinect;
-using System.Windows.Forms;
-using Coding4Fun.Kinect.WinForm;
-using System.Windows;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Linq;
+using System.Windows.Forms;
+using Microsoft.Kinect;
 
 namespace HitBrick_WinForm
 {
@@ -18,7 +13,6 @@ namespace HitBrick_WinForm
     {
 
         Render render;
-        Ball ball;
 
         private void KinectForm_Disposed(object sender, EventArgs e)
         {
@@ -29,7 +23,6 @@ namespace HitBrick_WinForm
         {
             KinectSensor sensor;
             render = new Render();
-            ball = new Ball();
             //存在kinect体感设备，取第一个,否则退出
             if (KinectSensor.KinectSensors.Count != 0)
             {
@@ -60,9 +53,6 @@ namespace HitBrick_WinForm
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true); 
 
             render.RunRender();
-
-            //ball.BindComponent(ref ellBall);
-            //ball.Run();
         }
 
         private void initPosition()
@@ -393,55 +383,5 @@ namespace HitBrick_WinForm
 
             return rotatedBmp;
         }
-    };
-
-    /// <summary>
-    /// 弹球的结构
-    /// </summary>
-    class Ball
-    {
-        public bool upDown;
-        public bool leftRight;
-        public bool run;
-        public int speed;
-        public double toLeft;
-        public double toTop;
-        //....
-        //bind component
-        //Ellipse ellBall;
-        //public void BindComponent(ref Ellipse ellBall)
-        public void BindComponent()
-        {
-           // this.ellBall = ellBall;
-        }
-
-        public Ball()
-        {
-            upDown = true;
-            leftRight = true;
-            run = true;
-            speed = 1;
-            toLeft = 0;
-            toTop = 0;
-        }
-
-        public void Run()
-        {
-            //while (true)
-            //{
-            //    toLeft += 1;
-            //    toTop += 1;
-            //    if (toLeft > 640)
-            //        break;
-            //    Display();
-            //}
-        }
-        public void Display()
-        {
-            //Canvas.SetLeft(ellBall, toLeft);
-            //Canvas.SetTop(ellBall, toTop);
-        }
-
-
     };
 }
