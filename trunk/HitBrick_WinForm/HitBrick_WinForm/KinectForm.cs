@@ -19,6 +19,10 @@ namespace HitBrick_WinForm
             InitializeComponent();
             timer = new System.Windows.Forms.Timer();
             timer_time = new System.Windows.Forms.Timer();
+
+            // this should not be the size of the controller
+            // we should minius the width because the right zone used
+            // we should minius the height because the manPanel used.
             controler = new Controler(this.Width, this.Height);
 
             timer.Interval = 10;
