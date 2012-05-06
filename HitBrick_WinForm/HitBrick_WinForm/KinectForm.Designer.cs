@@ -82,6 +82,7 @@ namespace HitBrick_WinForm
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.BackgroundImage = global::HitBrick_WinForm.Properties.Resources.bg;
             this.splitContainer1.Panel1.Controls.Add(this.manPanel);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             // 
@@ -97,7 +98,7 @@ namespace HitBrick_WinForm
             // 
             // manPanel
             // 
-            this.manPanel.BackColor = System.Drawing.Color.Goldenrod;
+            this.manPanel.BackColor = System.Drawing.Color.Transparent;
             this.manPanel.Controls.Add(this.manImage);
             this.manPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.manPanel.Location = new System.Drawing.Point(0, 355);
