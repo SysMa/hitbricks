@@ -99,6 +99,30 @@
   <ItemGroup>
     <None Include="data\bg2.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data\blue.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\gray.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\taohong.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\xiaoqiu.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\yellow.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\green.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tet.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\xiaoqiu.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

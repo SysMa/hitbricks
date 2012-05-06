@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System;
 
 namespace HitBrick_WinForm
 {
@@ -22,6 +23,7 @@ namespace HitBrick_WinForm
         {
             int temp = 0;
             Rects = new List<Brick_Type>();
+            Random rd = new Random();
             for (int i = 100; i < _height; i += 20)
             {
                 temp += 20;
@@ -30,7 +32,7 @@ namespace HitBrick_WinForm
                     Rect = new Rectangle(j, i, 28, 18);
                     Brick_Type temp_brick = new Brick_Type();
                     temp_brick.r = Rect;
-                    temp_brick.i = 0;
+                    temp_brick.i = rd.Next() % 3;
                     Rects.Add(temp_brick);
                 }
             }
@@ -42,12 +44,18 @@ namespace HitBrick_WinForm
         {
             foreach (Brick_Type b in Rects)
             {
-                Image img;
+                Bitmap img;
                 switch (b.i)
                 {
                     case 0:
                     default:
-                        img = Image.FromFile(@"C:\Users\MSQ\Pictures\62ddd102jw1dqa0cs909lj.jpg");
+                        img = global::HitBrick_WinForm.Properties.Resources.yellow;
+                        break;
+                    case 1:
+                        img = global::HitBrick_WinForm.Properties.Resources.taohong;
+                        break;
+                    case 2:
+                        img = global::HitBrick_WinForm.Properties.Resources.green;
                         break;
                 }
                 g.DrawImage(img, b.r);
