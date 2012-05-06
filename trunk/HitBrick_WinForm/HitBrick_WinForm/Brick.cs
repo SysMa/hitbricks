@@ -40,23 +40,17 @@ namespace HitBrick_WinForm
         //画墙
         public override void Draw(Graphics g)
         {
-            using (SolidBrush sbrush = new SolidBrush(Color.Orange))
+            foreach (Brick_Type b in Rects)
             {
-                Pen p = new Pen(Color.SaddleBrown, 3);
-                foreach (Brick_Type b in Rects)
+                Image img;
+                switch (b.i)
                 {
-                    Image img;
-                    switch (b.i)
-                    {
-                        case 0:
-                        default:
-                            img = Image.FromFile(@"C:\Users\MSQ\Pictures\62ddd102jw1dqa0cs909lj.jpg");
-                            break;
-                    }
-                    // g.DrawRectangle(p, r);
-                    g.DrawImage(img, b.r);
-                    // g.FillRectangle(sbrush, r);
+                    case 0:
+                    default:
+                        img = Image.FromFile(@"C:\Users\MSQ\Pictures\62ddd102jw1dqa0cs909lj.jpg");
+                        break;
                 }
+                g.DrawImage(img, b.r);
             }
             g.Dispose();
         }
