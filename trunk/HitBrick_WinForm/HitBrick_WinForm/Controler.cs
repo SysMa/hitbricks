@@ -13,7 +13,7 @@ namespace HitBrick_WinForm
         private int width = 0;
         private int height = 0;
         private bool isGameOver = false;
-        public int sorce = 100;
+        public int score = 100;
 
         //构造函数，初始化对象
         public Controler(int w, int h)
