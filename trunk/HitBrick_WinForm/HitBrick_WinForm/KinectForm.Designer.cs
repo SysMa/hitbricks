@@ -30,11 +30,13 @@
         {
             this.manPanel = new System.Windows.Forms.Panel();
             this.manImage = new System.Windows.Forms.PictureBox();
+            this.txtTime = new System.Windows.Forms.TextBox();
+            this.txtSorce = new System.Windows.Forms.TextBox();
             this.manPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // manPanel needed
+            // manPanel
             // 
             this.manPanel.BackColor = System.Drawing.Color.Goldenrod;
             this.manPanel.Controls.Add(this.manImage);
@@ -43,7 +45,7 @@
             this.manPanel.Size = new System.Drawing.Size(906, 163);
             this.manPanel.TabIndex = 0;
             // 
-            // manImage needed
+            // manImage
             // 
             this.manImage.Location = new System.Drawing.Point(37, 2);
             this.manImage.Name = "manImage";
@@ -52,18 +54,40 @@
             this.manImage.TabIndex = 0;
             this.manImage.TabStop = false;
             // 
+            // txtTime
+            // 
+            this.txtTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtTime.Location = new System.Drawing.Point(783, 25);
+            this.txtTime.Name = "txtTime";
+            this.txtTime.ReadOnly = true;
+            this.txtTime.Size = new System.Drawing.Size(100, 14);
+            this.txtTime.TabIndex = 1;
+            this.txtTime.Text = "00:00:00";
+            // 
+            // txtSorce
+            // 
+            this.txtSorce.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSorce.Location = new System.Drawing.Point(783, 68);
+            this.txtSorce.Name = "txtSorce";
+            this.txtSorce.ReadOnly = true;
+            this.txtSorce.Size = new System.Drawing.Size(100, 14);
+            this.txtSorce.TabIndex = 2;
+            this.txtSorce.Text = "0";
+            // 
             // KinectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(911, 523);
+            this.Controls.Add(this.txtSorce);
+            this.Controls.Add(this.txtTime);
             this.Controls.Add(this.manPanel);
             this.Name = "KinectForm";
             this.Text = "HitBricks";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             this.Load += new System.EventHandler(this.KinectForm_Load);
             this.Disposed += new System.EventHandler(this.KinectForm_Disposed);
             this.manPanel.ResumeLayout(false);
-            this.manPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -74,9 +98,6 @@
 
         private System.Windows.Forms.Panel manPanel;
         private System.Windows.Forms.PictureBox manImage;
-
-        // Buttons including init deleted by msq
-        // time and score added by msq
         private System.Windows.Forms.TextBox txtTime;
         private System.Windows.Forms.TextBox txtSorce;
     }
