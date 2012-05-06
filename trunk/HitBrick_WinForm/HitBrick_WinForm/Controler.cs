@@ -8,7 +8,7 @@ namespace HitBrick_WinForm
         private System.Drawing.Bitmap bitmap;
         private Brick brick;
         // private Board board;
-        private Ball ball;
+        // private Ball ball;
         //游戏画面尺寸
         private int width = 0;
         private int height = 0;
@@ -23,7 +23,7 @@ namespace HitBrick_WinForm
             bitmap = new Bitmap(width, height);
             brick = new Brick();
             // board = new Board(width / 2 - 45, height - 18, 5);
-            ball = new Ball(width / 2 - 45, height - 40, 2, 3);
+            // ball = new Ball(width / 2 - 45, height - 40, 2, 3);
             brick.BrickWall();
         }
 
@@ -33,13 +33,15 @@ namespace HitBrick_WinForm
             //使用双缓冲，减少画面闪烁
             brick.Draw(Graphics.FromImage(bitmap)); //画砖墙
             // board.Draw(Graphics.FromImage(bitmap)); //画挡板
-            ball.Draw(Graphics.FromImage(bitmap)); //画小球
+            // ball.Draw(Graphics.FromImage(bitmap)); //画小球
             g.DrawImage(bitmap, 0, 0);
             g.Dispose();
         }
         //碰撞检测
+
         public void Hit()
         {
+            /*
             //砖块与小球碰撞
             for (int i = 0; i < brick.Rects.Count; i++)
             {
@@ -54,7 +56,6 @@ namespace HitBrick_WinForm
                 }
             }
             //小球与挡板碰撞
-            /*
             if (ball.XPos + ball.Rect.Width - 5 >= board.XPos && ball.XPos <= board.XPos + board.Rect.Width - 5)
             {
                 if (ball.YPos >= board.YPos - ball.Rect.Height - 2)
@@ -77,7 +78,7 @@ namespace HitBrick_WinForm
                     ball.SpeedY = (new Random().Next(2, 5));
                 }
             }
-            */
+             * */
         }
         /*
         //移动挡板
@@ -89,15 +90,18 @@ namespace HitBrick_WinForm
         //小球运动
         public void RunBall()
         {
-            ball.Run();
+            // ball.Run();
         }
         //游戏结束
         public bool IsGameOver()
         {
+            /*
             if (ball.Rect.Y >= height - 22)
             {
                 isGameOver = true;
             }
+            return isGameOver;
+             */
             return isGameOver;
         }
         //游戏通关

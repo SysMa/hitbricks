@@ -129,5 +129,15 @@ namespace HitBrick_WinForm
             }
             txtTime.Text =h.ToString("00")+":"+m.ToString("00") + ":" + s.ToString("00");
         }
+
+        private void splitContainer2_SplitterMoving(object sender, SplitterCancelEventArgs e)
+        {
+            e.Cancel = true;
+        }
+
+        private void splitContainer1_SplitterMoving(object sender, SplitterCancelEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }
