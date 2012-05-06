@@ -30,7 +30,6 @@ namespace HitBrick_WinForm
         {
             using (SolidBrush sbrush = new SolidBrush(Color.Orange))
             {
-                g.Clear(Color.Black);
                 Pen p = new Pen(Color.SaddleBrown, 3);
                 foreach (Rectangle r in Rects)
                 {
