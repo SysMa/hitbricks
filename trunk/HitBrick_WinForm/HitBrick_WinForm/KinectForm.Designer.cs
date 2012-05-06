@@ -34,13 +34,11 @@ namespace HitBrick_WinForm
             this.txtTime = new System.Windows.Forms.TextBox();
             this.txtScore = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.manPanel = new System.Windows.Forms.Panel();
             this.manImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.manPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,7 +81,7 @@ namespace HitBrick_WinForm
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackgroundImage = global::HitBrick_WinForm.Properties.Resources.bg;
-            this.splitContainer1.Panel1.Controls.Add(this.manPanel);
+            this.splitContainer1.Panel1.Controls.Add(this.manImage);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             // 
             // splitContainer1.Panel2
@@ -96,19 +94,9 @@ namespace HitBrick_WinForm
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 5;
             // 
-            // manPanel
-            // 
-            this.manPanel.BackColor = System.Drawing.Color.Transparent;
-            this.manPanel.Controls.Add(this.manImage);
-            this.manPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.manPanel.Location = new System.Drawing.Point(0, 355);
-            this.manPanel.Name = "manPanel";
-            this.manPanel.Size = new System.Drawing.Size(596, 164);
-            this.manPanel.TabIndex = 2;
-            // 
             // manImage
             // 
-            this.manImage.Location = new System.Drawing.Point(37, 2);
+            this.manImage.Location = new System.Drawing.Point(-2, 355);
             this.manImage.Name = "manImage";
             this.manImage.Size = new System.Drawing.Size(178, 161);
             this.manImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -134,7 +122,6 @@ namespace HitBrick_WinForm
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.manPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).EndInit();
             this.ResumeLayout(false);
 
@@ -145,7 +132,6 @@ namespace HitBrick_WinForm
         private System.Windows.Forms.TextBox txtTime;
         private System.Windows.Forms.TextBox txtScore;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Panel manPanel;
         private System.Windows.Forms.PictureBox manImage;
     }
 }

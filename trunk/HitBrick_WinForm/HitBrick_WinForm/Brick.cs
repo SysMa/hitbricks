@@ -33,8 +33,10 @@ namespace HitBrick_WinForm
                 Pen p = new Pen(Color.SaddleBrown, 3);
                 foreach (Rectangle r in Rects)
                 {
-                    g.DrawRectangle(p, r);
-                    g.FillRectangle(sbrush, r);
+                    Image img = Image.FromFile(@"C:\Users\MSQ\Pictures\62ddd102jw1dqa0cs909lj.jpg");
+                    // g.DrawRectangle(p, r);
+                    g.DrawImage(img, r);
+                    // g.FillRectangle(sbrush, r);
                 }
             }
             g.Dispose();
