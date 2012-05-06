@@ -18,7 +18,8 @@ namespace HitBrick_WinForm
 
         public override void Draw(Graphics g)
         {
-            using (SolidBrush sbrush = new SolidBrush(Color.Snow))
+            Image img = Image.FromFile(@"C:\Users\MSQ\Pictures\62ddd102jw1dqa0cs909lj.jpg");
+            using (TextureBrush sbrush = new TextureBrush(img))
             {
                 Rect = new Rectangle(XPos, YPos, 20, 20);
                 g.DrawEllipse(new Pen(Color.Gray), Rect);
