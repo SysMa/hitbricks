@@ -56,36 +56,45 @@
             // 
             // txtTime
             // 
+            this.txtTime.BackColor = System.Drawing.Color.Black;
             this.txtTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtTime.Enabled = false;
+            this.txtTime.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTime.ForeColor = System.Drawing.Color.White;
             this.txtTime.Location = new System.Drawing.Point(783, 25);
             this.txtTime.Name = "txtTime";
             this.txtTime.ReadOnly = true;
-            this.txtTime.Size = new System.Drawing.Size(100, 14);
-            this.txtTime.TabIndex = 1;
+            this.txtTime.Size = new System.Drawing.Size(101, 23);
+            this.txtTime.TabIndex = 4;
             this.txtTime.Text = "00:00:00";
             // 
             // txtSorce
             // 
+            this.txtSorce.BackColor = System.Drawing.Color.Black;
             this.txtSorce.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSorce.Enabled = false;
+            this.txtSorce.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSorce.ForeColor = System.Drawing.Color.White;
             this.txtSorce.Location = new System.Drawing.Point(783, 68);
             this.txtSorce.Name = "txtSorce";
             this.txtSorce.ReadOnly = true;
-            this.txtSorce.Size = new System.Drawing.Size(100, 14);
-            this.txtSorce.TabIndex = 2;
+            this.txtSorce.Size = new System.Drawing.Size(101, 23);
+            this.txtSorce.TabIndex = 3;
             this.txtSorce.Text = "0";
             // 
             // KinectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(911, 523);
             this.Controls.Add(this.txtSorce);
             this.Controls.Add(this.txtTime);
             this.Controls.Add(this.manPanel);
             this.Name = "KinectForm";
             this.Text = "HitBricks";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             this.Load += new System.EventHandler(this.KinectForm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             this.Disposed += new System.EventHandler(this.KinectForm_Disposed);
             this.manPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).EndInit();
