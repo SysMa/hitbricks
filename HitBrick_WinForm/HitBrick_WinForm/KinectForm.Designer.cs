@@ -83,6 +83,7 @@ namespace HitBrick_WinForm
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.manPanel);
+            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             // 
             // splitContainer1.Panel2
             // 
