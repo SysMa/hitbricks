@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace HitBrick_WinForm
 {
     public partial class KinectForm : Form
     {
-        private Timer timer;
-        private Timer timer_time;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer timer_time;
         private Controler controler;
-        private bool isKeyDown = false;
+        // private bool isKeyDown = false;
         //游戏时间
         int h = 0, m = 0, s = 0;
 
         public KinectForm()
         {
             InitializeComponent();
-            timer = new Timer();
-            timer_time = new Timer();
+            timer = new System.Windows.Forms.Timer();
+            timer_time = new System.Windows.Forms.Timer();
             controler = new Controler(this.Width, this.Height);
 
             timer.Interval = 10;
@@ -38,10 +39,12 @@ namespace HitBrick_WinForm
             if (!controler.IsGameOver())
             {
                 timer_time.Start();
+                /*
                 if (isKeyDown)
                 {
                     controler.MoveBoard();
                 }
+                */ 
                 controler.RunBall();
                 controler.Hit();               
 
@@ -61,9 +64,15 @@ namespace HitBrick_WinForm
                 timer_time.Stop();
             }
 
-            KinectForm_Load(sender, e);
+
         }
 
+        /// <summary>
+        /// Used be control the board, No need for us.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /*
         private void SabBoy_KeyDown(object sender, KeyEventArgs e)
         {
             isKeyDown = true;
@@ -93,7 +102,12 @@ namespace HitBrick_WinForm
         {
             isKeyDown = false;
         }
-
+        */ 
+        /// <summary>
+        /// Exit button, need ?
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lbClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
