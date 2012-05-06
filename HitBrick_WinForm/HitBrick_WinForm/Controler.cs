@@ -8,7 +8,7 @@ namespace HitBrick_WinForm
         private System.Drawing.Bitmap bitmap;
         private Brick brick;
         // private Board board;
-        // private Ball ball;
+        private Ball ball;
         //游戏画面尺寸
         private int width = 0;
         private int height = 0;
@@ -23,7 +23,7 @@ namespace HitBrick_WinForm
             bitmap = new Bitmap(width, height);
             brick = new Brick();
             // board = new Board(width / 2 - 45, height - 18, 5);
-            // ball = new Ball(width / 2 - 45, height - 40, 2, 3);
+            ball = new Ball(width / 2 - 45, height - 300, 2, 3);
             brick.BrickWall();
         }
 
@@ -33,7 +33,7 @@ namespace HitBrick_WinForm
             //使用双缓冲，减少画面闪烁
             brick.Draw(Graphics.FromImage(bitmap)); //画砖墙
             // board.Draw(Graphics.FromImage(bitmap)); //画挡板
-            // ball.Draw(Graphics.FromImage(bitmap)); //画小球
+            ball.Draw(Graphics.FromImage(bitmap)); //画小球
             g.DrawImage(bitmap, 0, 0);
             g.Dispose();
         }
