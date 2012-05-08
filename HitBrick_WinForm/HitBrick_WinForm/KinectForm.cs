@@ -37,7 +37,8 @@ namespace HitBrick_WinForm
             controler.InitGame(e.Graphics);
         }
 
-        //游戏驱动
+        // 游戏驱动
+        // 我怀疑这个函数在这里是非是合适的。
         public void timer_Tick(object sender, EventArgs e)
         {
             if (!controler.IsGameOver())
@@ -48,9 +49,11 @@ namespace HitBrick_WinForm
                 {
                     controler.MoveBoard();
                 }
-                */ 
-                controler.RunBall();
-                controler.Hit();               
+                */
+                controler.RunBall();        
+                controler.Hit();
+
+                controler.score += 10;
 
                 controler.InitGame(this.CreateGraphics());
                 txtScore.Text = "Score: " + controler.score.ToString();
@@ -67,8 +70,6 @@ namespace HitBrick_WinForm
                 this.CreateGraphics().DrawString("Game Over", new Font("Comic Sans MS", 25), new SolidBrush(Color.Snow), this.Width / 2 - 100, this.Height / 2 - 50);
                 timer_time.Stop();
             }
-
-
         }
 
         /// <summary>
@@ -133,6 +134,11 @@ namespace HitBrick_WinForm
             }
             txtTime.Text = "Time : " + h.ToString("00") + ":" 
                 + m.ToString("00") + ":" + s.ToString("00");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer.Start();
         }
     }
 }

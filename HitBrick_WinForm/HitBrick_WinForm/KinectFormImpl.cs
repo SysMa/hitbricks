@@ -38,7 +38,6 @@ namespace HitBrick_WinForm
                 //开启体感设备
                 render.StartSensor();
             }
-            timer_Tick(sender, e);
             initPosition();
 
             render.BindComponent(ref manImage, splitContainer1.Panel1);
