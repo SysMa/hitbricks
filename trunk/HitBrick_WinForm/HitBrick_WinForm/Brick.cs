@@ -48,13 +48,13 @@ namespace HitBrick_WinForm
                 switch (b.i)
                 {
                     case 0:
-                    default:
                         img = global::HitBrick_WinForm.Properties.Resources.yellow;
                         break;
                     case 1:
                         img = global::HitBrick_WinForm.Properties.Resources.taohong;
                         break;
                     case 2:
+                    default:
                         img = global::HitBrick_WinForm.Properties.Resources.green;
                         break;
                 }
