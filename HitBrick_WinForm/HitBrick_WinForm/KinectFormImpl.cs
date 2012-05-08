@@ -105,6 +105,11 @@ namespace HitBrick_WinForm
         Bitmap depthImageBitmap;
         Rectangle depthImageBitmapRect;
 
+        private Point rightHand;
+        private Point leftHand;
+        private Point head;
+
+
         Graphics manImageGraphic;
         Rectangle barRect;
         SolidBrush barBrush;
@@ -117,7 +122,7 @@ namespace HitBrick_WinForm
             this.manImage = manShape;
             this.manPanel = manPanel;
             //this.imgBar = imgBar;
-           
+
             this.manImage.Width = (int)(3 / 4.0 * this.manImage.Height);
             manImageHeight = this.manImage.Height;
             manImageWidth = this.manImage.Width;
@@ -162,9 +167,9 @@ namespace HitBrick_WinForm
 
             depthImageBitmap = new Bitmap(depthImageStream.FrameWidth, depthImageStream.FrameHeight);
             depthImageBitmapRect = new Rectangle(0, 0, (int)depthImageStream.FrameWidth, (int)depthImageStream.FrameHeight);
-            depthImageStride = depthImageStream.FrameWidth * 4;           
+            depthImageStride = depthImageStream.FrameWidth * 4;
             depthPixelData = new short[sensor.DepthStream.FramePixelDataLength];
-            colorPixelData = new byte[sensor.ColorStream.FramePixelDataLength];            
+            colorPixelData = new byte[sensor.ColorStream.FramePixelDataLength];
         }
 
         public void StartSensor()
@@ -196,7 +201,6 @@ namespace HitBrick_WinForm
                     if (dframe != null && cframe != null)
                     {
                         RenderScreen(dframe, cframe);
-                        
                     }
                 }
             }
@@ -221,8 +225,12 @@ namespace HitBrick_WinForm
             if (skeleton == null)
                 return;
 
-            SetBarPosition(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], imgBar);
+            rightHand = getDisplayPosition(skeleton.Joints[JointType.HandRight]);
+            leftHand = getDisplayPosition(skeleton.Joints[JointType.HandLeft]);
+            head = getDisplayPosition(skeleton.Joints[JointType.Head]);
+            //SetBarPosition(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], imgBar);
         }
+
 
         private void RenderScreen(DepthImageFrame depthFrame, ColorImageFrame colorFrame)
         {
@@ -277,9 +285,10 @@ namespace HitBrick_WinForm
                 manImage.SizeMode = PictureBoxSizeMode.StretchImage;
                 manImage.Image = depthImageBitmap;//depthImageBitmap;              
 
-                avgPosition = (avgPosition) * (manImageWidth / depthFrame.Width - manImage.Height / depthFrame.Height);
-                                
-                manImage.Location = new Point((int)(avgPosition + manPanel.Location.X), 0);                
+                //map to panel
+                avgPosition = (avgPosition) * (manImageWidth / depthFrame.Width);// - manImage.Height / depthFrame.Height);
+                avgPosition = avgPosition * ((double)manPanel.Width / manImage.Width) - manImage.Width / 2.0;
+                manImage.Location = new Point((int)(avgPosition + manPanel.Location.X), manPanel.Height - manImage.Height);
             }
         }
 
@@ -287,14 +296,14 @@ namespace HitBrick_WinForm
         {
             Point leftP = getDisplayPosition(leftHand);
             Point rightP = getDisplayPosition(rightHand);
-            
+
             int w = (int)Math.Sqrt((rightP.Y - leftP.Y) * (rightP.Y - leftP.Y) + (rightP.X - leftP.X) * (rightP.X - leftP.X));
 
             if (rightP.X != leftP.X)
             {
                 float angle = (float)Math.Atan(((double)(rightP.Y - leftP.Y)) / (rightP.X - leftP.X));
                 angle = (float)(angle * 180 / Math.PI);
-                barRect = new Rectangle(new Point(0,0),new Size(w, 10));
+                barRect = new Rectangle(new Point(0, 0), new Size(w, 10));
                 manImageGraphic.ResetTransform();
                 manImageGraphic.TranslateTransform(leftP.X, leftP.Y);
                 manImageGraphic.RotateTransform(angle, MatrixOrder.Prepend);
@@ -341,7 +350,24 @@ namespace HitBrick_WinForm
         {
             return barRect;
         }
+
+        public Point RightHand
+        {
+            get { return rightHand; }
+            set { rightHand = value; }
+        }
+        public Point LeftHand
+        {
+            get { return leftHand; }
+            set { leftHand = value; }
+        }
+        public Point Head
+        {
+            get { return head; }
+            set { head = value; }
+        }
     };
+ 
  
     /// <summary>
     /// A Class that contains some static utility functions. 
