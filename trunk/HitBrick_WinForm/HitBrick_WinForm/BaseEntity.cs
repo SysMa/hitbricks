@@ -13,6 +13,6 @@ namespace HitBrick_WinForm
         //对象载体
         public Rectangle Rect { get; set; }
         //画对象
-        public abstract void Draw(Graphics g);
+        // public abstract void Draw(Graphics g);
     }
 }

@@ -16,7 +16,7 @@ namespace HitBrick_WinForm
             this.SpeedY = speedY;
         }
 
-        public override void Draw(Graphics g)
+        public void Draw(Graphics g)
         {
             using (TextureBrush sbrush = new TextureBrush(global::HitBrick_WinForm.Properties.Resources.xiaoqiu))
             {
