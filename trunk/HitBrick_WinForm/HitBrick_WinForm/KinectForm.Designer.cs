@@ -33,6 +33,7 @@ namespace HitBrick_WinForm
             this.txtScore = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.manImage = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -66,7 +67,7 @@ namespace HitBrick_WinForm
             this.txtScore.ReadOnly = true;
             this.txtScore.Size = new System.Drawing.Size(146, 23);
             this.txtScore.TabIndex = 3;
-            this.txtScore.Text = "0";
+            this.txtScore.Text = "Score: 0";
             // 
             // splitContainer1
             // 
@@ -85,6 +86,7 @@ namespace HitBrick_WinForm
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Silver;
+            this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.txtScore);
             this.splitContainer1.Panel2.Controls.Add(this.txtTime);
             this.splitContainer1.Size = new System.Drawing.Size(793, 523);
@@ -100,6 +102,16 @@ namespace HitBrick_WinForm
             this.manImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.manImage.TabIndex = 0;
             this.manImage.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(64, 413);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Start";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // KinectForm
             // 
@@ -131,6 +143,7 @@ namespace HitBrick_WinForm
         private System.Windows.Forms.TextBox txtScore;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.PictureBox manImage;
+        private System.Windows.Forms.Button button1;
     }
 }
 

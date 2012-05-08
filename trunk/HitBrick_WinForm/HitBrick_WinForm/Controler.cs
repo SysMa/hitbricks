@@ -79,17 +79,17 @@ namespace HitBrick_WinForm
             }
              * */
         }
-        /*
+        
         //移动挡板
         public void MoveBoard()
         {
-            board.Run();
+            // board.Run();
         }
-        */
+        
         //小球运动
         public void RunBall()
         {
-            // ball.Run();
+            ball.Run();
         }
         //游戏结束
         public bool IsGameOver()
