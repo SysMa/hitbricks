@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace HitBrick_WinForm
 {
@@ -33,14 +34,13 @@ namespace HitBrick_WinForm
         {
             XPos = XPos + SpeedX;
             YPos = YPos - SpeedY;
-            /*
+            // Console.WriteLine("Position-x:{0}, y:{1}", XPos, YPos);
             if (XPos <= 0)
                 SpeedX = (new Random().Next(3, 5));
             if (XPos > 378)
                 SpeedX = -(new Random().Next(3, 5));
             if (YPos <= 100)
                 SpeedY = -(new Random().Next(3, 8));
-             */
         }
         #endregion
     }

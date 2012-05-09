@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace HitBrick_WinForm
 {
@@ -29,6 +29,10 @@ namespace HitBrick_WinForm
             timer.Tick += new EventHandler(timer_Tick);
             timer_time.Interval = 1000;
             timer_time.Tick += new EventHandler(timer_time_Tick);
+
+            Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
+            // parameterThread.Name = "Thread A:";
+            parameterThread.Start(this.CreateGraphics());  
         }
 
         //初始化游戏界面
@@ -43,7 +47,8 @@ namespace HitBrick_WinForm
         {
             if (!controler.IsGameOver())
             {
-                timer_time.Start();
+                if(!timer_time.Enabled)
+                    timer_time.Start();
                 /*
                 if (isKeyDown)
                 {
@@ -53,9 +58,7 @@ namespace HitBrick_WinForm
                 controler.RunBall();        
                 controler.Hit();
 
-                controler.score += 10;
-
-                controler.InitGame(this.CreateGraphics());
+                // controler.InitGame(this.CreateGraphics());
                 txtScore.Text = "Score: " + controler.score.ToString();
 
                 if (controler.IsSuccess())

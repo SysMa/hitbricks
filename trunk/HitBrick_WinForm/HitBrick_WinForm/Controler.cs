@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace HitBrick_WinForm
 {
@@ -12,7 +11,7 @@ namespace HitBrick_WinForm
         private int width = 0;
         private int height = 0;
         private bool isGameOver = false;
-        public int score = 100;
+        public int score = 0;
 
         //构造函数，初始化对象
         public Controler(int w, int h)
@@ -22,19 +21,20 @@ namespace HitBrick_WinForm
             bitmap = new Bitmap(width, height);
             brick = new Brick();
             // board = new Board(width / 2 - 45, height - 320, 5);
-            ball = new Ball(width / 2 - 45, height - 300, 2, 3);
+            ball = new Ball(width / 2 - 45, height - 300, 20, 30);
             brick.BrickWall();
         }
 
         //初始化画面
-        public void InitGame(Graphics g)
+        public void InitGame(object g)
         {
+            Graphics gra = (Graphics)g;
             //使用双缓冲，减少画面闪烁
             brick.Draw(Graphics.FromImage(bitmap)); //画砖墙
             // board.Draw(Graphics.FromImage(bitmap), Rect); //画挡板
             ball.Draw(Graphics.FromImage(bitmap)); //画小球
-            g.DrawImage(bitmap, 0, 0);
-            g.Dispose();
+            gra.DrawImage(bitmap, 0, 0);
+            gra.Dispose();
         }
         //碰撞检测
 
@@ -100,7 +100,7 @@ namespace HitBrick_WinForm
                 isGameOver = true;
             }
             return isGameOver;
-             */
+            */
             return isGameOver;
         }
         //游戏通关
