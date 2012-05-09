@@ -40,7 +40,7 @@ namespace HitBrick_WinForm
         }
 
         //画墙
-        public void Draw(Graphics g)
+        public override void Draw(Graphics g)
         {
             foreach (Brick_Type b in Rects)
             {

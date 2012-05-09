@@ -25,14 +25,13 @@ namespace HitBrick_WinForm
             // we should minius the height because the manPanel used.
             controler = new Controler(this.Width, this.Height);
 
-            timer.Interval = 10;
+            timer.Interval = 1000;
             timer.Tick += new EventHandler(timer_Tick);
             timer_time.Interval = 1000;
             timer_time.Tick += new EventHandler(timer_time_Tick);
 
-            Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
-            // parameterThread.Name = "Thread A:";
-            parameterThread.Start(this.CreateGraphics());  
+            // Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
+            // parameterThread.Start(this.CreateGraphics());  
         }
 
         //初始化游戏界面
@@ -58,7 +57,7 @@ namespace HitBrick_WinForm
                 controler.RunBall();        
                 controler.Hit();
 
-                // controler.InitGame(this.CreateGraphics());
+                controler.InitGame(this.CreateGraphics());
                 txtScore.Text = "Score: " + controler.score.ToString();
 
                 if (controler.IsSuccess())
