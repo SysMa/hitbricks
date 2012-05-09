@@ -20,8 +20,7 @@ namespace HitBrick_WinForm
             this.height = h;
             bitmap = new Bitmap(width, height);
             brick = new Brick();
-            // board = new Board(width / 2 - 45, height - 320, 5);
-            ball = new Ball(width / 2 - 45, height - 300, 20, 30);
+            ball = new Ball(/*width / 2 - 45, height - 300*/378, 78, 20, 30);
             brick.BrickWall();
         }
 
@@ -30,8 +29,8 @@ namespace HitBrick_WinForm
         {
             Graphics gra = (Graphics)g;
             //使用双缓冲，减少画面闪烁
+            bitmap = new Bitmap(width, height);
             brick.Draw(Graphics.FromImage(bitmap)); //画砖墙
-            // board.Draw(Graphics.FromImage(bitmap), Rect); //画挡板
             ball.Draw(Graphics.FromImage(bitmap)); //画小球
             gra.DrawImage(bitmap, 0, 0);
             gra.Dispose();

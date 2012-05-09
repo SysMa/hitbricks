@@ -16,8 +16,9 @@ namespace HitBrick_WinForm
             this.SpeedY = speedY;
         }
 
-        public void Draw(Graphics g)
+        public override void Draw(Graphics g)
         {
+            
             using (TextureBrush sbrush = new TextureBrush(global::HitBrick_WinForm.Properties.Resources.xiaoqiu))
             {
                 Rect = new Rectangle(XPos, YPos, 20, 20);
@@ -25,6 +26,15 @@ namespace HitBrick_WinForm
                 g.FillEllipse(sbrush, Rect);
             }
             g.Dispose();
+            /* 
+            using (SolidBrush sbrush = new SolidBrush(Color.Snow))
+            {
+                Rect = new Rectangle(XPos, YPos, 20, 20);
+                g.DrawEllipse(new Pen(Color.Gray), Rect);
+                g.FillEllipse(sbrush, Rect);
+            }
+            g.Dispose();
+            */
         }
 
 
