@@ -71,6 +71,7 @@ namespace HitBrick_WinForm
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.IsSplitterFixed = true;
@@ -79,9 +80,8 @@ namespace HitBrick_WinForm
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.BackgroundImage = global::HitBrick_WinForm.Properties.Resources.bg;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer1.Panel1.Controls.Add(this.manImage);
-            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             // 
             // splitContainer1.Panel2
             // 
@@ -120,12 +120,11 @@ namespace HitBrick_WinForm
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(793, 523);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.DoubleBuffered = true;
             this.Name = "KinectForm";
             this.Text = "HitBricks";
             this.Load += new System.EventHandler(this.KinectForm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             this.Disposed += new System.EventHandler(this.KinectForm_Disposed);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
