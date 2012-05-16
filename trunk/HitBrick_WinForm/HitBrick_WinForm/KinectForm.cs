@@ -9,17 +9,13 @@ namespace HitBrick_WinForm
     {
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer timer_time;
-        // private bool isKeyDown = false;
+
         //游戏时间
         int h = 0, m = 0, s = 0;
 
-        // private Controler controler;
+        // elements
         private System.Drawing.Bitmap bitmap;
-        private Brick brick;
         private Ball ball;
-        //游戏画面尺寸
-        private int width = 0;
-        private int height = 0;
         private bool isGameOver = false;
         public int score = 0;
 
@@ -36,16 +32,7 @@ namespace HitBrick_WinForm
             timer = new System.Windows.Forms.Timer();
             timer_time = new System.Windows.Forms.Timer();
 
-            // this should not be the size of the controller
-            // we should minius the width because the right zone used
-            // we should minius the height because the manPanel used.
-            // controler = new Controler(this.Width, this.Height);
-            this.width = this.Width;
-            this.height = this.Height;
-            bitmap = new Bitmap(width, height);
-            brick = new Brick();
-            ball = new Ball(/*width / 2 - 45, height - 300*/378, 78, 20, 30);
-            brick.BrickWall();
+            ball = new Ball(378, 78, 20, 30);
 
             timer.Interval = 10;
             timer.Tick += new EventHandler(timer_Tick);
@@ -59,7 +46,6 @@ namespace HitBrick_WinForm
         //初始化游戏界面
         private void SabBoy_Paint(object sender, PaintEventArgs e)
         {
-            // controler.InitGame(e.Graphics);
             InitGame(e.Graphics);
         }
 
@@ -72,25 +58,16 @@ namespace HitBrick_WinForm
             {
                 if(!timer_time.Enabled)
                     timer_time.Start();
-                /*
-                if (isKeyDown)
-                {
-                    controler.MoveBoard();
-                }
-                */
-                // controler.RunBall();        
-                // controler.Hit();
+
                 RunBall();
                 Hit();
 
                 // this.splitContainer1.Panel1.Refresh();
                 // this.splitContainer1.Panel1.Invalidate();
-                // controler.InitGame(this.CreateGraphics());
                 InitGame(this.CreateGraphics());
-                txtScore.Text = "Score: " + /*controler.score.ToString();*/ score.ToString();
+                txtScore.Text = "Score: " + score.ToString();
                 this.Invalidate();
                 
-                // if (controler.IsSuccess())
                 if( IsSuccess())
                 {
                     this.CreateGraphics().DrawString("You Win", new Font("Comic Sans MS", 25), new SolidBrush(Color.Red), this.Width / 2 - 100, this.Height / 2 - 50);
@@ -105,58 +82,13 @@ namespace HitBrick_WinForm
             }
         }
 
-        /// <summary>
-        /// Used be control the board, No need for us.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /*
-        private void SabBoy_KeyDown(object sender, KeyEventArgs e)
-        {
-            isKeyDown = true;
-            switch (e.KeyCode)
-            {
-                case Keys.Left:
-                    {
-                        // Here is the board direction control code segment
-                        // controler.Direction = BoardDirection.Left;
-                        timer.Start();
-                    }
-                    break;
-                case Keys.Right:
-                    {
-                        // Here is the board direction control code segment
-                        // controler.Direction = BoardDirection.Right;
-                        timer.Start();
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-        }
-
-        private void SabBoy_KeyUp(object sender, KeyEventArgs e)
-        {
-            isKeyDown = false;
-        }
-        */ 
-        /// <summary>
-        /// Exit button, need ?
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void lbClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         //游戏时间
         public void timer_time_Tick(object sender, EventArgs e)
         {
             s++;
 
             // those lines should not be here.
+            // it is just an example of disappear.
             if (s == 6)
             {
                 this.button2.Visible = false;
@@ -190,8 +122,7 @@ namespace HitBrick_WinForm
         {
             Graphics gra = (Graphics)g;
             //使用双缓冲，减少画面闪烁
-            bitmap = new Bitmap(width, height);
-            // brick.Draw(Graphics.FromImage(bitmap)); //画砖墙
+            bitmap = new Bitmap(this.Width, this.Height);
             ball.Draw(Graphics.FromImage(bitmap)); //画小球
             gra.DrawImage(bitmap, 0, 0);
             gra.Dispose();
@@ -241,12 +172,6 @@ namespace HitBrick_WinForm
              * */
         }
 
-        //移动挡板
-        public void MoveBoard()
-        {
-            // board.Run();
-        }
-
         //小球运动
         public void RunBall()
         {
@@ -270,9 +195,6 @@ namespace HitBrick_WinForm
         public bool IsSuccess()
         {
             bool isSucess = false;
-            //没有砖块
-            if (brick.Rects.Count == 0)
-                isSucess = true;
             return isSucess;
         }
 
@@ -284,23 +206,18 @@ namespace HitBrick_WinForm
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(54, 36);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.BackColor = Color.Yellow;
             // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(286, 113);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
 
             this.splitContainer1.Panel1.Controls.Add(this.button3);
             this.splitContainer1.Panel1.Controls.Add(this.button2);
+
+            // gets the rectangle of the button 
+            // Rectangle rec_bt2 = button2.ClientRectangle;
         }
     }
 }
