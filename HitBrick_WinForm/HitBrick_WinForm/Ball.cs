@@ -19,14 +19,14 @@ namespace HitBrick_WinForm
         public override void Draw(Graphics g)
         {
             
-            using (TextureBrush sbrush = new TextureBrush(global::HitBrick_WinForm.Properties.Resources.xiaoqiu))
-            {
-                Rect = new Rectangle(XPos, YPos, 20, 20);
-                g.DrawEllipse(new Pen(Color.Gray), Rect);
-                g.FillEllipse(sbrush, Rect);
-            }
-            g.Dispose();
-            /* 
+            //using (TextureBrush sbrush = new TextureBrush(global::HitBrick_WinForm.Properties.Resources.xiaoqiu))
+            //{
+            //    Rect = new Rectangle(XPos, YPos, 20, 20);
+            //    g.DrawEllipse(new Pen(Color.Gray), Rect);
+            //    g.FillEllipse(sbrush, Rect);
+            //}
+            //g.Dispose();
+
             using (SolidBrush sbrush = new SolidBrush(Color.Snow))
             {
                 Rect = new Rectangle(XPos, YPos, 20, 20);
@@ -34,7 +34,6 @@ namespace HitBrick_WinForm
                 g.FillEllipse(sbrush, Rect);
             }
             g.Dispose();
-            */
         }
 
 

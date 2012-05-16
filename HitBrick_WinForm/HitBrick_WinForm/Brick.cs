@@ -42,6 +42,7 @@ namespace HitBrick_WinForm
         //画墙
         public override void Draw(Graphics g)
         {
+            
             foreach (Brick_Type b in Rects)
             {
                 Bitmap img;
@@ -61,6 +62,18 @@ namespace HitBrick_WinForm
                 g.DrawImage(img, b.r);
             }
             g.Dispose();
+            
+            //using (SolidBrush sbrush = new SolidBrush(Color.Orange))
+            //{
+            //    g.Clear(Color.Black);
+            //    Pen p = new Pen(Color.SaddleBrown, 3);
+            //    foreach (Brick_Type b in Rects)
+            //    {
+            //        g.DrawRectangle(p, b.r);
+            //        g.FillRectangle(sbrush, b.r);
+            //    }
+            //}
+            //g.Dispose();
         }
     }
 }

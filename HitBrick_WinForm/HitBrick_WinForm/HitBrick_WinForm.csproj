@@ -56,7 +56,6 @@
     <Compile Include="Ball.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Brick.cs" />
-    <Compile Include="Controler.cs" />
     <Compile Include="ISabBoy.cs" />
     <Compile Include="KinectForm.cs">
       <SubType>Form</SubType>
