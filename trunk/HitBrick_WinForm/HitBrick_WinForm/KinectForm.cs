@@ -208,6 +208,10 @@ namespace HitBrick_WinForm
             this.button2.Location = new System.Drawing.Point(54, 36);
             this.button2.TabIndex = 1;
             this.button2.BackColor = Color.Yellow;
+
+            // related to points.
+            // Color what = this.button2.BackColor;
+
             // 
             // button3
             // 
@@ -217,6 +221,7 @@ namespace HitBrick_WinForm
             this.splitContainer1.Panel1.Controls.Add(this.button2);
 
             // gets the rectangle of the button 
+            // realated to Hit.
             // Rectangle rec_bt2 = button2.ClientRectangle;
         }
     }
