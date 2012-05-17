@@ -122,6 +122,9 @@ namespace HitBrick_WinForm
         private void button1_Click(object sender, EventArgs e)
         {
             timer.Start();
+            Mp3 mp3 = new Mp3();
+            mp3.FileName = @"..\..\data\Kirby.wav";
+            mp3.play();
         }
 
         /*
