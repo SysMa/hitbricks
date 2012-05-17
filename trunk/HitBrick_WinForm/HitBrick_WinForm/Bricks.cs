@@ -23,21 +23,15 @@ namespace HitBrick_WinForm
 
         public void newBricks()
         {
-            int temp = 0;
             Rects = new List<Brick_Type>();
-            Random rd = new Random();
-            for (int i = 100; i < _height; i += 18)
+            switch(stage)
             {
-                temp += 18;
-                for (int j = temp - 18; j < _width - temp; j += 40)
-                {
-                    Rectangle Rect = new Rectangle(j, i, 40, 18);
-                    Brick_Type temp_brick = new Brick_Type();
-                    temp_brick.r = Rect;
-                    temp_brick.i = rd.Next() % 3;
-                    temp_brick.pictureBox = new PictureBox();
-                    Rects.Add(temp_brick);
-                }
+                case 1:
+                    draw_stage_one();
+                    break;
+                default:
+                    draw_stage_one();
+                    break;
             }
 
             foreach (Brick_Type b in Rects)
