@@ -36,7 +36,7 @@ namespace HitBrick_WinForm
         public List<Brick_Type> Rects { get; set; }
 
         //音乐部分
-        SoundPlayer player;
+        SoundPlayer bgmPlayer;
 
         public KinectForm()
         {
@@ -53,6 +53,8 @@ namespace HitBrick_WinForm
             timer.Tick += new EventHandler(timer_Tick);
             timer_time.Interval = 1000;
             timer_time.Tick += new EventHandler(timer_time_Tick);
+
+            bgmPlayer = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.bgm);
 
             //Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
             //parameterThread.Start(this.CreateGraphics());  
@@ -117,8 +119,7 @@ namespace HitBrick_WinForm
         private void button1_Click(object sender, EventArgs e)
         {
             timer.Start();
-            player = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.bgm);
-            player.PlayLooping();
+            bgmPlayer.PlayLooping();
         }
 
         /*
