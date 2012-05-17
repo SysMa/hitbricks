@@ -12,7 +12,7 @@ namespace HitBrick_WinForm
         private System.Windows.Forms.Timer timer_time;
 
         //游戏时间
-        int h = 0, m = 0, s = 0;
+        int hour = 0, minute = 0, second = 0;
 
         // elements
         private bool isGameOver = false;
@@ -90,20 +90,20 @@ namespace HitBrick_WinForm
         //游戏时间
         public void timer_time_Tick(object sender, EventArgs e)
         {
-            s++;
+            second++;
             
-            if (s >= 59)
+            if (second >= 59)
             {
-                m += 1;
-                s = 0;
+                minute += 1;
+                second = 0;
             }
-            if (m >= 59)
+            if (minute >= 59)
             {
-                h += 1;
-                m = 0;
+                hour += 1;
+                minute = 0;
             }
-            txtTime.Text = "Time : " + h.ToString("00") + ":" 
-                + m.ToString("00") + ":" + s.ToString("00");
+            txtTime.Text = "Time : " + hour.ToString("00") + ":" 
+                + minute.ToString("00") + ":" + second.ToString("00");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -118,7 +118,7 @@ namespace HitBrick_WinForm
             //砖块与小球碰撞
             for (int i = 0; i < Rects.Count; i++)
             {
-                if (ballRect.IntersectsWith(Rects[i].r))
+                if (ballRect.IntersectsWith(Rects[i].rectangle))
                 {
                     SpeedX = -SpeedX;
                     SpeedY = -SpeedY;
