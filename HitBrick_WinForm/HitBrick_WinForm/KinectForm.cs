@@ -21,16 +21,18 @@ namespace HitBrick_WinForm
         //音乐部分
         SoundPlayer bgmPlayer;
 
+        //关卡
+        private uint stage = 1;
+
         public KinectForm()
         {
+            this.DoubleBuffered = true;
             InitializeComponent();
             newBricks();
 
-            this.DoubleBuffered = true;
             timer = new System.Windows.Forms.Timer();
             timer_time = new System.Windows.Forms.Timer();
 
-            //ball = new Ball(378, 78, 20, 30);
             this.XPos = 378;
             this.YPos = 78;
             this.SpeedX = 5;
@@ -50,13 +52,13 @@ namespace HitBrick_WinForm
             this.splitContainer1.Panel1.Controls.Add(pb1);
 
             ballRect = new Rectangle(XPos, YPos, 20, 20);
+
             //Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
             //parameterThread.Start(this.CreateGraphics());  
         }
 
         public void timer_Tick(object sender, EventArgs e)
         {
-            // if (!controler.IsGameOver())
             if( !IsGameOver())
             {
                 if(!timer_time.Enabled)
@@ -113,7 +115,6 @@ namespace HitBrick_WinForm
         //碰撞检测
         public void Hit()
         {
-            
             //砖块与小球碰撞
             for (int i = 0; i < Rects.Count; i++)
             {
@@ -158,7 +159,6 @@ namespace HitBrick_WinForm
             }
             */
         }
-
 
         //游戏结束
         public bool IsGameOver()
