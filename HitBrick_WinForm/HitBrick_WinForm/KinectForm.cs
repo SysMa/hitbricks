@@ -9,6 +9,7 @@ namespace HitBrick_WinForm
 {
     public partial class KinectForm : Form
     {
+        //计时器
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer timer_time;
 
@@ -17,7 +18,7 @@ namespace HitBrick_WinForm
 
         // elements
         private System.Drawing.Bitmap bitmap;
-        private Ball ball;
+        //private Ball ball;
         private bool isGameOver = false;
         public int score = 0;
 
@@ -38,6 +39,16 @@ namespace HitBrick_WinForm
         //音乐部分
         SoundPlayer bgmPlayer;
 
+        //小球
+        //坐标
+        public int XPos { get; set; }
+        public int YPos { get; set; }
+        //速度和方向控制
+        public int SpeedX { get; set; }
+        public int SpeedY { get; set; }
+        //对象载体
+        public Rectangle ballRect { get; set; }
+
         public KinectForm()
         {
             InitializeComponent();
@@ -47,7 +58,11 @@ namespace HitBrick_WinForm
             timer = new System.Windows.Forms.Timer();
             timer_time = new System.Windows.Forms.Timer();
 
-            ball = new Ball(378, 78, 20, 30);
+            //ball = new Ball(378, 78, 20, 30);
+            this.XPos = 378;
+            this.YPos = 78;
+            this.SpeedX = 20;
+            this.SpeedY = 30;
 
             timer.Interval = 10;
             timer.Tick += new EventHandler(timer_Tick);
@@ -131,7 +146,7 @@ namespace HitBrick_WinForm
             Graphics gra = (Graphics)g;
             //使用双缓冲，减少画面闪烁
             bitmap = new Bitmap(this.Width, this.Height);
-            ball.Draw(Graphics.FromImage(bitmap)); //画小球
+            ballDraw(Graphics.FromImage(bitmap)); //画小球
             gra.DrawImage(bitmap, 0, 0);
             gra.Dispose();
             bitmap.Dispose();
@@ -144,10 +159,10 @@ namespace HitBrick_WinForm
             //砖块与小球碰撞
             for (int i = 0; i < Rects.Count; i++)
             {
-                if (ball.Rect.IntersectsWith(Rects[i].r))
+                if (ballRect.IntersectsWith(Rects[i].r))
                 {
-                    ball.SpeedX = -ball.SpeedX;
-                    ball.SpeedY = -ball.SpeedY;
+                    SpeedX = -SpeedX;
+                    SpeedY = -SpeedY;
                     //删除砖块
                     Rects[i].pictureBox.Visible = false;
                     Rects.Remove(Rects[i]);
@@ -189,7 +204,15 @@ namespace HitBrick_WinForm
         //小球运动
         public void RunBall()
         {
-            ball.Run();
+            XPos = XPos + SpeedX;
+            YPos = YPos - SpeedY;
+            // Console.WriteLine("Position-x:{0}, y:{1}", XPos, YPos);
+            if (XPos <= 0)
+                SpeedX = (new Random().Next(3, 5));
+            if (XPos > 378)
+                SpeedX = -(new Random().Next(3, 5));
+            if (YPos <= 100)
+                SpeedY = -(new Random().Next(3, 8));
         }
 
         //游戏结束
@@ -254,6 +277,17 @@ namespace HitBrick_WinForm
                 b.pictureBox.Size = new Size(40, 18);
                 this.splitContainer1.Panel1.Controls.Add(b.pictureBox);
             }
+        }
+
+        public void ballDraw(Graphics g)
+        {
+            using (SolidBrush sbrush = new SolidBrush(Color.Snow))
+            {
+                ballRect = new Rectangle(XPos, YPos, 20, 20);
+                g.DrawEllipse(new Pen(Color.Gray), ballRect);
+                g.FillEllipse(sbrush, ballRect);
+            }
+            g.Dispose();
         }
     }
 }
