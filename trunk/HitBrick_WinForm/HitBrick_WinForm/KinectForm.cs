@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Media;
 
 namespace HitBrick_WinForm
 {
@@ -10,6 +11,8 @@ namespace HitBrick_WinForm
     {
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer timer_time;
+
+        SoundPlayer hitBrickMp3;
 
         //游戏时间
         int h = 0, m = 0, s = 0;
@@ -49,6 +52,8 @@ namespace HitBrick_WinForm
             timer.Tick += new EventHandler(timer_Tick);
             timer_time.Interval = 1000;
             timer_time.Tick += new EventHandler(timer_time_Tick);
+
+            hitBrickMp3 = new SoundPlayer(global::HitBrick_WinForm.Properties.Resources.hitBricks);
 
             //Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
             //parameterThread.Start(this.CreateGraphics());  
@@ -122,9 +127,8 @@ namespace HitBrick_WinForm
         private void button1_Click(object sender, EventArgs e)
         {
             timer.Start();
-            Mp3 mp3 = new Mp3();
-            mp3.FileName = @"..\..\data\Kirby.wav";
-            mp3.play();
+            //System.Media.SoundPlayer player = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.test);
+            //player.PlayLooping();
         }
 
         /*
@@ -158,6 +162,8 @@ namespace HitBrick_WinForm
                     Rects.Remove(Rects[i]);
                     //得分
                     //sorce += new Random().Next(50, 80) + 100;
+
+                    hitBrickMp3.Play();
                 }
             }
             /*
