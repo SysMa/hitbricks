@@ -12,8 +12,6 @@ namespace HitBrick_WinForm
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer timer_time;
 
-        SoundPlayer hitBrickMp3;
-
         //游戏时间
         int h = 0, m = 0, s = 0;
 
@@ -37,6 +35,9 @@ namespace HitBrick_WinForm
         //砖块集
         public List<Brick_Type> Rects { get; set; }
 
+        //音乐部分
+        SoundPlayer player;
+
         public KinectForm()
         {
             InitializeComponent();
@@ -53,8 +54,6 @@ namespace HitBrick_WinForm
             timer_time.Interval = 1000;
             timer_time.Tick += new EventHandler(timer_time_Tick);
 
-            hitBrickMp3 = new SoundPlayer(global::HitBrick_WinForm.Properties.Resources.hitBricks);
-
             //Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
             //parameterThread.Start(this.CreateGraphics());  
         }
@@ -65,8 +64,6 @@ namespace HitBrick_WinForm
             InitGame(e.Graphics);
         }
 
-        // 游戏驱动
-        // 我怀疑这个函数在这里是非是合适的。
         public void timer_Tick(object sender, EventArgs e)
         {
             // if (!controler.IsGameOver())
@@ -102,14 +99,7 @@ namespace HitBrick_WinForm
         public void timer_time_Tick(object sender, EventArgs e)
         {
             s++;
-
-            // those lines should not be here.
-            // it is just an example of disappear.
-            if (s == 6)
-            {
-                Rects[0].pictureBox.Visible = false;
-            }
-
+            
             if (s >= 59)
             {
                 m += 1;
@@ -127,8 +117,8 @@ namespace HitBrick_WinForm
         private void button1_Click(object sender, EventArgs e)
         {
             timer.Start();
-            //System.Media.SoundPlayer player = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.test);
-            //player.PlayLooping();
+            player = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.bgm);
+            player.PlayLooping();
         }
 
         /*
@@ -161,9 +151,11 @@ namespace HitBrick_WinForm
                     Rects[i].pictureBox.Visible = false;
                     Rects.Remove(Rects[i]);
                     //得分
-                    //sorce += new Random().Next(50, 80) + 100;
+                    score += new Random().Next(50, 80);
 
-                    hitBrickMp3.Play();
+                    Mp3 mp3 = new Mp3();
+                    mp3.FileName = @"..\..\Resources\hitBricks.wav";
+                    mp3.play();
                 }
             }
             /*
@@ -207,16 +199,18 @@ namespace HitBrick_WinForm
             {
                 isGameOver = true;
             }
-            return isGameOver;
-            */
+             */
             return isGameOver;
         }
 
         //游戏通关
         public bool IsSuccess()
         {
-            bool isSucess = false;
-            return isSucess;
+            if (Rects.Count == 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void newBricks()
