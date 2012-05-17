@@ -15,23 +15,11 @@ namespace HitBrick_WinForm
         int h = 0, m = 0, s = 0;
 
         // elements
-        private System.Drawing.Bitmap bitmap;
-        //private Ball ball;
         private bool isGameOver = false;
         public int score = 0;
 
         //音乐部分
         SoundPlayer bgmPlayer;
-
-        //小球
-        //坐标
-        public int XPos { get; set; }
-        public int YPos { get; set; }
-        //速度和方向控制
-        public int SpeedX { get; set; }
-        public int SpeedY { get; set; }
-        //对象载体
-        public Rectangle ballRect { get; set; }
 
         public KinectForm()
         {
@@ -45,8 +33,8 @@ namespace HitBrick_WinForm
             //ball = new Ball(378, 78, 20, 30);
             this.XPos = 378;
             this.YPos = 78;
-            this.SpeedX = 20;
-            this.SpeedY = 30;
+            this.SpeedX = 5;
+            this.SpeedY = 1;
 
             timer.Interval = 10;
             timer.Tick += new EventHandler(timer_Tick);
@@ -55,14 +43,15 @@ namespace HitBrick_WinForm
 
             bgmPlayer = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.bgm);
 
+            pb1 = new PictureBox();
+            pb1.Location = new Point(XPos, YPos);
+            pb1.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
+            pb1.Size = new Size(20, 20);
+            this.splitContainer1.Panel1.Controls.Add(pb1);
+
+            ballRect = new Rectangle(XPos, YPos, 20, 20);
             //Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
             //parameterThread.Start(this.CreateGraphics());  
-        }
-
-        //初始化游戏界面
-        private void SabBoy_Paint(object sender, PaintEventArgs e)
-        {
-            InitGame(e.Graphics);
         }
 
         public void timer_Tick(object sender, EventArgs e)
@@ -78,9 +67,8 @@ namespace HitBrick_WinForm
 
                 // this.splitContainer1.Panel1.Refresh();
                 // this.splitContainer1.Panel1.Invalidate();
-                InitGame(this.CreateGraphics());
                 txtScore.Text = "Score: " + score.ToString();
-                this.Invalidate();
+                // this.Invalidate();
                 
                 if( IsSuccess())
                 {
@@ -91,6 +79,7 @@ namespace HitBrick_WinForm
             }
             else
             {
+                bgmPlayer.Stop();
                 this.CreateGraphics().DrawString("Game Over", new Font("Comic Sans MS", 25), new SolidBrush(Color.Snow), this.Width / 2 - 100, this.Height / 2 - 50);
                 timer_time.Stop();
             }
@@ -119,21 +108,6 @@ namespace HitBrick_WinForm
         {
             timer.Start();
             bgmPlayer.PlayLooping();
-        }
-
-        /*
-         * FUNCTIONS used for Controller.
-         */
-        //初始化画面
-        public void InitGame(object g)
-        {
-            Graphics gra = (Graphics)g;
-            //使用双缓冲，减少画面闪烁
-            bitmap = new Bitmap(this.Width, this.Height);
-            ballDraw(Graphics.FromImage(bitmap)); //画小球
-            gra.DrawImage(bitmap, 0, 0);
-            gra.Dispose();
-            bitmap.Dispose();
         }
 
         //碰撞检测
@@ -182,32 +156,17 @@ namespace HitBrick_WinForm
                     ball.SpeedY = (new Random().Next(2, 5));
                 }
             }
-             * */
+            */
         }
 
-        //小球运动
-        public void RunBall()
-        {
-            XPos = XPos + SpeedX;
-            YPos = YPos - SpeedY;
-            // Console.WriteLine("Position-x:{0}, y:{1}", XPos, YPos);
-            if (XPos <= 0)
-                SpeedX = (new Random().Next(3, 5));
-            if (XPos > 378)
-                SpeedX = -(new Random().Next(3, 5));
-            if (YPos <= 100)
-                SpeedY = -(new Random().Next(3, 8));
-        }
 
         //游戏结束
         public bool IsGameOver()
         {
-            /*
-            if (ball.Rect.Y >= height - 22)
+            if (ballRect.Y >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
             {
                 isGameOver = true;
             }
-             */
             return isGameOver;
         }
 
@@ -219,17 +178,6 @@ namespace HitBrick_WinForm
                 return true;
             }
             return false;
-        }
-
-        public void ballDraw(Graphics g)
-        {
-            using (SolidBrush sbrush = new SolidBrush(Color.Snow))
-            {
-                ballRect = new Rectangle(XPos, YPos, 20, 20);
-                g.DrawEllipse(new Pen(Color.Gray), ballRect);
-                g.FillEllipse(sbrush, ballRect);
-            }
-            g.Dispose();
         }
     }
 }
