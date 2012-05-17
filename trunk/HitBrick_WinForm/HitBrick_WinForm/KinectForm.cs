@@ -142,20 +142,22 @@ namespace HitBrick_WinForm
         //碰撞检测
         public void Hit()
         {
-            /*
+            
             //砖块与小球碰撞
-            for (int i = 0; i < brick.Rects.Count; i++)
+            for (int i = 0; i < Rects.Count; i++)
             {
-                if (ball.Rect.IntersectsWith(brick.Rects[i]))
+                if (ball.Rect.IntersectsWith(Rects[i].r))
                 {
-                    //删除砖块
-                    brick.Rects.Remove(brick.Rects[i]);
                     ball.SpeedX = -ball.SpeedX;
                     ball.SpeedY = -ball.SpeedY;
+                    //删除砖块
+                    Rects[i].pictureBox.Visible = false;
+                    Rects.Remove(Rects[i]);
                     //得分
-                    sorce += new Random().Next(50, 80) + 100;
+                    //sorce += new Random().Next(50, 80) + 100;
                 }
             }
+            /*
             //小球与挡板碰撞
             if (ball.XPos + ball.Rect.Width - 5 >= board.XPos && ball.XPos <= board.XPos + board.Rect.Width - 5)
             {
