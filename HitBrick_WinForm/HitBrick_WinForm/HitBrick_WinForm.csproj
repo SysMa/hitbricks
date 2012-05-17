@@ -53,11 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Ball.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Bricks.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISabBoy.cs" />
     <Compile Include="KinectForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -124,7 +124,6 @@ namespace HitBrick_WinForm
             this.Name = "KinectForm";
             this.Text = "HitBricks";
             this.Load += new System.EventHandler(this.KinectForm_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SabBoy_Paint);
             this.Disposed += new System.EventHandler(this.KinectForm_Disposed);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
