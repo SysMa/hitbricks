@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace HitBrick_WinForm
 {
@@ -19,9 +20,19 @@ namespace HitBrick_WinForm
         private bool isGameOver = false;
         public int score = 0;
 
-        // new bricks
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private int _width = 400; //砖块集宽
+        private int _height = 300;//砖块集高
+
+        //砖块
+        public struct Brick_Type
+        {
+            public Rectangle r;
+            public int i;
+            public PictureBox pictureBox;
+        }
+
+        //砖块集
+        public List<Brick_Type> Rects { get; set; }
 
         public KinectForm()
         {
@@ -91,8 +102,7 @@ namespace HitBrick_WinForm
             // it is just an example of disappear.
             if (s == 6)
             {
-                this.button2.Visible = false;
-                this.button3.Visible = false;
+                Rects[0].pictureBox.Visible = false;
             }
 
             if (s >= 59)
@@ -200,29 +210,44 @@ namespace HitBrick_WinForm
 
         public void newBricks()
         {
-            this.button2 = new Button();
-            this.button3 = new Button();
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(54, 36);
-            this.button2.TabIndex = 1;
-            this.button2.BackColor = Color.Yellow;
+            int temp = 0;
+            Rects = new List<Brick_Type>();
+            Random rd = new Random();
+            for (int i = 100; i < _height; i += 18)
+            {
+                temp += 18;
+                for (int j = temp - 18; j < _width - temp; j += 40)
+                {
+                    Rectangle Rect = new Rectangle(j, i, 40, 18);
+                    Brick_Type temp_brick = new Brick_Type();
+                    temp_brick.r = Rect;
+                    temp_brick.i = rd.Next() % 3;
+                    temp_brick.pictureBox = new PictureBox();
+                    Rects.Add(temp_brick);
+                }
+            }
 
-            // related to points.
-            // Color what = this.button2.BackColor;
-
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(286, 113);
-
-            this.splitContainer1.Panel1.Controls.Add(this.button3);
-            this.splitContainer1.Panel1.Controls.Add(this.button2);
-
-            // gets the rectangle of the button 
-            // realated to Hit.
-            // Rectangle rec_bt2 = button2.ClientRectangle;
+            foreach (Brick_Type b in Rects)
+            {
+                Image img;
+                switch (b.i)
+                {
+                    case 0:
+                        img = global::HitBrick_WinForm.Properties.Resources.yellow;
+                        break;
+                    case 1:
+                        img = global::HitBrick_WinForm.Properties.Resources.taohong;
+                        break;
+                    case 2:
+                    default:
+                        img = global::HitBrick_WinForm.Properties.Resources.green;
+                        break;
+                }
+                b.pictureBox.Location = new Point(b.r.X, b.r.Y);
+                b.pictureBox.Image = img;
+                b.pictureBox.Size = new Size(40, 18);
+                this.splitContainer1.Panel1.Controls.Add(b.pictureBox);
+            }
         }
     }
 }
