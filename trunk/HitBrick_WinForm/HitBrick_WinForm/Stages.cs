@@ -22,8 +22,8 @@ namespace HitBrick_WinForm
                 {
                     Rectangle Rect = new Rectangle(j, i, 40, 18);
                     Brick_Type temp_brick = new Brick_Type();
-                    temp_brick.r = Rect;
-                    temp_brick.i = rd.Next() % 3;
+                    temp_brick.rectangle = Rect;
+                    temp_brick.type = rd.Next() % 3;
                     temp_brick.pictureBox = new PictureBox();
                     Rects.Add(temp_brick);
                 }

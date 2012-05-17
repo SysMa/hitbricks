@@ -13,8 +13,8 @@ namespace HitBrick_WinForm
         //砖块
         public struct Brick_Type
         {
-            public Rectangle r;
-            public int i;
+            public Rectangle rectangle;
+            public int type;
             public PictureBox pictureBox;
         }
 
@@ -34,10 +34,10 @@ namespace HitBrick_WinForm
                     break;
             }
 
-            foreach (Brick_Type b in Rects)
+            foreach (Brick_Type brick in Rects)
             {
                 Image img;
-                switch (b.i)
+                switch (brick.type)
                 {
                     case 0:
                         img = global::HitBrick_WinForm.Properties.Resources.yellow;
@@ -50,10 +50,10 @@ namespace HitBrick_WinForm
                         img = global::HitBrick_WinForm.Properties.Resources.green;
                         break;
                 }
-                b.pictureBox.Location = new Point(b.r.X, b.r.Y);
-                b.pictureBox.Image = img;
-                b.pictureBox.Size = new Size(40, 18);
-                this.splitContainer1.Panel1.Controls.Add(b.pictureBox);
+                brick.pictureBox.Location = new Point(brick.rectangle.X, brick.rectangle.Y);
+                brick.pictureBox.Image = img;
+                brick.pictureBox.Size = new Size(40, 18);
+                this.splitContainer1.Panel1.Controls.Add(brick.pictureBox);
             }
         }
     }
