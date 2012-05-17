@@ -54,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Bricks.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ISabBoy.cs" />
     <Compile Include="KinectForm.cs">
       <SubType>Form</SubType>
