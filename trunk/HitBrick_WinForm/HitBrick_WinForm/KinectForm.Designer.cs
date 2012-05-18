@@ -33,8 +33,8 @@ namespace HitBrick_WinForm
             this.txtScore = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.manImage = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -98,22 +98,13 @@ namespace HitBrick_WinForm
             // 
             // manImage
             // 
+            this.manImage.BackColor = System.Drawing.Color.Transparent;
             this.manImage.Location = new System.Drawing.Point(-2, 355);
             this.manImage.Name = "manImage";
             this.manImage.Size = new System.Drawing.Size(178, 161);
             this.manImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.manImage.TabIndex = 2;
             this.manImage.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(64, 413);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -125,6 +116,16 @@ namespace HitBrick_WinForm
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(64, 413);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Start";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // KinectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -132,7 +133,7 @@ namespace HitBrick_WinForm
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(793, 523);
             this.Controls.Add(this.splitContainer1);
-            this.DoubleBuffered = true;
+            // this.DoubleBuffered = true;
             this.Name = "KinectForm";
             this.Text = "HitBricks";
             this.Load += new System.EventHandler(this.KinectForm_Load);
