@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace HitBrick_WinForm
 {
@@ -27,7 +26,7 @@ namespace HitBrick_WinForm
 
         public KinectForm()
         {
-            this.DoubleBuffered = true;
+            // this.DoubleBuffered = true;
             InitializeComponent();
             newBricks();
 
@@ -50,11 +49,11 @@ namespace HitBrick_WinForm
             pbBall.Location = new Point(XPos, YPos);
             pbBall.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
             pbBall.Size = new Size(20, 20);
-            pbBall.BringToFront();
             this.splitContainer1.Panel1.Controls.Add(pbBall);
+            pbBall.BringToFront();
 
             ballRect = new Rectangle(XPos, YPos, 20, 20);
-
+            
             // 带参数的，必须是object型
             // Thread parameterThread = new Thread(new ParameterizedThreadStart());
             // parameterThread.Start(this.));  
@@ -152,10 +151,10 @@ namespace HitBrick_WinForm
             }
             
             //小球与挡板碰撞
-            if(pbBall.RectangleToScreen(ballRect).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) &&
-                pbBall.RectangleToScreen(ballRect).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
+            if (pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) &&
+                pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
             {
-                //SpeedX = -SpeedX;
+                SpeedX = -SpeedX;
                 SpeedY = -SpeedY;
             }
         }

@@ -262,20 +262,27 @@ namespace HitBrick_WinForm
                 angle = (float)Math.Atan(((double)(rightP.Y - leftP.Y)) / (rightP.X - leftP.X));
                 angle = (float)(angle * 180 / Math.PI);
 
+
                 barRect = new Rectangle(new Point(0, 0), new Size(w, 10));
+                Rectangle rect = new Rectangle(new Point(0, 0), new Size(w, 10));
                 barImageGraphic.Clear(Color.Transparent);
+                
                 barImageGraphic.ResetTransform();
                 if (leftP.X > rightP.X)
                 {
                     barImageGraphic.TranslateTransform(rightP.X, rightP.Y);
+                    
                 }
                 else
                 {
                     barImageGraphic.TranslateTransform(leftP.X, leftP.Y);
+                    barRect.X += leftP.X;
+                    barRect.Y += leftP.Y;
                 }
                 
-                barImageGraphic.RotateTransform(angle, MatrixOrder.Prepend);                
-                barImageGraphic.FillRectangle(barBrush, barRect);
+                barImageGraphic.RotateTransform(angle, MatrixOrder.Prepend);
+                //barImageGraphic.FillRectangle(barBrush, barRect);
+                barImageGraphic.FillRectangle(barBrush, rect);
             }
         }
 
