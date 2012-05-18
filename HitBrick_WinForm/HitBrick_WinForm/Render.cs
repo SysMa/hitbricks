@@ -271,7 +271,6 @@ namespace HitBrick_WinForm
                 if (leftP.X > rightP.X)
                 {
                     barImageGraphic.TranslateTransform(rightP.X, rightP.Y);
-                    
                 }
                 else
                 {
