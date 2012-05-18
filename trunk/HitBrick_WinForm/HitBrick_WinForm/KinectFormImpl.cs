@@ -16,31 +16,31 @@ namespace HitBrick_WinForm
 
         private void KinectForm_Load(object sender, EventArgs e)
         {
-            //KinectSensor sensor;
-            //render = new Render();
-            //////存在kinect体感设备，取第一个,否则退出
-            //if (KinectSensor.KinectSensors.Count != 0)
-            //{
-            //    sensor = KinectSensor.KinectSensors[0];
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Kinect is not ready!");
-            //    Error("Window_Loaded", "Kinect is not ready", ERRORTYPE.CONSOLE_PRINT);
-            //    return;
-            //}
+            KinectSensor sensor;
+            render = new Render();
+            ////存在kinect体感设备，取第一个,否则退出
+            if (KinectSensor.KinectSensors.Count != 0)
+            {
+                sensor = KinectSensor.KinectSensors[0];
+            }
+            else
+            {
+                MessageBox.Show("Kinect is not ready!");
+                Error("Window_Loaded", "Kinect is not ready", ERRORTYPE.CONSOLE_PRINT);
+                return;
+            }
 
-            //if (sensor != null)
-            //{
-            //    render.SetSensor(sensor);
-            //    //初始化设备流
-            //    render.InitStream();
-            //    //开启体感设备
-            //    render.StartSensor();
-            //}
+            if (sensor != null)
+            {
+                render.SetSensor(sensor);
+                //初始化设备流
+                render.InitStream();
+                //开启体感设备
+                render.StartSensor();
+            }
             initPosition();
 
-            //render.BindComponent(ref manImage, splitContainer1.Panel1);
+            render.BindComponent(ref manImage, splitContainer1.Panel1);
 
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.DoubleBuffer, true);
@@ -50,7 +50,7 @@ namespace HitBrick_WinForm
             this.UpdateStyles();
             
 
-            //render.RunRender();
+            render.RunRender();
         }
 
         private void initPosition()
