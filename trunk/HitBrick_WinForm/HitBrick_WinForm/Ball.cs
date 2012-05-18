@@ -21,7 +21,7 @@ namespace HitBrick_WinForm
         //对象载体
         public Rectangle ballRect { get; set; }
 
-        private PictureBox pb1;
+        private PictureBox pbBall;
 
         private const int ball_R = 10;
 
@@ -38,7 +38,7 @@ namespace HitBrick_WinForm
             if (YPos <= 0)
                 SpeedY = -(new Random().Next(3, 8));
 
-            pb1.Location = new Point(XPos, YPos);
+            pbBall.Location = new Point(XPos, YPos);
             ballRect = new Rectangle(XPos, YPos, 20, 20);
         }
     }

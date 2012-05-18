@@ -40,8 +40,8 @@ namespace HitBrick_WinForm
         SolidBrush barBrush;
 
         //注册图形
-        PictureBox manImage;
-        PictureBox barImage;
+        public PictureBox manImage;
+        public PictureBox barImage;
         SplitterPanel manPanel;
         public void BindComponent(ref PictureBox manShape, SplitterPanel manPanel)
         {
