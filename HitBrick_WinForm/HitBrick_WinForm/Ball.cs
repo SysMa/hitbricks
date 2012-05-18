@@ -18,7 +18,7 @@ namespace HitBrick_WinForm
 
         private PictureBox pbBall;
 
-        private const int ball_R = 10;
+        private const int ball_R = 8;
 
         //小球运动
         public void RunBall()
