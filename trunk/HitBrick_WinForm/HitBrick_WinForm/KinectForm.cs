@@ -48,11 +48,11 @@ namespace HitBrick_WinForm
             pbBall = new PictureBox();
             pbBall.Location = new Point(XPos, YPos);
             pbBall.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
-            pbBall.Size = new Size(20, 20);
+            pbBall.Size = new Size(16, 16);
             this.splitContainer1.Panel1.Controls.Add(pbBall);
             pbBall.BringToFront();
 
-            ballRect = new Rectangle(XPos, YPos, 20, 20);
+            ballRect = new Rectangle(XPos, YPos, 16, 16);
             
             // 带参数的，必须是object型
             // Thread parameterThread = new Thread(new ParameterizedThreadStart());
@@ -135,12 +135,52 @@ namespace HitBrick_WinForm
             {
                 if (ballRect.IntersectsWith(Rects[i].rectangle))
                 {
-                    SpeedX = -SpeedX;
-                    SpeedY = -SpeedY;
+                    // need to be deleted
+                    // SpeedX = -SpeedX;
+                    // SpeedY = -SpeedY;
+
+                    // 下面8个变量用来记录相交与否
+                    // 如果某一条边和小球的矩形相交，则为true
+                    // 否则为false
+                    bool[] flags = new bool[8];
+                    //for (int j = 0; j < 8; j++)
+                    //{
+                    //    flags[j] = false;
+                    //}
+
+                    // 相交与否
+                    flags[0] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y));
+                    flags[1] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y));
+                    flags[2] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y));
+                    flags[3] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R));
+                    flags[4] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y + ball_R));
+                    flags[5] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R * 2));
+                    flags[6] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y + ball_R * 2));
+                    flags[7] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R * 2, ballRect.Y + ball_R * 2));
+
+                    if ((flags[0] && (!flags[2]) && !(flags[1] && !flags[3])) ||
+                        (flags[7] && (!flags[5]) && !(flags[6] && !flags[4])) ||
+                        !(flags[5] && !flags[3] && !(!flags[0] && !flags[6])) ||
+                        !(flags[2] && !flags[4] && !(!flags[7] && !flags[1]))
+                        )
+                    {
+                        SpeedX = -SpeedX;
+                    }
+
+                    if (!(flags[0] && !flags[1] && !(!flags[2] && !flags[3])) ||
+                        !(flags[7] && !flags[6] && !(!flags[5] && !flags[4])) ||
+                        (flags[5] && (!flags[0]) && !(flags[3] && !flags[6])) ||
+                        (flags[2] && (!flags[7]) && !(flags[4] && !flags[1]))
+                        )
+                    {
+                        SpeedY = -SpeedY;
+                    }
+
                     //删除砖块
                     Rects[i].pictureBox.Visible = false;
                     Rects[i].pictureBox.Dispose();
                     Rects.Remove(Rects[i]);
+
                     //得分
                     score += new Random().Next(50, 80);
 
