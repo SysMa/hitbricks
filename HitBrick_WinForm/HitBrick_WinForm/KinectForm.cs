@@ -45,11 +45,11 @@ namespace HitBrick_WinForm
 
             bgmPlayer = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.bgm);
 
-            pb1 = new PictureBox();
-            pb1.Location = new Point(XPos, YPos);
-            pb1.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
-            pb1.Size = new Size(20, 20);
-            this.splitContainer1.Panel1.Controls.Add(pb1);
+            pbBall = new PictureBox();
+            pbBall.Location = new Point(XPos, YPos);
+            pbBall.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
+            pbBall.Size = new Size(20, 20);
+            this.splitContainer1.Panel1.Controls.Add(pbBall);
 
             ballRect = new Rectangle(XPos, YPos, 20, 20);
 
@@ -108,8 +108,18 @@ namespace HitBrick_WinForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            timer.Start();
-            bgmPlayer.PlayLooping();
+            if (button1.Text == "Start")
+            {
+                timer.Start();
+                bgmPlayer.PlayLooping();
+                button1.Text = "Pause";
+            }
+            else
+            {
+                timer.Stop();
+                bgmPlayer.Stop();
+                button1.Text = "Start";
+            }
         }
 
         //碰撞检测
@@ -133,31 +143,14 @@ namespace HitBrick_WinForm
                     mp3.play();
                 }
             }
-            /*
+            
             //小球与挡板碰撞
-            if (ball.XPos + ball.Rect.Width - 5 >= board.XPos && ball.XPos <= board.XPos + board.Rect.Width - 5)
+            if(pbBall.RectangleToScreen(ballRect).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) &&
+                pbBall.RectangleToScreen(ballRect).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
             {
-                if (ball.YPos >= board.YPos - ball.Rect.Height - 2)
-                {
-                    switch (Direction)
-                    {
-                        case BoardDirection.Left:
-                            {
-                                ball.SpeedX = -(new Random().Next(2, 5));
-                            }
-                            break;
-                        case BoardDirection.Right:
-                            {
-                                ball.SpeedX = (new Random().Next(2, 5));
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    ball.SpeedY = (new Random().Next(2, 5));
-                }
+                SpeedX = -SpeedX;
+                SpeedY = -SpeedY;
             }
-            */
         }
 
         //游戏结束
