@@ -34,6 +34,7 @@ namespace HitBrick_WinForm
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.manImage = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -86,6 +87,7 @@ namespace HitBrick_WinForm
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Silver;
+            this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.txtScore);
             this.splitContainer1.Panel2.Controls.Add(this.txtTime);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
@@ -112,6 +114,16 @@ namespace HitBrick_WinForm
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(64, 355);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Restart";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // KinectForm
             // 
@@ -142,6 +154,7 @@ namespace HitBrick_WinForm
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.PictureBox manImage;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
