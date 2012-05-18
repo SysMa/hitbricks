@@ -158,6 +158,7 @@ namespace HitBrick_WinForm
                     flags[6] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y + ball_R * 2));
                     flags[7] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R * 2, ballRect.Y + ball_R * 2));
 
+                    /*
                     if ((flags[0] && (!flags[2]) && !(flags[1] && !flags[3])) ||
                         (flags[7] && (!flags[5]) && !(flags[6] && !flags[4])) ||
                         !(flags[5] && !flags[3] && !(!flags[0] && !flags[6])) ||
@@ -174,8 +175,50 @@ namespace HitBrick_WinForm
                         )
                     {
                         SpeedY = -SpeedY;
-                    }
+                    }*/
 
+                    if (flags[0] && flags[2])
+                    {
+                        SpeedY = -SpeedY;
+                    }
+                    else if (flags[0] && !flags[2] &&!flags[5])
+                    {
+                        SpeedX = -SpeedX;
+                        SpeedY = -SpeedY;
+                    }
+                    else if (flags[0] && flags[5])
+                    {
+                        SpeedX = -SpeedX;
+                    }
+                    else if(flags[5] && !flags[0] && !flags[7])
+                    {
+                        SpeedX = -SpeedX;
+                        SpeedY = -SpeedY;
+                    }
+                    else if (flags[5] && flags[7])
+                    {
+                        SpeedY = -SpeedY;
+                    }
+                    else if (flags[7] && !flags[2] && !flags[5])
+                    {
+                        SpeedX = -SpeedX;
+                        SpeedY = -SpeedY;
+                    }
+                    else if (flags[2] && flags[7])
+                    {
+                        SpeedX = -SpeedX;
+                    }
+                    else if (flags[2] && !flags[0] && !flags[7])
+                    {
+                        SpeedX = -SpeedX;
+                        SpeedY = -SpeedY;
+                    }
+                    else
+                    {
+                        // MessageBox.Show("Strange");
+                        return;
+                    }
+                    
                     //删除砖块
                     Rects[i].pictureBox.Visible = false;
                     Rects[i].pictureBox.Dispose();
@@ -187,6 +230,7 @@ namespace HitBrick_WinForm
                     Mp3 mp3 = new Mp3();
                     mp3.FileName = @"..\..\Resources\hitBricks.wav";
                     mp3.play();
+                    break;
                 }
             }
             
