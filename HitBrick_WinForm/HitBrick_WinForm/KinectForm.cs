@@ -35,7 +35,7 @@ namespace HitBrick_WinForm
 
             this.XPos = 378;
             this.YPos = 78;
-            this.SpeedX = 5;
+            this.SpeedX = -5;
             this.SpeedY = 1;
 
             timer.Interval = 10;
