@@ -21,34 +21,55 @@ namespace HitBrick_WinForm
         double manImageWidth = 0;
         double manImageHeight = 0;
 
+        const int DEFAULTWIDTH = 60;
+        enum BarWidth {NORMAL,HALF,DOUBLE,AUTO };
+        BarWidth type;
+        private float angle;
+
         Bitmap depthImageBitmap;
         Rectangle depthImageBitmapRect;
+
+        Bitmap barImageBitmap;
 
         private Point rightHand;
         private Point leftHand;
         private Point head;
 
-
-        Graphics manImageGraphic;
+        Graphics barImageGraphic;
         Rectangle barRect;
         SolidBrush barBrush;
+
         //注册图形
         PictureBox manImage;
-        PictureBox imgBar;
-        // Panel manPanel;
+        PictureBox barImage;
         SplitterPanel manPanel;
         public void BindComponent(ref PictureBox manShape, SplitterPanel manPanel)
         {
             this.manImage = manShape;
             this.manPanel = manPanel;
-            //this.imgBar = imgBar;
 
+            //set manImage size
             this.manImage.Width = (int)(3 / 4.0 * this.manImage.Height);
             manImageHeight = this.manImage.Height;
             manImageWidth = this.manImage.Width;
-            manImageGraphic = manShape.CreateGraphics();
+            this.manImage.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            //copy the manImage to barImage
+            this.barImage = new PictureBox();
+            
+            this.barImage.Parent = this.manImage;
+            this.barImage.Location = new Point(0,0);
+            this.barImage.Size = this.manImage.Size;
+            this.barImage.BackColor = Color.Transparent;            
+            this.barImage.SizeMode = PictureBoxSizeMode.StretchImage;
+           
             barBrush = new SolidBrush(Color.Red);
-            manImageGraphic.FillRectangle(barBrush, barRect);
+
+            barImageBitmap = new Bitmap(barImage.Width, barImage.Height);
+            barImage.Image = barImageBitmap;
+            barImageGraphic = Graphics.FromImage(barImage.Image);
+
+            type = BarWidth.NORMAL;
         }
 
         public void SetSensor(KinectSensor sensor)
@@ -113,7 +134,7 @@ namespace HitBrick_WinForm
 
         private void sensor_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
         {
-            manImageGraphic.FillRectangle(barBrush, barRect);
+            //manImageGraphic.FillRectangle(barBrush, barRect);
             using (DepthImageFrame dframe = e.OpenDepthImageFrame())
             {
                 using (ColorImageFrame cframe = sensor.ColorStream.OpenNextFrame(2))
@@ -128,7 +149,7 @@ namespace HitBrick_WinForm
 
         private void sensor_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
-            manImageGraphic.FillRectangle(barBrush, barRect);
+            //manImageGraphic.FillRectangle(barBrush, barRect);
             SkeletonFrame skeletonFrame = e.OpenSkeletonFrame();
 
             if (skeletonFrame == null)
@@ -149,8 +170,7 @@ namespace HitBrick_WinForm
             leftHand = getDisplayPosition(skeleton.Joints[JointType.HandLeft]);
             head = getDisplayPosition(skeleton.Joints[JointType.Head]);
 
-            // who to draw the ball?
-            SetBarPosition(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], imgBar);
+            SetBarPosition(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], barImage);
         }
 
 
@@ -203,8 +223,7 @@ namespace HitBrick_WinForm
                 IntPtr ptr = bmapdata.Scan0;
                 System.Runtime.InteropServices.Marshal.Copy(playerImage, 0, ptr, playerImage.Length);
 
-                depthImageBitmap.UnlockBits(bmapdata);
-                manImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                depthImageBitmap.UnlockBits(bmapdata);                
                 manImage.Image = depthImageBitmap;//depthImageBitmap;              
 
                 //map to panel
@@ -219,20 +238,48 @@ namespace HitBrick_WinForm
             Point leftP = getDisplayPosition(leftHand);
             Point rightP = getDisplayPosition(rightHand);
 
-            int w = (int)Math.Sqrt((rightP.Y - leftP.Y) * (rightP.Y - leftP.Y) + (rightP.X - leftP.X) * (rightP.X - leftP.X));
+            int w;
+            switch(type){
+                case BarWidth.NORMAL:
+                    w = DEFAULTWIDTH;
+                    break;
+                case BarWidth.HALF:
+                    w = DEFAULTWIDTH/2;
+                    break;
+                case BarWidth.DOUBLE:
+                    w = DEFAULTWIDTH*2;
+                    break;
+                case BarWidth.AUTO:
+                    w = (int)Math.Sqrt((rightP.Y - leftP.Y) * (rightP.Y - leftP.Y) + (rightP.X - leftP.X) * (rightP.X - leftP.X));
+                    break;
+                default:
+                    w = DEFAULTWIDTH;
+                    break;
+            }
 
             if (rightP.X != leftP.X)
             {
-                float angle = (float)Math.Atan(((double)(rightP.Y - leftP.Y)) / (rightP.X - leftP.X));
+                angle = (float)Math.Atan(((double)(rightP.Y - leftP.Y)) / (rightP.X - leftP.X));
                 angle = (float)(angle * 180 / Math.PI);
-                barRect = new Rectangle(new Point(0, 0), new Size(w, 10));
-                manImageGraphic.ResetTransform();
-                manImageGraphic.TranslateTransform(leftP.X, leftP.Y);
-                manImageGraphic.RotateTransform(angle, MatrixOrder.Prepend);
 
-                manImageGraphic.FillRectangle(barBrush, barRect);
+                barRect = new Rectangle(new Point(0, 0), new Size(w, 10));
+                barImageGraphic.Clear(Color.Transparent);
+                barImageGraphic.ResetTransform();
+                if (leftP.X > rightP.X)
+                {
+                    barImageGraphic.TranslateTransform(rightP.X, rightP.Y);
+                }
+                else
+                {
+                    barImageGraphic.TranslateTransform(leftP.X, leftP.Y);
+                }
+                
+                barImageGraphic.RotateTransform(angle, MatrixOrder.Prepend);                
+                barImageGraphic.FillRectangle(barBrush, barRect);
             }
         }
+
+       
 
         private Point getDisplayPosition(Joint joint)
         {
@@ -287,6 +334,16 @@ namespace HitBrick_WinForm
         {
             get { return head; }
             set { head = value; }
+        }
+        public SolidBrush BarBrush
+        {
+            get { return barBrush; }
+            set { barBrush = value; }
+        }
+        public float Angle
+        {
+            get { return angle; }
+            set { angle = value; }
         }
     }
 }

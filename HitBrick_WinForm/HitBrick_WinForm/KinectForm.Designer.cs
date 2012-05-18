@@ -86,9 +86,9 @@ namespace HitBrick_WinForm
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Silver;
-            this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.txtScore);
             this.splitContainer1.Panel2.Controls.Add(this.txtTime);
+            this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Size = new System.Drawing.Size(793, 523);
             this.splitContainer1.SplitterDistance = 600;
             this.splitContainer1.SplitterWidth = 1;
@@ -100,7 +100,7 @@ namespace HitBrick_WinForm
             this.manImage.Name = "manImage";
             this.manImage.Size = new System.Drawing.Size(178, 161);
             this.manImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.manImage.TabIndex = 0;
+            this.manImage.TabIndex = 2;
             this.manImage.TabStop = false;
             // 
             // button1
