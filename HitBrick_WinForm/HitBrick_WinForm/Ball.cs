@@ -38,6 +38,11 @@ namespace HitBrick_WinForm
             if (YPos <= 0)
                 SpeedY = -(new Random().Next(3, 8));
 
+            //
+            if (YPos >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
+                SpeedY = -SpeedY;
+            //
+
             pbBall.Location = new Point(XPos, YPos);
             ballRect = new Rectangle(XPos, YPos, 20, 20);
         }

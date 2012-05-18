@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace HitBrick_WinForm
 {
@@ -35,7 +36,7 @@ namespace HitBrick_WinForm
 
             this.XPos = 378;
             this.YPos = 78;
-            this.SpeedX = -5;
+            this.SpeedX = 5;
             this.SpeedY = 1;
 
             timer.Interval = 10;
@@ -49,12 +50,17 @@ namespace HitBrick_WinForm
             pbBall.Location = new Point(XPos, YPos);
             pbBall.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
             pbBall.Size = new Size(20, 20);
+            pbBall.BringToFront();
             this.splitContainer1.Panel1.Controls.Add(pbBall);
 
             ballRect = new Rectangle(XPos, YPos, 20, 20);
 
-            //Thread parameterThread = new Thread(new ParameterizedThreadStart(controler.InitGame));
-            //parameterThread.Start(this.CreateGraphics());  
+            // 带参数的，必须是object型
+            // Thread parameterThread = new Thread(new ParameterizedThreadStart());
+            // parameterThread.Start(this.));  
+
+            // Thread ballThread = new Thread(RunBall);
+            // ballThread.Start();
         }
 
         public void timer_Tick(object sender, EventArgs e)
@@ -134,6 +140,7 @@ namespace HitBrick_WinForm
                     SpeedY = -SpeedY;
                     //删除砖块
                     Rects[i].pictureBox.Visible = false;
+                    Rects[i].pictureBox.Dispose();
                     Rects.Remove(Rects[i]);
                     //得分
                     score += new Random().Next(50, 80);
@@ -148,7 +155,7 @@ namespace HitBrick_WinForm
             if(pbBall.RectangleToScreen(ballRect).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) &&
                 pbBall.RectangleToScreen(ballRect).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
             {
-                SpeedX = -SpeedX;
+                //SpeedX = -SpeedX;
                 SpeedY = -SpeedY;
             }
         }
@@ -156,11 +163,14 @@ namespace HitBrick_WinForm
         //游戏结束
         public bool IsGameOver()
         {
+            /*
             if (ballRect.Y >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
             {
                 isGameOver = true;
             }
             return isGameOver;
+             */
+            return false;
         }
 
         //游戏通关
@@ -168,9 +178,23 @@ namespace HitBrick_WinForm
         {
             if (Rects.Count == 0)
             {
+                stage++;
                 return true;
             }
             return false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach (Brick_Type brick in Rects)
+            {
+                brick.pictureBox.Dispose();
+            }
+            Rects.Clear();
+            newBricks();
+
+            score = 0;
+            txtScore.Text = "Score: 0";
         }
     }
 }
