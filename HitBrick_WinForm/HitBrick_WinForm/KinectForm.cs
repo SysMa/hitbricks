@@ -27,6 +27,10 @@ namespace HitBrick_WinForm
         //板子
         Point lastCenter = new Point(0, 0);
 
+        // time related
+        private const int timer_inter = 10;
+        private const int ms_to_second = 1000;
+        
         public KinectForm()
         {
             // this.DoubleBuffered = true;
@@ -43,9 +47,9 @@ namespace HitBrick_WinForm
             this.SpeedX = ori_SpeedX;
             this.SpeedY = ori_SpeedY;
 
-            timer.Interval = 10;
+            timer.Interval = timer_inter;
             timer.Tick += new EventHandler(timer_Tick);
-            timer_time.Interval = 1000;
+            timer_time.Interval = ms_to_second;
             timer_time.Tick += new EventHandler(timer_time_Tick);
 
             bgmPlayer = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.bgm);
@@ -53,11 +57,11 @@ namespace HitBrick_WinForm
             pbBall = new PictureBox();
             pbBall.Location = new Point(XPos, YPos);
             pbBall.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
-            pbBall.Size = new Size(16, 16);
+            pbBall.Size = new Size(2 * ball_R, 2 * ball_R);
             this.splitContainer1.Panel1.Controls.Add(pbBall);
             pbBall.BringToFront();
 
-            ballRect = new Rectangle(XPos, YPos, 16, 16);
+            ballRect = new Rectangle(XPos, YPos, 2 * ball_R, 2 * ball_R);
             
             // 带参数的，必须是object型
             // Thread parameterThread = new Thread(new ParameterizedThreadStart());
@@ -84,8 +88,6 @@ namespace HitBrick_WinForm
                 
                 if( IsSuccess())
                 {
-                    this.CreateGraphics().DrawString("You Win", new Font("Comic Sans MS", 25), new SolidBrush(Color.Red), this.Width / 2 - 100, this.Height / 2 - 50);
-
                     foreach (Brick_Type brick in Rects)
                     {
                         brick.pictureBox.Dispose();
@@ -270,7 +272,8 @@ namespace HitBrick_WinForm
             Point center = render.GetBarLocation();
 
             //小球与挡板碰撞
-            if (pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) &&
+            if (pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) 
+                &&
                 pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
             {
                 //Point left, right;
@@ -310,10 +313,10 @@ namespace HitBrick_WinForm
                     SpeedX = -Math.Abs(SpeedX);
                     SpeedY = Math.Abs(SpeedY) * dis * 1;
                 }
-                else
-                {
-                    // Stay the same
-                }
+                //else
+                //{
+                //    // Stay the same
+                //}
             }
 
             lastCenter = center;
@@ -327,8 +330,6 @@ namespace HitBrick_WinForm
                 isGameOver = true;
             }
             return isGameOver;
-            
-            // return false;
         }
 
         //游戏通关
@@ -337,7 +338,6 @@ namespace HitBrick_WinForm
             if (Rects.Count == 0)
             {
                 stage++;
-                // MessageBox.Show("Congratulations! Next Stage!");
                 return true;
             }
             return false;
@@ -363,11 +363,11 @@ namespace HitBrick_WinForm
             pbBall = new PictureBox();
             pbBall.Location = new Point(XPos, YPos);
             pbBall.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
-            pbBall.Size = new Size(16, 16);
+            pbBall.Size = new Size(2 * ball_R, 2 * ball_R);
             this.splitContainer1.Panel1.Controls.Add(pbBall);
             pbBall.BringToFront();
 
-            ballRect = new Rectangle(XPos, YPos, 16, 16);
+            ballRect = new Rectangle(XPos, YPos, 2*ball_R, 2*ball_R);
 
             score = 0;
             txtScore.Text = "Score: 0";

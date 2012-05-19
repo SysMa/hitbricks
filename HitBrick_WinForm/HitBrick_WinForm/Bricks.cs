@@ -8,6 +8,8 @@ namespace HitBrick_WinForm
     {
         private int _width = 400; //砖块集宽
         private int _height = 300;//砖块集高
+        private int brick_width = 40;
+        private int brick_height = 18;
 
         //砖块
         public struct Brick_Type
@@ -51,7 +53,7 @@ namespace HitBrick_WinForm
                 }
                 brick.pictureBox.Location = new Point(brick.rectangle.X, brick.rectangle.Y);
                 brick.pictureBox.Image = img;
-                brick.pictureBox.Size = new Size(40, 18);
+                brick.pictureBox.Size = new Size(brick_width, brick_height);
                 this.splitContainer1.Panel1.Controls.Add(brick.pictureBox);
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace HitBrick_WinForm
@@ -11,7 +10,7 @@ namespace HitBrick_WinForm
         private const int ori_XPos = 378;
         private const int ori_YPos = 78;
         private const int ori_SpeedX = -5;
-        private const int ori_SpeedY = 1;
+        private const int ori_SpeedY = 10;
 
         public int XPos { get; set; }
         public int YPos { get; set; }
@@ -30,13 +29,22 @@ namespace HitBrick_WinForm
         {
             XPos = XPos + SpeedX;
             YPos = YPos - SpeedY;
-            // Console.WriteLine("Position-x:{0}, y:{1}", XPos, YPos);
             if (XPos <= 0)
-                SpeedX = (new Random().Next(3, 8));
+            {
+                SpeedX = -SpeedX;
+                //SpeedX = (new Random().Next(3, 8));
+            }
+
             if (XPos > this.splitContainer1.Panel1.Width - ball_R - SpeedX)
-                SpeedX = -(new Random().Next(3, 8));
+            {
+                SpeedX = -SpeedX;
+                //SpeedX = -(new Random().Next(3, 8));
+            }
             if (YPos <= 0)
-                SpeedY = -(new Random().Next(3, 8));
+            {
+                SpeedY = (SpeedY > 3) ? (-(SpeedY - 1)) : (-SpeedY);
+                //SpeedY = -(new Random().Next(3, 8));
+            }
 
             //
             if (YPos >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
@@ -44,7 +52,7 @@ namespace HitBrick_WinForm
             //
 
             pbBall.Location = new Point(XPos, YPos);
-            ballRect = new Rectangle(XPos, YPos, 16, 16);
+            ballRect = new Rectangle(XPos, YPos, 2*ball_R, 2*ball_R);
         }
     }
 }
