@@ -42,7 +42,8 @@ namespace HitBrick_WinForm
             }
             if (YPos <= 0)
             {
-                SpeedY = (SpeedY > 3) ? (-(SpeedY - 1)) : (-SpeedY);
+                SpeedY = -3;
+                // SpeedY = (SpeedY > 3) ? (-(SpeedY - 1)) : (-SpeedY);
                 //SpeedY = -(new Random().Next(3, 8));
             }
 
