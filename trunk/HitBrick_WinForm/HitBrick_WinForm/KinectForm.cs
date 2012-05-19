@@ -31,6 +31,14 @@ namespace HitBrick_WinForm
         private const int timer_inter = 10;
         private const int ms_to_second = 1000;
         
+        //奖励
+        PictureBox bonus;
+        Rectangle bonusRect;
+        bool have_one_bonus;
+        private const int bonus_speed = 5;
+        public int bonus_XPos { get; set; }
+        public int bonus_YPos { get; set; }
+
         public KinectForm()
         {
             // this.DoubleBuffered = true;
@@ -62,7 +70,10 @@ namespace HitBrick_WinForm
             pbBall.BringToFront();
 
             ballRect = new Rectangle(XPos, YPos, 2 * ball_R, 2 * ball_R);
-            
+
+
+            bonus = new PictureBox();
+            have_one_bonus = false;
             // 带参数的，必须是object型
             // Thread parameterThread = new Thread(new ParameterizedThreadStart());
             // parameterThread.Start(this.));  
@@ -80,6 +91,13 @@ namespace HitBrick_WinForm
 
                 RunBall();
                 Hit();
+
+                if (have_one_bonus)
+                {
+                    bonus_YPos = bonus_YPos + bonus_speed;
+                    bonus.Location = new Point(bonus_XPos, bonus_YPos);
+                    bonusRect = new Rectangle(bonus_XPos, bonus_YPos, 2 * ball_R, 2 * ball_R);
+                }
 
                 // this.splitContainer1.Panel1.Refresh();
                 // this.splitContainer1.Panel1.Invalidate();
@@ -257,6 +275,24 @@ namespace HitBrick_WinForm
                     //得分
                     score += (Rects[i].type + 1) * 10;
 
+                    // Bounds
+                    // 保证一个屏幕上只有一个奖励出现
+                    // if ((new Random().Next(3, 8)) % 13 == 0)
+                    if(!have_one_bonus && i % 2 == 0)
+                    {
+                        have_one_bonus = true;
+
+                        bonus_XPos = Rects[i].rectangle.X;
+                        bonus_YPos = Rects[i].rectangle.Y;
+                        bonus.Location = new Point(bonus_XPos, bonus_YPos);
+                        ballRect = new Rectangle(bonus_XPos, bonus_YPos, 2 * ball_R, 2 * ball_R);
+
+                        bonus.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
+                        bonus.Size = new Size(2 * ball_R, 2 * ball_R);
+                        this.splitContainer1.Panel1.Controls.Add(bonus);
+                        bonus.BringToFront();
+                    }
+
                     //删除砖块
                     Rects[i].pictureBox.Visible = false;
                     Rects[i].pictureBox.Dispose();
@@ -267,6 +303,23 @@ namespace HitBrick_WinForm
                     mp3.play();
                     break;
                 }
+            }
+
+            //获得奖励
+            if (bonus.RectangleToScreen(bonus.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
+            {
+                //奖励效果
+                score += 1;
+
+                have_one_bonus = false;
+                bonus.Dispose();
+                bonus = new PictureBox();
+            }
+
+            //奖励消失
+            if (bonus_YPos > this.Height)
+            {
+                have_one_bonus = false;
             }
 
             Point center = render.GetBarLocation();
