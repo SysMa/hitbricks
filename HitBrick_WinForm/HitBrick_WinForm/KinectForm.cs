@@ -24,6 +24,9 @@ namespace HitBrick_WinForm
         //关卡
         private uint stage = 1;
 
+        //板子
+        Point lastCenter = new Point(0, 0);
+
         public KinectForm()
         {
             // this.DoubleBuffered = true;
@@ -66,7 +69,7 @@ namespace HitBrick_WinForm
 
         public void timer_Tick(object sender, EventArgs e)
         {
-            if( !IsGameOver())
+            if(!IsGameOver())
             {
                 if(!timer_time.Enabled)
                     timer_time.Start();
@@ -147,46 +150,24 @@ namespace HitBrick_WinForm
             //砖块与小球碰撞
             for (int i = 0; i < Rects.Count; i++)
             {
-                // 下面8个变量用来记录相交与否
+                // 下面4个变量用来记录相交与否
                 // 如果某一条边和小球的矩形相交，则为true
                 // 否则为false
-                bool[] flags = new bool[8];
+                bool[] flags = new bool[4];
                 bool hit = false;
 
                 // 相交与否
                 flags[0] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y));
-                flags[1] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y));
-                flags[2] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y));
-                flags[3] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R));
-                flags[4] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y + ball_R));
-                flags[5] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R * 2));
-                flags[6] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y + ball_R * 2));
-                flags[7] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R * 2, ballRect.Y + ball_R * 2));
+                flags[1] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y));
+                flags[2] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R * 2));
+                flags[3] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R * 2, ballRect.Y + ball_R * 2));
                                     
-                //if ((flags[0] && (!flags[2]) && !(flags[1] && !flags[3])) ||
-                //    (flags[7] && (!flags[5]) && !(flags[6] && !flags[4])) ||
-                //    !(flags[5] && !flags[3] && !(!flags[0] && !flags[6])) ||
-                //    !(flags[2] && !flags[4] && !(!flags[7] && !flags[1]))
-                //    )
-                //{
-                //    SpeedX = -SpeedX;
-                //}
-
-                //if (!(flags[0] && !flags[1] && !(!flags[2] && !flags[3])) ||
-                //    !(flags[7] && !flags[6] && !(!flags[5] && !flags[4])) ||
-                //    (flags[5] && (!flags[0]) && !(flags[3] && !flags[6])) ||
-                //    (flags[2] && (!flags[7]) && !(flags[4] && !flags[1]))
-                //    )
-                //{
-                //    SpeedY = -SpeedY;
-                //}
-
-                if (flags[0] && flags[2])
+                if (flags[0] && flags[1])
                 {
                     SpeedY = -SpeedY;
                     hit = true;
                 }
-                else if (flags[0] && !flags[2] &&!flags[5])
+                else if (flags[0] && !flags[1] &&!flags[2])
                 {
                     hit = true;
                     if (SpeedX > 0 && SpeedY > 0)
@@ -203,12 +184,12 @@ namespace HitBrick_WinForm
                         return;
                     }
                 }
-                else if (flags[0] && flags[5])
+                else if (flags[0] && flags[2])
                 {
                     hit = true; 
                     SpeedX = -SpeedX;
                 }
-                else if(flags[5] && !flags[0] && !flags[7])
+                else if(flags[2] && !flags[0] && !flags[3])
                 {
                     hit = true;
                     if (SpeedX > 0 && SpeedY < 0)
@@ -225,12 +206,12 @@ namespace HitBrick_WinForm
                         return;
                     }
                 }
-                else if (flags[5] && flags[7])
+                else if (flags[2] && flags[3])
                 {
                     hit = true;
                     SpeedY = -SpeedY;
                 }
-                else if (flags[7] && !flags[2] && !flags[5])
+                else if (flags[3] && !flags[1] && !flags[2])
                 {
                     hit = true;
                     if (SpeedX < 0 && SpeedY < 0)
@@ -247,12 +228,12 @@ namespace HitBrick_WinForm
                         return;
                     }
                 }
-                else if (flags[2] && flags[7])
+                else if (flags[1] && flags[3])
                 {
                     hit = true;
                     SpeedX = -SpeedX;
                 }
-                else if (flags[2] && !flags[0] && !flags[7])
+                else if (flags[1] && !flags[0] && !flags[3])
                 {
                     hit = true;
                     if (SpeedX < 0 && SpeedY > 0)
@@ -285,14 +266,57 @@ namespace HitBrick_WinForm
                     break;
                 }
             }
-            
+
+            Point center = render.GetBarLocation();
+
             //小球与挡板碰撞
             if (pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) &&
                 pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
             {
-                SpeedX = -SpeedX;
-                SpeedY = -SpeedY;
+                //Point left, right;
+                //if (render.LeftHand.X < render.RightHand.X)
+                //{
+                //    left = render.LeftHand;
+                //    right = render.RightHand;
+                //}
+                //else if (render.LeftHand.X > render.RightHand.X)
+                //{
+                //    left = render.RightHand;
+                //    right = render.LeftHand;
+                //}
+                //else if(center.X > lastCenter.X)
+                //{
+                //    if (render.LeftHand.Y < render.RightHand.Y)
+                //    {
+
+                //    }
+                //}
+
+                //double angle = (float)Math.Atan(((double)(right.Y - left.Y)) / (right.X - left.X));
+                //angle = (float)(angle * 180 / Math.PI);
+
+                //if (right.Y > left.Y)
+                //{
+
+                //}
+                int dis = center.X - lastCenter.X;
+                if (dis < 0)
+                {
+                    SpeedX = -Math.Abs(SpeedX);
+                    SpeedY = Math.Abs(SpeedY) * dis * 1;
+                }
+                else if (dis > 0)
+                {
+                    SpeedX = -Math.Abs(SpeedX);
+                    SpeedY = Math.Abs(SpeedY) * dis * 1;
+                }
+                else
+                {
+                    // Stay the same
+                }
             }
+
+            lastCenter = center;
         }
 
         //游戏结束
