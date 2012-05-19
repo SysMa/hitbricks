@@ -38,6 +38,7 @@ namespace HitBrick_WinForm
         private const int bonus_speed = 5;
         public int bonus_XPos { get; set; }
         public int bonus_YPos { get; set; }
+        enum BarWidth { NORMAL, HALF, DOUBLE, AUTO };
 
         public KinectForm()
         {
