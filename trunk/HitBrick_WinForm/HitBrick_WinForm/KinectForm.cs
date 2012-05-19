@@ -35,7 +35,7 @@ namespace HitBrick_WinForm
 
             this.XPos = 378;
             this.YPos = 78;
-            this.SpeedX = 5;
+            this.SpeedX = -5;
             this.SpeedY = 1;
 
             timer.Interval = 10;
@@ -133,92 +133,130 @@ namespace HitBrick_WinForm
             //砖块与小球碰撞
             for (int i = 0; i < Rects.Count; i++)
             {
-                if (ballRect.IntersectsWith(Rects[i].rectangle))
+                // 下面8个变量用来记录相交与否
+                // 如果某一条边和小球的矩形相交，则为true
+                // 否则为false
+                bool[] flags = new bool[8];
+                bool hit = false;
+
+                // 相交与否
+                flags[0] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y));
+                flags[1] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y));
+                flags[2] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y));
+                flags[3] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R));
+                flags[4] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y + ball_R));
+                flags[5] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R * 2));
+                flags[6] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y + ball_R * 2));
+                flags[7] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R * 2, ballRect.Y + ball_R * 2));
+                                    
+                //if ((flags[0] && (!flags[2]) && !(flags[1] && !flags[3])) ||
+                //    (flags[7] && (!flags[5]) && !(flags[6] && !flags[4])) ||
+                //    !(flags[5] && !flags[3] && !(!flags[0] && !flags[6])) ||
+                //    !(flags[2] && !flags[4] && !(!flags[7] && !flags[1]))
+                //    )
+                //{
+                //    SpeedX = -SpeedX;
+                //}
+
+                //if (!(flags[0] && !flags[1] && !(!flags[2] && !flags[3])) ||
+                //    !(flags[7] && !flags[6] && !(!flags[5] && !flags[4])) ||
+                //    (flags[5] && (!flags[0]) && !(flags[3] && !flags[6])) ||
+                //    (flags[2] && (!flags[7]) && !(flags[4] && !flags[1]))
+                //    )
+                //{
+                //    SpeedY = -SpeedY;
+                //}
+
+                if (flags[0] && flags[2])
                 {
-                    // need to be deleted
-                    // SpeedX = -SpeedX;
-                    // SpeedY = -SpeedY;
-
-                    // 下面8个变量用来记录相交与否
-                    // 如果某一条边和小球的矩形相交，则为true
-                    // 否则为false
-                    bool[] flags = new bool[8];
-                    //for (int j = 0; j < 8; j++)
-                    //{
-                    //    flags[j] = false;
-                    //}
-
-                    // 相交与否
-                    flags[0] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y));
-                    flags[1] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y));
-                    flags[2] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y));
-                    flags[3] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R));
-                    flags[4] = Rects[i].rectangle.Contains(new Point(ballRect.X + 2 * ball_R, ballRect.Y + ball_R));
-                    flags[5] = Rects[i].rectangle.Contains(new Point(ballRect.X, ballRect.Y + ball_R * 2));
-                    flags[6] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R, ballRect.Y + ball_R * 2));
-                    flags[7] = Rects[i].rectangle.Contains(new Point(ballRect.X + ball_R * 2, ballRect.Y + ball_R * 2));
-
-                    /*
-                    if ((flags[0] && (!flags[2]) && !(flags[1] && !flags[3])) ||
-                        (flags[7] && (!flags[5]) && !(flags[6] && !flags[4])) ||
-                        !(flags[5] && !flags[3] && !(!flags[0] && !flags[6])) ||
-                        !(flags[2] && !flags[4] && !(!flags[7] && !flags[1]))
-                        )
-                    {
-                        SpeedX = -SpeedX;
-                    }
-
-                    if (!(flags[0] && !flags[1] && !(!flags[2] && !flags[3])) ||
-                        !(flags[7] && !flags[6] && !(!flags[5] && !flags[4])) ||
-                        (flags[5] && (!flags[0]) && !(flags[3] && !flags[6])) ||
-                        (flags[2] && (!flags[7]) && !(flags[4] && !flags[1]))
-                        )
-                    {
-                        SpeedY = -SpeedY;
-                    }*/
-
-                    if (flags[0] && flags[2])
+                    SpeedY = -SpeedY;
+                    hit = true;
+                }
+                else if (flags[0] && !flags[2] &&!flags[5])
+                {
+                    hit = true;
+                    if (SpeedX > 0 && SpeedY > 0)
                     {
                         SpeedY = -SpeedY;
                     }
-                    else if (flags[0] && !flags[2] &&!flags[5])
-                    {
-                        SpeedX = -SpeedX;
-                        SpeedY = -SpeedY;
-                    }
-                    else if (flags[0] && flags[5])
+                    else if (SpeedX < 0)
                     {
                         SpeedX = -SpeedX;
                     }
-                    else if(flags[5] && !flags[0] && !flags[7])
+                    else if(SpeedX > 0 && SpeedY < 0)
                     {
-                        SpeedX = -SpeedX;
-                        SpeedY = -SpeedY;
-                    }
-                    else if (flags[5] && flags[7])
-                    {
-                        SpeedY = -SpeedY;
-                    }
-                    else if (flags[7] && !flags[2] && !flags[5])
-                    {
-                        SpeedX = -SpeedX;
-                        SpeedY = -SpeedY;
-                    }
-                    else if (flags[2] && flags[7])
-                    {
-                        SpeedX = -SpeedX;
-                    }
-                    else if (flags[2] && !flags[0] && !flags[7])
-                    {
-                        SpeedX = -SpeedX;
-                        SpeedY = -SpeedY;
-                    }
-                    else
-                    {
-                        // MessageBox.Show("Strange");
+                        // impossible
                         return;
                     }
-                    
+                }
+                else if (flags[0] && flags[5])
+                {
+                    hit = true; 
+                    SpeedX = -SpeedX;
+                }
+                else if(flags[5] && !flags[0] && !flags[7])
+                {
+                    hit = true;
+                    if (SpeedX > 0 && SpeedY < 0)
+                    {
+                        SpeedY = -SpeedY;
+                    }
+                    else if (SpeedX < 0)
+                    {
+                        SpeedX = -SpeedX;
+                    }
+                    else if (SpeedX > 0 && SpeedY > 0)
+                    {
+                        // impossible
+                        return;
+                    }
+                }
+                else if (flags[5] && flags[7])
+                {
+                    hit = true;
+                    SpeedY = -SpeedY;
+                }
+                else if (flags[7] && !flags[2] && !flags[5])
+                {
+                    hit = true;
+                    if (SpeedX < 0 && SpeedY < 0)
+                    {
+                        SpeedY = -SpeedY;
+                    }
+                    else if (SpeedX > 0)
+                    {
+                        SpeedX = -SpeedX;
+                    }
+                    else if (SpeedX < 0 && SpeedY > 0)
+                    {
+                        // impossible
+                        return;
+                    }
+                }
+                else if (flags[2] && flags[7])
+                {
+                    hit = true;
+                    SpeedX = -SpeedX;
+                }
+                else if (flags[2] && !flags[0] && !flags[7])
+                {
+                    hit = true;
+                    if (SpeedX < 0 && SpeedY > 0)
+                    {
+                        SpeedY = -SpeedY;
+                    }
+                    else if (SpeedX > 0)
+                    {
+                        SpeedX = -SpeedX;
+                    }
+                    else if (SpeedX < 0 && SpeedY < 0)
+                    {
+                        // impossible
+                        return;
+                    }
+                }
+                if (hit)
+                {  
                     //删除砖块
                     Rects[i].pictureBox.Visible = false;
                     Rects[i].pictureBox.Dispose();
@@ -262,6 +300,7 @@ namespace HitBrick_WinForm
             if (Rects.Count == 0)
             {
                 stage++;
+                // MessageBox.Show("Congratulations! Next Stage!");
                 return true;
             }
             return false;
