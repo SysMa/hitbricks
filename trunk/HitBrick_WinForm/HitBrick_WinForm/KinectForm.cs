@@ -171,6 +171,10 @@ namespace HitBrick_WinForm
             //砖块与小球碰撞
             for (int i = 0; i < Rects.Count; i++)
             {
+                if (SpeedY < 0)
+                {
+                    SpeedY = -3;
+                }
                 // 下面4个变量用来记录相交与否
                 // 如果某一条边和小球的矩形相交，则为true
                 // 否则为false
