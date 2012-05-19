@@ -28,15 +28,17 @@ namespace HitBrick_WinForm
         {
             // this.DoubleBuffered = true;
             InitializeComponent();
+            this.oversign.Visible = false;
+
             newBricks();
 
             timer = new System.Windows.Forms.Timer();
             timer_time = new System.Windows.Forms.Timer();
 
-            this.XPos = 378;
-            this.YPos = 78;
-            this.SpeedX = -5;
-            this.SpeedY = 1;
+            this.XPos = ori_XPos;
+            this.YPos = ori_YPos;
+            this.SpeedX = ori_SpeedX;
+            this.SpeedY = ori_SpeedY;
 
             timer.Interval = 10;
             timer.Tick += new EventHandler(timer_Tick);
@@ -80,15 +82,27 @@ namespace HitBrick_WinForm
                 if( IsSuccess())
                 {
                     this.CreateGraphics().DrawString("You Win", new Font("Comic Sans MS", 25), new SolidBrush(Color.Red), this.Width / 2 - 100, this.Height / 2 - 50);
-                    timer.Stop();
-                    timer_time.Stop();
+
+                    foreach (Brick_Type brick in Rects)
+                    {
+                        brick.pictureBox.Dispose();
+                    }
+                    Rects.Clear();
+                    newBricks();
                 }
             }
             else
             {
-                bgmPlayer.Stop();
-                this.CreateGraphics().DrawString("Game Over", new Font("Comic Sans MS", 25), new SolidBrush(Color.Snow), this.Width / 2 - 100, this.Height / 2 - 50);
                 timer_time.Stop();
+                timer.Stop();
+                bgmPlayer.Stop();
+                foreach (Brick_Type brick in Rects)
+                {
+                    brick.pictureBox.Dispose();
+                }
+                Rects.Clear();
+                this.button1.Visible = false;
+                this.oversign.Visible = true;
             }
         }
 
@@ -256,14 +270,14 @@ namespace HitBrick_WinForm
                     }
                 }
                 if (hit)
-                {  
+                {
+                    //得分
+                    score += (Rects[i].type + 1) * 10;
+
                     //删除砖块
                     Rects[i].pictureBox.Visible = false;
                     Rects[i].pictureBox.Dispose();
                     Rects.Remove(Rects[i]);
-
-                    //得分
-                    score += new Random().Next(50, 80);
 
                     Mp3 mp3 = new Mp3();
                     mp3.FileName = @"..\..\Resources\hitBricks.wav";
@@ -284,14 +298,13 @@ namespace HitBrick_WinForm
         //游戏结束
         public bool IsGameOver()
         {
-            /*
             if (ballRect.Y >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
             {
                 isGameOver = true;
             }
             return isGameOver;
-             */
-            return false;
+            
+            // return false;
         }
 
         //游戏通关
@@ -308,6 +321,9 @@ namespace HitBrick_WinForm
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.oversign.Visible = false;
+
+            this.stage = 1;
             foreach (Brick_Type brick in Rects)
             {
                 brick.pictureBox.Dispose();
@@ -315,8 +331,27 @@ namespace HitBrick_WinForm
             Rects.Clear();
             newBricks();
 
+            pbBall.Dispose();
+            this.XPos = ori_XPos;
+            this.YPos = ori_YPos;
+            this.SpeedX = ori_SpeedX;
+            this.SpeedY = ori_SpeedY;
+            pbBall = new PictureBox();
+            pbBall.Location = new Point(XPos, YPos);
+            pbBall.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
+            pbBall.Size = new Size(16, 16);
+            this.splitContainer1.Panel1.Controls.Add(pbBall);
+            pbBall.BringToFront();
+
+            ballRect = new Rectangle(XPos, YPos, 16, 16);
+
             score = 0;
             txtScore.Text = "Score: 0";
+
+            this.button1.Text = "Pause";
+            this.button1.Visible = true;
+            this.isGameOver = false;
+            timer.Start();
         }
     }
 }

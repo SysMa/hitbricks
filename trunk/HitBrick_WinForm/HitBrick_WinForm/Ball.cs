@@ -8,6 +8,11 @@ namespace HitBrick_WinForm
     {
         //小球
         //坐标
+        private const int ori_XPos = 378;
+        private const int ori_YPos = 78;
+        private const int ori_SpeedX = -5;
+        private const int ori_SpeedY = 1;
+
         public int XPos { get; set; }
         public int YPos { get; set; }
         //速度和方向控制
@@ -39,7 +44,7 @@ namespace HitBrick_WinForm
             //
 
             pbBall.Location = new Point(XPos, YPos);
-            ballRect = new Rectangle(XPos, YPos, 20, 20);
+            ballRect = new Rectangle(XPos, YPos, 16, 16);
         }
     }
 }

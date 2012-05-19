@@ -1,4 +1,5 @@
-﻿
+﻿using System.Windows.Forms;
+
 namespace HitBrick_WinForm
 {
     partial class KinectForm
@@ -35,6 +36,7 @@ namespace HitBrick_WinForm
             this.manImage = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.oversign = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -82,6 +84,7 @@ namespace HitBrick_WinForm
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Transparent;
+            this.splitContainer1.Panel1.Controls.Add(this.oversign);
             this.splitContainer1.Panel1.Controls.Add(this.manImage);
             // 
             // splitContainer1.Panel2
@@ -126,6 +129,17 @@ namespace HitBrick_WinForm
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // oversign
+            // 
+            this.oversign.AutoSize = true;
+            this.oversign.Font = new System.Drawing.Font("SimSun", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.oversign.ForeColor = System.Drawing.Color.Yellow;
+            this.oversign.Location = new System.Drawing.Point(78, 112);
+            this.oversign.Name = "oversign";
+            this.oversign.Size = new System.Drawing.Size(434, 194);
+            this.oversign.TabIndex = 3;
+            this.oversign.Text = "G A M E \r\nO V E R";
+            // 
             // KinectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -133,12 +147,15 @@ namespace HitBrick_WinForm
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(793, 523);
             this.Controls.Add(this.splitContainer1);
-            // this.DoubleBuffered = true;
             this.Name = "KinectForm";
             this.Text = "HitBricks";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.Load += new System.EventHandler(this.KinectForm_Load);
             this.Disposed += new System.EventHandler(this.KinectForm_Disposed);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -156,6 +173,7 @@ namespace HitBrick_WinForm
         private System.Windows.Forms.PictureBox manImage;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label oversign;
     }
 }
 
