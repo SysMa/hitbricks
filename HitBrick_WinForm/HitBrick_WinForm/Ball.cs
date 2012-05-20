@@ -10,7 +10,7 @@ namespace HitBrick_WinForm
         private const int ori_XPos = 378;
         private const int ori_YPos = 78;
         private const int ori_SpeedX = -5;
-        private const int ori_SpeedY = 10;
+        private const int ori_SpeedY = 1;
 
         public int XPos { get; set; }
         public int YPos { get; set; }
@@ -42,7 +42,7 @@ namespace HitBrick_WinForm
             }
             if (YPos <= 0)
             {
-                SpeedY = -3;
+                SpeedY = -1;
                 // SpeedY = (SpeedY > 3) ? (-(SpeedY - 1)) : (-SpeedY);
                 //SpeedY = -(new Random().Next(3, 8));
             }
