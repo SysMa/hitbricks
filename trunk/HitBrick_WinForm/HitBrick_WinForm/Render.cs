@@ -22,7 +22,7 @@ namespace HitBrick_WinForm
         double manImageHeight = 0;
 
         const int DEFAULTWIDTH = 60;
-        enum BarWidth {NORMAL,HALF,DOUBLE,AUTO };
+        public enum BarWidth {NORMAL,HALF,DOUBLE,AUTO };
         BarWidth type;
         private float angle;
 
@@ -88,7 +88,8 @@ namespace HitBrick_WinForm
                 return;
             }
             //开启colorstream
-            sensor.ColorStream.Enable(ColorImageFormat.RgbResolution1280x960Fps12);
+            //sensor.ColorStream.Enable(ColorImageFormat.RgbResolution1280x960Fps12);
+            sensor.ColorStream.Enable(ColorImageFormat.YuvResolution640x480Fps15);
 
             //开启skeletonstream
             //设置参数
@@ -104,7 +105,8 @@ namespace HitBrick_WinForm
 
             //开启depthstream
             depthImageStream = sensor.DepthStream;
-            sensor.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
+            //sensor.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
+            sensor.DepthStream.Enable(DepthImageFormat.Resolution320x240Fps30);
 
             depthImageBitmap = new Bitmap(depthImageStream.FrameWidth, depthImageStream.FrameHeight);
             depthImageBitmapRect = new Rectangle(0, 0, (int)depthImageStream.FrameWidth, (int)depthImageStream.FrameHeight);
@@ -166,9 +168,9 @@ namespace HitBrick_WinForm
             if (skeleton == null)
                 return;
 
-            rightHand = getDisplayPosition(skeleton.Joints[JointType.HandRight]);
-            leftHand = getDisplayPosition(skeleton.Joints[JointType.HandLeft]);
-            head = getDisplayPosition(skeleton.Joints[JointType.Head]);
+            //rightHand = getDisplayPosition(skeleton.Joints[JointType.HandRight]);
+            //leftHand = getDisplayPosition(skeleton.Joints[JointType.HandLeft]);
+            //head = getDisplayPosition(skeleton.Joints[JointType.Head]);
 
             SetBarPosition(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], barImage);
         }
@@ -233,10 +235,10 @@ namespace HitBrick_WinForm
             }
         }
 
-        private void SetBarPosition(Joint leftHand, Joint rightHand, PictureBox imgBar = null, Panel panel = null)
+        private void SetBarPosition(Joint leftHandJ, Joint rightHandJ, PictureBox imgBar = null, Panel panel = null)
         {
-            Point leftP = getDisplayPosition(leftHand);
-            Point rightP = getDisplayPosition(rightHand);
+            Point leftP = getDisplayPosition(leftHandJ);
+            Point rightP = getDisplayPosition(rightHandJ);
 
             int w;
             switch(type){
@@ -271,6 +273,8 @@ namespace HitBrick_WinForm
                 if (leftP.X > rightP.X)
                 {
                     barImageGraphic.TranslateTransform(rightP.X, rightP.Y);
+                    barRect.X += rightP.X;
+                    barRect.Y += rightP.Y;
                 }
                 else
                 {
@@ -280,13 +284,18 @@ namespace HitBrick_WinForm
                 }
                 
                 barImageGraphic.RotateTransform(angle, MatrixOrder.Prepend);
+
+                int screenX = barImage.RectangleToScreen(barRect).X;
+                int screenY = barImage.RectangleToScreen(barRect).Y;
+                leftHand = new Point(screenX, screenY);
+                rightHand.X = (int)(screenX + Math.Cos(angle) * w);
+                rightHand.Y = (int)(screenY + Math.Sin(angle) * w);
+
                 //barImageGraphic.FillRectangle(barBrush, barRect);
                 barImageGraphic.FillRectangle(barBrush, rect);
             }
         }
-
-       
-
+              
         private Point getDisplayPosition(Joint joint)
         {
             ColorImagePoint colorPoint = sensor.MapSkeletonPointToColor(joint.Position,
