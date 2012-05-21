@@ -49,7 +49,6 @@ namespace HitBrick_WinForm
             // this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             // this.UpdateStyles();
             
-
             render.RunRender();
         }
 

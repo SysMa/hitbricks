@@ -38,7 +38,9 @@ namespace HitBrick_WinForm
         private const int bonus_speed = 5;
         public int bonus_XPos { get; set; }
         public int bonus_YPos { get; set; }
-        enum BarWidth { NORMAL, HALF, DOUBLE, AUTO };
+
+        private const int speedup_x = 0;
+        private const int speedup_y = 0;
 
         public KinectForm()
         {
@@ -334,46 +336,77 @@ namespace HitBrick_WinForm
                 &&
                 pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
             {
-                //Point left, right;
-                //if (render.LeftHand.X < render.RightHand.X)
-                //{
-                //    left = render.LeftHand;
-                //    right = render.RightHand;
-                //}
-                //else if (render.LeftHand.X > render.RightHand.X)
-                //{
-                //    left = render.RightHand;
-                //    right = render.LeftHand;
-                //}
-                //else if(center.X > lastCenter.X)
-                //{
-                //    if (render.LeftHand.Y < render.RightHand.Y)
-                //    {
+                // calculate if hit the board.
+                // line， assume a = 0
+                // x1 + by1 + c = 0;
+                // x2 + by2 + c = 0;
+                double x1 = this.render.LeftHand.X;
+                double y1 = this.render.LeftHand.Y;
+                double x2 = this.render.RightHand.X;
+                double y2 = this.render.RightHand.Y;
 
-                //    }
-                //}
+                double b = (x1 - x2) / (y2 - y1);
+                double c = (x2 * y1 - x1 * y2) / (y2 - y1);
 
-                //double angle = (float)Math.Atan(((double)(right.Y - left.Y)) / (right.X - left.X));
-                //angle = (float)(angle * 180 / Math.PI);
+                int count = 0;
+                int[] px = new int[4];
+                int[] py = new int[4];
+                px[0] = ballRect.X;
+                py[0] = ballRect.Y;
 
-                //if (right.Y > left.Y)
-                //{
-
-                //}
-                int dis = center.X - lastCenter.X;
-                if (dis < 0)
+                px[1] = ballRect.X + 2 * ball_R;
+                py[1] = ballRect.Y;
+                
+                px[2] = ballRect.X;
+                py[2] = ballRect.Y + 2 * ball_R;
+                
+                px[3] = ballRect.X + 2 * ball_R;
+                py[3] = ballRect.Y + 2 * ball_R;
+                
+                for(int i = 0; i < 4; i++)
                 {
-                    SpeedX = -Math.Abs(SpeedX);
-                    SpeedY = Math.Abs(SpeedY) * dis * 1;
+                    if (px[i] + b * py[i] + c <= 0)
+                        count++;
                 }
-                else if (dis > 0)
+                if (count == 1 || count == 3)
                 {
-                    SpeedX = -Math.Abs(SpeedX);
-                    SpeedY = Math.Abs(SpeedY) * dis * 1;
+                    int dis_x = center.X - lastCenter.X;
+                    int dis_y = center.Y - lastCenter.Y;
+                    double angle = render.Angle;
+
+                    if (angle < 0)
+                    {
+                        angle = angle + Math.PI;
+                    }
+
+                    if (angle > Math.PI / 2)
+                    {
+                        angle = Math.PI - angle;
+                    }
+
+                    // so now the v is this 
+                    // along the board: x*cosα-y*sinα
+                    // and x*sinα+y*cosα
+                    // rules: along the board, no changes, the other, direction and speedup.
+                    SpeedX = (int)((SpeedX * Math.Cos(2 * angle) - SpeedY * Math.Sin(2 * angle))
+                        + dis_x * speedup_x);
+                    SpeedY = (int)((SpeedX * Math.Sin(2 * angle) + SpeedY * Math.Cos(2 * angle))
+                        + dis_y * speedup_y);
                 }
+
+                // old version of math calculate.
+                //if (dis_x < 0)
+                //{
+                //    SpeedX = -Math.Abs(SpeedX);
+                //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
+                //}
+                //else if (dis_x > 0)
+                //{
+                //    SpeedX = -Math.Abs(SpeedX);
+                //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
+                //}
                 //else
                 //{
-                //    // Stay the same
                 //}
             }
 
