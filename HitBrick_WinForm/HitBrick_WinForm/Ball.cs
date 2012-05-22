@@ -86,5 +86,19 @@ namespace HitBrick_WinForm
                 balls[i].rect = new Rectangle(balls[i].xPos, balls[i].yPos, 2 * ball_R, 2 * ball_R);
             }
         }
+
+        public void BulletsRun()
+        {
+            for (int i = 0; i < bullets.Count; i++)
+            {
+
+                bullets[i].xPos = bullets[i].xPos + bullets[i].speedX;
+                bullets[i].yPos = bullets[i].yPos - bullets[i].speedY;
+
+                bullets[i].pic.Location = new Point(bullets[i].xPos, bullets[i].yPos);
+                bullets[i].rect = new Rectangle(bullets[i].xPos, bullets[i].yPos, 2 * ball_R, 2 * ball_R);
+            }
+        }
+
     }
 }
