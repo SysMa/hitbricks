@@ -555,11 +555,17 @@ namespace HitBrick_WinForm
             Rects.Clear();
             newBricks();
 
+            for (int i = 0; i < balls.Count; i++)
+            {
+                balls[i].pic.Dispose();
+            }
             balls.Clear();
             Ball ball = new Ball(ori_XPos, ori_YPos);
             this.splitContainer1.Panel1.Controls.Add(ball.pic);
             ball.pic.BringToFront();
             balls.Add(ball);
+
+            render.type = Render.BarWidth.NORMAL;
 
             score = 0;
             txtScore.Text = "0";
