@@ -60,6 +60,13 @@ namespace HitBrick_WinForm.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ball {
+            get {
+                object obj = ResourceManager.GetObject("ball", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap bg {
             get {
                 object obj = ResourceManager.GetObject("bg", resourceCulture);
@@ -104,6 +111,13 @@ namespace HitBrick_WinForm.Properties {
         internal static System.Drawing.Bitmap green {
             get {
                 object obj = ResourceManager.GetObject("green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap heavyBall {
+            get {
+                object obj = ResourceManager.GetObject("heavyBall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,13 +180,6 @@ namespace HitBrick_WinForm.Properties {
         internal static System.Drawing.Bitmap taohong {
             get {
                 object obj = ResourceManager.GetObject("taohong", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap xiaoqiu {
-            get {
-                object obj = ResourceManager.GetObject("xiaoqiu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
