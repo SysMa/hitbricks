@@ -149,6 +149,27 @@ namespace HitBrick_WinForm.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap lighting {
+            get {
+                object obj = ResourceManager.GetObject("lighting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap lighting_left {
+            get {
+                object obj = ResourceManager.GetObject("lighting_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap lighting_right {
+            get {
+                object obj = ResourceManager.GetObject("lighting_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap pauseButton {
             get {
                 object obj = ResourceManager.GetObject("pauseButton", resourceCulture);
