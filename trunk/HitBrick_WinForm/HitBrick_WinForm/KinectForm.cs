@@ -42,7 +42,9 @@ namespace HitBrick_WinForm
         
         //奖励
         private const int bonus_speed = 3;
-        public enum Bonus_Type { INCREASE, DECREASE, ADD_LIFE };
+        // COUNT is always the last
+        public enum Bonus_Type { INCREASE = 0, DECREASE, ADD_LIFE, BOMB, COUNT };
+        private const int bonus_bricks = 3;
 
         public class Bonus
         {
@@ -323,20 +325,24 @@ namespace HitBrick_WinForm
                         this.splitContainer1.Panel1.Controls.Add(bonus.pic);
                         bonus.pic.BringToFront();
 
-                        switch (random.Next(3))
+                        switch (random.Next(0, (int)(Bonus_Type.COUNT - 1)))
                         {
-                            case 0:
-                            default:
+                            case (int)Bonus_Type.INCREASE:
                                 bonus.type = Bonus_Type.INCREASE;
                                 bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.increaseLength;
                                 break;
-                            case 1:
+                            case (int)Bonus_Type.DECREASE:
                                 bonus.type = Bonus_Type.DECREASE;
                                 bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.decreaseLength;
                                 break;
-                            case 2:
+                            case (int)Bonus_Type.ADD_LIFE:
                                 bonus.type = Bonus_Type.ADD_LIFE;
                                 bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.life_small;
+                                break;
+                            case (int)Bonus_Type.BOMB:
+                            default:
+                                bonus.type = Bonus_Type.BOMB;
+                                bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.bomb;
                                 break;
                         }
 
@@ -379,6 +385,17 @@ namespace HitBrick_WinForm
                                 remainLife++;
                             }
                             break;
+                        case Bonus_Type.BOMB:
+                        default:
+                            for (int num_bonus = 0; num_bonus < bonus_bricks && num_bonus < Rects.Count; num_bonus++)
+                            {
+                                int pick = random.Next(0, Rects.Count - 1);
+                                // delete the brick
+                                Rects[pick].pictureBox.Visible = false;
+                                Rects[pick].pictureBox.Dispose();
+                                Rects.Remove(Rects[pick]);
+                            }
+                            break;
                     }
 
                     bonus.pic.Dispose();
@@ -401,7 +418,7 @@ namespace HitBrick_WinForm
 
             //Point center = render.GetBarLocation();
 
-            //小球与挡板碰撞
+            //// 小球与挡板碰撞
             //if (pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) 
             //    &&
             //    pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
