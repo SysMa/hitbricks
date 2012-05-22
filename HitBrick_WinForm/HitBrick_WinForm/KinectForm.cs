@@ -36,6 +36,9 @@ namespace HitBrick_WinForm
         private PictureBox[] lifePics = new PictureBox[3];
         private int remainLife = 3;
         private const int maxLife = 3;
+        private const int rightestX = 134;
+        private const int rightestY = 197;
+        private const int dis = 39;
         
         //奖励
         private const int bonus_speed = 3;
@@ -96,7 +99,7 @@ namespace HitBrick_WinForm
                 lifePics[i] = new PictureBox();
                 lifePics[i].Size = new Size(32, 32);
                 lifePics[i].Image = global::HitBrick_WinForm.Properties.Resources.life;
-                lifePics[i].Location = new Point(68 + 39 * i, 77);
+                lifePics[i].Location = new Point(rightestX - dis * i, rightestY);
                 this.splitContainer1.Panel2.Controls.Add(lifePics[i]);
             }
 
@@ -120,7 +123,7 @@ namespace HitBrick_WinForm
 
                 // this.splitContainer1.Panel1.Refresh();
                 // this.splitContainer1.Panel1.Invalidate();
-                txtScore.Text = "Score: " + score.ToString();
+                txtScore.Text = score.ToString();
                 // this.Invalidate();
                 
                 if( IsSuccess())
@@ -163,25 +166,27 @@ namespace HitBrick_WinForm
                 hour += 1;
                 minute = 0;
             }
-            txtTime.Text = "Time : " + hour.ToString("00") + ":" 
+            txtTime.Text = hour.ToString("00") + ":" 
                 + minute.ToString("00") + ":" + second.ToString("00");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (button1.Text == "Start")
+            if (button1.Tag == "Start")
             {
                 timer.Start();
                 timer_time.Start();
                 bgmPlayer.PlayLooping();
-                button1.Text = "Pause";
+                button1.Tag = "Pause";
+                button1.Image = global::HitBrick_WinForm.Properties.Resources.pauseButton;
             }
             else
             {
                 timer.Stop();
                 timer_time.Stop();
                 bgmPlayer.Stop();
-                button1.Text = "Start";
+                button1.Tag = "Start";
+                button1.Image = global::HitBrick_WinForm.Properties.Resources.startButton;
             }
         }
 
@@ -514,9 +519,10 @@ namespace HitBrick_WinForm
             ballRect = new Rectangle(XPos, YPos, 2*ball_R, 2*ball_R);
 
             score = 0;
-            txtScore.Text = "Score: 0";
+            txtScore.Text = "0";
 
-            this.button1.Text = "Pause";
+            this.button1.Tag = "Pause";
+            this.button1.Image = global::HitBrick_WinForm.Properties.Resources.startButton;
             this.button1.Visible = true;
             this.isGameOver = false;
 
