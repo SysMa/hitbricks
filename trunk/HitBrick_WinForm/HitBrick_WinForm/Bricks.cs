@@ -32,8 +32,11 @@ namespace HitBrick_WinForm
                     draw_stage_one();
                     break;
                 case 2:
-                default:
                     draw_stage_two();
+                    break;
+                case 3:
+                default:
+                    draw_stage_three();
                     break;
             }
 
