@@ -43,8 +43,10 @@ namespace HitBrick_WinForm
         //奖励
         private const int bonus_speed = 3;
         // COUNT is always the last
-        public enum Bonus_Type { INCREASE = 0, DECREASE, ADD_LIFE, BOMB, THREE_BALL, COUNT };
+        public enum Bonus_Type { INCREASE = 0, DECREASE, ADD_LIFE, BOMB, THREE_BALLS, HEAVY_BALL, COUNT };
         private const int bonus_bricks = 3;
+        private bool isHeavy = false;
+        private int heavyDuration = 0;
 
         public class Bonus
         {
@@ -147,6 +149,20 @@ namespace HitBrick_WinForm
         public void timer_time_Tick(object sender, EventArgs e)
         {
             second++;
+
+            if (isHeavy)
+            {
+                heavyDuration++;
+                if (heavyDuration > 5)
+                {
+                    isHeavy = false;
+                    heavyDuration = 0;
+                    for (int i = 0; i < balls.Count; i++)
+                    {
+                        balls[i].pic.Image = global::HitBrick_WinForm.Properties.Resources.ball;
+                    }
+                }
+            }
             
             if (second >= 59)
             {
@@ -212,90 +228,114 @@ namespace HitBrick_WinForm
 
                     if (flags[0] && flags[1])
                     {
-                        balls[j].speedY = -balls[j].speedY;
+                        if (!isHeavy)
+                        {
+                            balls[j].speedY = -balls[j].speedY;
+                        }
                         hit = true;
                     }
                     else if (flags[0] && !flags[1] && !flags[2])
                     {
                         hit = true;
-                        if (balls[j].speedX > 0 && balls[j].speedY > 0)
+                        if (!isHeavy)
                         {
-                            balls[j].speedY = -balls[j].speedY;
-                        }
-                        else if (balls[j].speedX < 0)
-                        {
-                            balls[j].speedX = -balls[j].speedX;
-                        }
-                        else if (balls[j].speedX > 0 && balls[j].speedY < 0)
-                        {
-                            // impossible
-                            return;
+                            if (balls[j].speedX > 0 && balls[j].speedY > 0)
+                            {
+                                balls[j].speedY = -balls[j].speedY;
+                            }
+                            else if (balls[j].speedX < 0)
+                            {
+                                balls[j].speedX = -balls[j].speedX;
+                            }
+                            else if (balls[j].speedX > 0 && balls[j].speedY < 0)
+                            {
+                                // impossible
+                                return;
+                            }
                         }
                     }
                     else if (flags[0] && flags[2])
                     {
                         hit = true;
-                        balls[j].speedX = -balls[j].speedX;
+                        if (!isHeavy)
+                        {
+                            balls[j].speedX = -balls[j].speedX;
+                        }
                     }
                     else if (flags[2] && !flags[0] && !flags[3])
                     {
                         hit = true;
-                        if (balls[j].speedX > 0 && balls[j].speedY < 0)
+                        if (!isHeavy)
                         {
-                            balls[j].speedY = -balls[j].speedY;
-                        }
-                        else if (balls[j].speedX < 0)
-                        {
-                            balls[j].speedX = -balls[j].speedX;
-                        }
-                        else if (balls[j].speedX > 0 && balls[j].speedY > 0)
-                        {
-                            // impossible
-                            return;
+                            if (balls[j].speedX > 0 && balls[j].speedY < 0)
+                            {
+                                balls[j].speedY = -balls[j].speedY;
+                            }
+                            else if (balls[j].speedX < 0)
+                            {
+                                balls[j].speedX = -balls[j].speedX;
+                            }
+                            else if (balls[j].speedX > 0 && balls[j].speedY > 0)
+                            {
+                                // impossible
+                                return;
+                            }
                         }
                     }
                     else if (flags[2] && flags[3])
                     {
                         hit = true;
-                        balls[j].speedY = -balls[j].speedY;
+                        if (!isHeavy)
+                        {
+                            balls[j].speedY = -balls[j].speedY;
+                        }
                     }
                     else if (flags[3] && !flags[1] && !flags[2])
                     {
                         hit = true;
-                        if (balls[j].speedX < 0 && balls[j].speedY < 0)
+                        if (!isHeavy)
                         {
-                            balls[j].speedY = -balls[j].speedY;
-                        }
-                        else if (balls[j].speedX > 0)
-                        {
-                            balls[j].speedX = -balls[j].speedX;
-                        }
-                        else if (balls[j].speedX < 0 && balls[j].speedY > 0)
-                        {
-                            // impossible
-                            return;
+                            if (balls[j].speedX < 0 && balls[j].speedY < 0)
+                            {
+                                balls[j].speedY = -balls[j].speedY;
+                            }
+                            else if (balls[j].speedX > 0)
+                            {
+                                balls[j].speedX = -balls[j].speedX;
+                            }
+                            else if (balls[j].speedX < 0 && balls[j].speedY > 0)
+                            {
+                                // impossible
+                                return;
+                            }
                         }
                     }
                     else if (flags[1] && flags[3])
                     {
                         hit = true;
-                        balls[j].speedX = -balls[j].speedX;
+                        if (!isHeavy)
+                        {
+                            balls[j].speedX = -balls[j].speedX;
+                        }
                     }
                     else if (flags[1] && !flags[0] && !flags[3])
                     {
                         hit = true;
-                        if (balls[j].speedX < 0 && balls[j].speedY > 0)
+                        if (!isHeavy)
                         {
-                            balls[j].speedY = -balls[j].speedY;
-                        }
-                        else if (balls[j].speedX > 0)
-                        {
-                            balls[j].speedX = -balls[j].speedX;
-                        }
-                        else if (balls[j].speedX < 0 && balls[j].speedY < 0)
-                        {
-                            // impossible
-                            return;
+                            if (balls[j].speedX < 0 && balls[j].speedY > 0)
+                            {
+                                balls[j].speedY = -balls[j].speedY;
+                            }
+                            else if (balls[j].speedX > 0)
+                            {
+                                balls[j].speedX = -balls[j].speedX;
+                            }
+                            else if (balls[j].speedX < 0 && balls[j].speedY < 0)
+                            {
+                                // impossible
+                                return;
+                            }
                         }
                     }
 
@@ -341,10 +381,14 @@ namespace HitBrick_WinForm
                                     bonus.type = Bonus_Type.BOMB;
                                     bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.bomb;
                                     break;
-                                case (int)Bonus_Type.THREE_BALL:
+                                case (int)Bonus_Type.THREE_BALLS:
+                                    bonus.type = Bonus_Type.THREE_BALLS;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.ball;
+                                    break;
+                                case (int)Bonus_Type.HEAVY_BALL:
                                 default:
-                                    bonus.type = Bonus_Type.THREE_BALL;
-                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
+                                    bonus.type = Bonus_Type.HEAVY_BALL;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.heavyBall;
                                     break;
                             }
 
@@ -397,8 +441,7 @@ namespace HitBrick_WinForm
                                 Rects.Remove(Rects[pick]);
                             }
                             break;
-                        case Bonus_Type.THREE_BALL:
-                        default:
+                        case Bonus_Type.THREE_BALLS:
                             {
                                 Ball ball1 = new Ball(10, 50);
                                 this.splitContainer1.Panel1.Controls.Add(ball1.pic);
@@ -408,6 +451,16 @@ namespace HitBrick_WinForm
                                 this.splitContainer1.Panel1.Controls.Add(ball2.pic);
                                 ball2.pic.BringToFront();
                                 balls.Add(ball2);
+                            }
+                            break;
+                        case Bonus_Type.HEAVY_BALL:
+                        default:
+                            {
+                                isHeavy = true;
+                                for (int j = 0; j < balls.Count; j++)
+                                {
+                                    balls[j].pic.Image = global::HitBrick_WinForm.Properties.Resources.heavyBall;
+                                }
                             }
                             break;
                     }

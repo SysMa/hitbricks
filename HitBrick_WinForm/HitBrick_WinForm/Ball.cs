@@ -24,7 +24,7 @@ namespace HitBrick_WinForm
                 pic = new PictureBox();
                 pic.Location = new Point(xPos, yPos);
                 pic.BackColor = Color.Transparent;
-                pic.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
+                pic.Image = global::HitBrick_WinForm.Properties.Resources.ball;
                 pic.Size = new Size(2 * ball_R, 2 * ball_R);
 
                 rect = new Rectangle(xPos, yPos, 2 * ball_R, 2 * ball_R);
