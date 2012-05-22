@@ -303,7 +303,7 @@ namespace HitBrick_WinForm
 
         private int checkBegin(Joint leftHandJ, Joint rightHandJ, Joint headJ)
         {
-            if (leftHandJ.Position.Y < headJ.Position.Y && rightHandJ.Position.Y < headJ.Position.Y)
+            if (leftHandJ.Position.Y > headJ.Position.Y && rightHandJ.Position.Y > headJ.Position.Y)
             {
                 return 1;
             }

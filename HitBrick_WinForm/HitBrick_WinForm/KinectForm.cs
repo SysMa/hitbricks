@@ -11,6 +11,7 @@ namespace HitBrick_WinForm
         //计时器
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer timer_time;
+        private System.Windows.Forms.Timer start_timer;
 
         //游戏时间
         int hour = 0, minute = 0, second = 0;
@@ -73,11 +74,14 @@ namespace HitBrick_WinForm
 
             timer = new System.Windows.Forms.Timer();
             timer_time = new System.Windows.Forms.Timer();
+            start_timer = new System.Windows.Forms.Timer();
 
             timer.Interval = timer_inter;
             timer.Tick += new EventHandler(timer_Tick);
             timer_time.Interval = ms_to_second;
             timer_time.Tick += new EventHandler(timer_time_Tick);
+            start_timer.Interval = ms_to_second;
+            start_timer.Tick += new EventHandler(jduge_begin);
 
             bgmPlayer = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.bgm);
 
@@ -103,6 +107,7 @@ namespace HitBrick_WinForm
 
             // Thread ballThread = new Thread(RunBall);
             // ballThread.Start();
+            start_timer.Start();
         }
 
         public void timer_Tick(object sender, EventArgs e)
@@ -178,23 +183,14 @@ namespace HitBrick_WinForm
                 + minute.ToString("00") + ":" + second.ToString("00");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void jduge_begin(object sender, EventArgs e)
         {
-            if (button1.Tag.ToString() == "Start")
+            if (this.render.getBegin() == 1)
             {
+                start_timer.Stop();
+                start_timer.Dispose();
                 timer.Start();
-                timer_time.Start();
                 bgmPlayer.PlayLooping();
-                button1.Tag = "Pause";
-                button1.Image = global::HitBrick_WinForm.Properties.Resources.pauseButton;
-            }
-            else
-            {
-                timer.Stop();
-                timer_time.Stop();
-                bgmPlayer.Stop();
-                button1.Tag = "Start";
-                button1.Image = global::HitBrick_WinForm.Properties.Resources.startButton;
             }
         }
 
