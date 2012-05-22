@@ -8,8 +8,6 @@ namespace HitBrick_WinForm
     {
         //小球
         //坐标
-        private const int ori_XPos = 378;
-        private const int ori_YPos = 78;
         private const int ori_SpeedX = -5;
         private const int ori_SpeedY = 1;
 
@@ -80,8 +78,8 @@ namespace HitBrick_WinForm
                 }
 
                 //
-                //if (YPos >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
-                //    SpeedY = -SpeedY;
+                if (balls[i].yPos >= this.splitContainer1.Panel1.Height - ball_R + balls[i].speedY)
+                    balls[i].speedY = -balls[i].speedY;
                 //
 
                 balls[i].pic.Location = new Point(balls[i].xPos, balls[i].yPos);

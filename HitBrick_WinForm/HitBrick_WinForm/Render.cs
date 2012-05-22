@@ -21,6 +21,8 @@ namespace HitBrick_WinForm
         double manImageWidth = 0;
         double manImageHeight = 0;
 
+        private int begin = 0;//0表示未开始，1表示开始
+
         const int DEFAULTWIDTH = 60;
         public enum BarWidth {NORMAL,HALF,DOUBLE,AUTO };
         public BarWidth type { get; set; }
@@ -173,8 +175,11 @@ namespace HitBrick_WinForm
             //head = getDisplayPosition(skeleton.Joints[JointType.Head]);
 
             SetBarPosition(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], barImage);
+            if (begin != 1)
+            {
+                begin=checkBegin(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.Head]);
+            }
         }
-
 
         private void RenderScreen(DepthImageFrame depthFrame, ColorImageFrame colorFrame)
         {
@@ -295,7 +300,16 @@ namespace HitBrick_WinForm
                 barImageGraphic.FillRectangle(barBrush, rect);
             }
         }
-              
+
+        private int checkBegin(Joint leftHandJ, Joint rightHandJ, Joint headJ)
+        {
+            if (leftHandJ.Position.Y < headJ.Position.Y && rightHandJ.Position.Y < headJ.Position.Y)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
         private Point getDisplayPosition(Joint joint)
         {
             ColorImagePoint colorPoint = sensor.MapSkeletonPointToColor(joint.Position,
@@ -359,6 +373,9 @@ namespace HitBrick_WinForm
         {
             get { return angle; }
             set { angle = value; }
+        }
+        public int getBegin(){
+            return begin;
         }
     }
 }

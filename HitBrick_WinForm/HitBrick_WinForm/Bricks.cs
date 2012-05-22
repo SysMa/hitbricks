@@ -10,6 +10,7 @@ namespace HitBrick_WinForm
         private int _height = 300;//砖块集高
         private int brick_width = 40;
         private int brick_height = 18;
+        private int begin = 66;
 
         //砖块
         public struct Brick_Type
