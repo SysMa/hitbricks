@@ -79,7 +79,7 @@ namespace HitBrick_WinForm
 
             bgmPlayer = new System.Media.SoundPlayer(global::HitBrick_WinForm.Properties.Resources.bgm);
 
-            Ball ball = new Ball(ori_XPos, ori_YPos);
+            Ball ball = new Ball(this.splitContainer1.Panel1.Width / 2, begin + _height - 3 * 18);
             this.splitContainer1.Panel1.Controls.Add(ball.pic);
             ball.pic.BringToFront();
             balls.Add(ball);
@@ -323,7 +323,7 @@ namespace HitBrick_WinForm
                             this.splitContainer1.Panel1.Controls.Add(bonus.pic);
                             bonus.pic.BringToFront();
 
-                            switch (random.Next(0, (int)(Bonus_Type.COUNT - 1)))
+                            switch (random.Next(0, (int)(Bonus_Type.COUNT)))
                             {
                                 case (int)Bonus_Type.INCREASE:
                                     bonus.type = Bonus_Type.INCREASE;
@@ -522,7 +522,7 @@ namespace HitBrick_WinForm
                 }
                 else
                 {
-                    Ball ball = new Ball(ori_XPos, ori_YPos);
+                    Ball ball = new Ball(this.splitContainer1.Panel1.Width / 2, begin + _height - 3 * 18);
                     this.splitContainer1.Panel1.Controls.Add(ball.pic);
                     ball.pic.BringToFront();
                     balls.Add(ball);
@@ -560,7 +560,7 @@ namespace HitBrick_WinForm
                 balls[i].pic.Dispose();
             }
             balls.Clear();
-            Ball ball = new Ball(ori_XPos, ori_YPos);
+            Ball ball = new Ball(this.splitContainer1.Panel1.Width / 2, begin + _height - 3 * 18);
             this.splitContainer1.Panel1.Controls.Add(ball.pic);
             ball.pic.BringToFront();
             balls.Add(ball);
