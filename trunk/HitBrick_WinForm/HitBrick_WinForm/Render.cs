@@ -23,7 +23,7 @@ namespace HitBrick_WinForm
 
         const int DEFAULTWIDTH = 60;
         public enum BarWidth {NORMAL,HALF,DOUBLE,AUTO };
-        BarWidth type;
+        public BarWidth type { get; set; }
         private float angle;
 
         Bitmap depthImageBitmap;

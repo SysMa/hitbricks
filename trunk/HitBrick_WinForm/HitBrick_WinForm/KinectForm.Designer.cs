@@ -34,6 +34,7 @@ namespace HitBrick_WinForm
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.oversign = new System.Windows.Forms.Label();
             this.manImage = new System.Windows.Forms.PictureBox();
+            this.textLife = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -89,6 +90,7 @@ namespace HitBrick_WinForm
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Silver;
+            this.splitContainer1.Panel2.Controls.Add(this.textLife);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.txtScore);
             this.splitContainer1.Panel2.Controls.Add(this.txtTime);
@@ -101,7 +103,7 @@ namespace HitBrick_WinForm
             // oversign
             // 
             this.oversign.AutoSize = true;
-            this.oversign.Font = new System.Drawing.Font("SimSun", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.oversign.Font = new System.Drawing.Font("宋体", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.oversign.ForeColor = System.Drawing.Color.Yellow;
             this.oversign.Location = new System.Drawing.Point(78, 112);
             this.oversign.Name = "oversign";
@@ -118,6 +120,20 @@ namespace HitBrick_WinForm
             this.manImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.manImage.TabIndex = 2;
             this.manImage.TabStop = false;
+            // 
+            // textLife
+            // 
+            this.textLife.BackColor = System.Drawing.Color.Silver;
+            this.textLife.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textLife.Enabled = false;
+            this.textLife.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textLife.ForeColor = System.Drawing.Color.White;
+            this.textLife.Location = new System.Drawing.Point(10, 77);
+            this.textLife.Name = "textLife";
+            this.textLife.ReadOnly = true;
+            this.textLife.Size = new System.Drawing.Size(52, 23);
+            this.textLife.TabIndex = 7;
+            this.textLife.Text = "Life ：";
             // 
             // button2
             // 
@@ -170,6 +186,7 @@ namespace HitBrick_WinForm
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label oversign;
+        private System.Windows.Forms.TextBox textLife;
     }
 }
 

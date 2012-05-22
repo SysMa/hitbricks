@@ -48,7 +48,7 @@ namespace HitBrick_WinForm
             // this.SetStyle(ControlStyles.ResizeRedraw, true);
             // this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             // this.UpdateStyles();
-            
+
             render.RunRender();
         }
 

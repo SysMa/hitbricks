@@ -48,8 +48,8 @@ namespace HitBrick_WinForm
             }
 
             //
-            if (YPos >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
-                SpeedY = -SpeedY;
+            //if (YPos >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
+            //    SpeedY = -SpeedY;
             //
 
             pbBall.Location = new Point(XPos, YPos);
