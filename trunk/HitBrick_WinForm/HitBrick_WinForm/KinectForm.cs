@@ -340,59 +340,60 @@ namespace HitBrick_WinForm
                 // line， assume a = 0
                 // x1 + by1 + c = 0;
                 // x2 + by2 + c = 0;
-                double x1 = this.render.LeftHand.X;
-                double y1 = this.render.LeftHand.Y;
-                double x2 = this.render.RightHand.X;
-                double y2 = this.render.RightHand.Y;
+                //double x1 = this.render.LeftHand.X;
+                //double y1 = this.render.LeftHand.Y;
+                //double x2 = this.render.RightHand.X;
+                //double y2 = this.render.RightHand.Y;
 
-                double b = (x1 - x2) / (y2 - y1);
-                double c = (x2 * y1 - x1 * y2) / (y2 - y1);
+                //double b = (x1 - x2) / (y2 - y1);
+                //double c = (x2 * y1 - x1 * y2) / (y2 - y1);
 
-                int count = 0;
-                int[] px = new int[4];
-                int[] py = new int[4];
-                px[0] = ballRect.X;
-                py[0] = ballRect.Y;
+                //int count = 0;
+                //int[] px = new int[4];
+                //int[] py = new int[4];
+                //px[0] = ballRect.X;
+                //py[0] = ballRect.Y;
 
-                px[1] = ballRect.X + 2 * ball_R;
-                py[1] = ballRect.Y;
+                //px[1] = ballRect.X + 2 * ball_R;
+                //py[1] = ballRect.Y;
                 
-                px[2] = ballRect.X;
-                py[2] = ballRect.Y + 2 * ball_R;
+                //px[2] = ballRect.X;
+                //py[2] = ballRect.Y + 2 * ball_R;
                 
-                px[3] = ballRect.X + 2 * ball_R;
-                py[3] = ballRect.Y + 2 * ball_R;
+                //px[3] = ballRect.X + 2 * ball_R;
+                //py[3] = ballRect.Y + 2 * ball_R;
                 
-                for(int i = 0; i < 4; i++)
+                //for(int i = 0; i < 4; i++)
+                //{
+                //    if (px[i] + b * py[i] + c <= 0)
+                //        count++;
+                //}
+                //if (count >= 1 && count <= 3)
+                //{
+                int dis_x = center.X - lastCenter.X;
+                int dis_y = center.Y - lastCenter.Y;
+                double angle = render.Angle;
+
+                if (angle < 0)
                 {
-                    if (px[i] + b * py[i] + c <= 0)
-                        count++;
+                    angle = angle + Math.PI;
                 }
-                if (count == 1 || count == 3)
+
+                if (angle > Math.PI / 2)
                 {
-                    int dis_x = center.X - lastCenter.X;
-                    int dis_y = center.Y - lastCenter.Y;
-                    double angle = render.Angle;
+                    angle = Math.PI - angle;
+                }
 
-                    if (angle < 0)
-                    {
-                        angle = angle + Math.PI;
-                    }
-
-                    if (angle > Math.PI / 2)
-                    {
-                        angle = Math.PI - angle;
-                    }
-
-                    // so now the v is this 
-                    // along the board: x*cosα-y*sinα
-                    // and x*sinα+y*cosα
-                    // rules: along the board, no changes, the other, direction and speedup.
-                    SpeedX = (int)((SpeedX * Math.Cos(2 * angle) - SpeedY * Math.Sin(2 * angle))
-                        + dis_x * speedup_x);
-                    SpeedY = (int)((SpeedX * Math.Sin(2 * angle) + SpeedY * Math.Cos(2 * angle))
+                // so now the v is this 
+                // along the board: x*cosα-y*sinα
+                // and x*sinα+y*cosα
+                // rules: along the board, no changes, the other, direction and speedup.
+                
+                SpeedX = (int)((SpeedX * Math.Cos(2 * angle) - SpeedY * Math.Sin(2 * angle))
+                    + dis_x * speedup_x);
+                SpeedY = (int)((SpeedX * Math.Sin(2 * angle) + SpeedY * Math.Cos(2 * angle))
                         + dis_y * speedup_y);
-                }
+                //}
 
                 // old version of math calculate.
                 //if (dis_x < 0)
