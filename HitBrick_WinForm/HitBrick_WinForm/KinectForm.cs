@@ -429,70 +429,70 @@ namespace HitBrick_WinForm
                 }
             }
 
-            //Point center = render.GetBarLocation();
+            Point center = render.GetBarLocation();
 
-            //for (int i = 0; i < balls.Count; i++)
-            //{
-            //    //小球与挡板碰撞
-            //    if (balls[i].pic.RectangleToScreen(balls[i].pic.DisplayRectangle).IntersectsWith(
-            //        render.barImage.RectangleToScreen(render.GetBarRect()))
-            //        &&
-            //        balls[i].pic.RectangleToScreen(balls[i].pic.DisplayRectangle).IntersectsWith(
-            //        render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
-            //    {
-            //        int dis_x = center.X - lastCenter.X;
-            //        int dis_y = center.Y - lastCenter.Y;
-            //        double angle = render.Angle;
+            for (int i = 0; i < balls.Count; i++)
+            {
+                //小球与挡板碰撞
+                if (balls[i].pic.RectangleToScreen(balls[i].pic.DisplayRectangle).IntersectsWith(
+                    render.barImage.RectangleToScreen(render.GetBarRect()))
+                    &&
+                    balls[i].pic.RectangleToScreen(balls[i].pic.DisplayRectangle).IntersectsWith(
+                    render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
+                {
+                    int dis_x = center.X - lastCenter.X;
+                    int dis_y = center.Y - lastCenter.Y;
+                    double angle = render.Angle;
 
-            //        if (angle < 0)
-            //        {
-            //            angle = angle + Math.PI;
-            //        }
+                    if (angle < 0)
+                    {
+                        angle = angle + Math.PI;
+                    }
 
-            //        if (angle > Math.PI / 2)
-            //        {
-            //            angle = Math.PI - angle;
-            //        }
+                    if (angle > Math.PI / 2)
+                    {
+                        angle = Math.PI - angle;
+                    }
 
-            //        // so now the v is this 
-            //        // along the board: x*cosα-y*sinα
-            //        // and x*sinα+y*cosα
-            //        // rules: along the board, no changes, the other, direction and speedup.
-            //        if ((dis_x > 0 && balls[i].speedX > 0 && balls[i].speedX > dis_x) ||
-            //            (dis_x < 0 && balls[i].speedX < 0 && dis_x > balls[i].speedX))
-            //        {
-            //            balls[i].speedX = dis_x * 1;
-            //            balls[i].speedX = dis_y * 1;
-            //        }
-            //        else
-            //        {
-            //            balls[i].speedX = (int)((balls[i].speedX * Math.Cos(2 * angle)
-            //                - balls[i].speedY * Math.Sin(2 * angle)) + dis_x * speedup_x);
-            //            balls[i].speedY = (int)((balls[i].speedX * Math.Sin(2 * angle)
-            //                + balls[i].speedY * Math.Cos(2 * angle)) + dis_y * speedup_y);
+                    // so now the v is this 
+                    // along the board: x*cosα-y*sinα
+                    // and x*sinα+y*cosα
+                    // rules: along the board, no changes, the other, direction and speedup.
+                    if ((dis_x > 0 && balls[i].speedX > 0 && balls[i].speedX > dis_x) ||
+                        (dis_x < 0 && balls[i].speedX < 0 && dis_x > balls[i].speedX))
+                    {
+                        balls[i].speedX = dis_x * 1;
+                        balls[i].speedX = dis_y * 1;
+                    }
+                    else
+                    {
+                        balls[i].speedX = (int)((balls[i].speedX * Math.Cos(2 * angle)
+                            - balls[i].speedY * Math.Sin(2 * angle)) + dis_x * speedup_x);
+                        balls[i].speedY = (int)((balls[i].speedX * Math.Sin(2 * angle)
+                            + balls[i].speedY * Math.Cos(2 * angle)) + dis_y * speedup_y);
 
-            //            if (balls[i].speedY == 0)
-            //                balls[i].speedY = 5;
-            //        }
+                        if (balls[i].speedY == 0)
+                            balls[i].speedY = 5;
+                    }
 
-            //        // old version of math calculate.
-            //        //if (dis_x < 0)
-            //        //{
-            //        //    SpeedX = -Math.Abs(SpeedX);
-            //        //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
-            //        //}
-            //        //else if (dis_x > 0)
-            //        //{
-            //        //    SpeedX = -Math.Abs(SpeedX);
-            //        //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
-            //        //}
-            //        //else
-            //        //{
-            //        //}
-            //    }
-            //}
+                    // old version of math calculate.
+                    //if (dis_x < 0)
+                    //{
+                    //    SpeedX = -Math.Abs(SpeedX);
+                    //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
+                    //}
+                    //else if (dis_x > 0)
+                    //{
+                    //    SpeedX = -Math.Abs(SpeedX);
+                    //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
+                    //}
+                    //else
+                    //{
+                    //}
+                }
+            }
 
-            //lastCenter = center;
+            lastCenter = center;
         }
 
         //游戏结束
