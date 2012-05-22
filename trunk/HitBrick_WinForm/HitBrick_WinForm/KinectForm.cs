@@ -303,6 +303,7 @@ namespace HitBrick_WinForm
                     {
                         //得分
                         score += (Rects[i].type + 1) * 10;
+                        txtScore.Text = score.ToString();
 
                         // Bounds
                         // 保证一个屏幕上只有一个奖励出现
