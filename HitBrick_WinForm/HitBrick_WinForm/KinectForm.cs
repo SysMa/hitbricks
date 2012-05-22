@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace HitBrick_WinForm
 {
@@ -30,14 +31,27 @@ namespace HitBrick_WinForm
         // time related
         private const int timer_inter = 10;
         private const int ms_to_second = 1000;
+
+        // 生命值
+        private PictureBox[] lifePics = new PictureBox[3];
+        private int remainLife = 3;
+        private const int maxLife = 3;
         
         //奖励
-        PictureBox bonus;
-        Rectangle bonusRect;
-        bool have_one_bonus;
-        private const int bonus_speed = 5;
-        public int bonus_XPos { get; set; }
-        public int bonus_YPos { get; set; }
+        private const int bonus_speed = 3;
+        public enum Bonus_Type { INCREASE, DECREASE, ADD_LIFE };
+
+        public class Bonus
+        {
+            public PictureBox pic { get; set; }
+            public Rectangle rect { get; set; }
+            public int xPos { get; set; }
+            public int yPos { get; set; }
+            public Bonus_Type type { get; set; }
+        }
+        // 奖励集
+        public List<Bonus> bonuses { get; set; }
+        private Random random = new Random();
 
         private const int speedup_x = 0;
         private const int speedup_y = 0;
@@ -67,6 +81,7 @@ namespace HitBrick_WinForm
 
             pbBall = new PictureBox();
             pbBall.Location = new Point(XPos, YPos);
+            pbBall.BackColor = Color.Transparent;
             pbBall.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
             pbBall.Size = new Size(2 * ball_R, 2 * ball_R);
             this.splitContainer1.Panel1.Controls.Add(pbBall);
@@ -74,9 +89,17 @@ namespace HitBrick_WinForm
 
             ballRect = new Rectangle(XPos, YPos, 2 * ball_R, 2 * ball_R);
 
+            bonuses = new List<Bonus>();
 
-            bonus = new PictureBox();
-            have_one_bonus = false;
+            for (int i = 0; i < maxLife; i++)
+            {
+                lifePics[i] = new PictureBox();
+                lifePics[i].Size = new Size(32, 32);
+                lifePics[i].Image = global::HitBrick_WinForm.Properties.Resources.life;
+                lifePics[i].Location = new Point(68 + 39 * i, 77);
+                this.splitContainer1.Panel2.Controls.Add(lifePics[i]);
+            }
+
             // 带参数的，必须是object型
             // Thread parameterThread = new Thread(new ParameterizedThreadStart());
             // parameterThread.Start(this.));  
@@ -94,13 +117,6 @@ namespace HitBrick_WinForm
 
                 RunBall();
                 Hit();
-
-                if (have_one_bonus)
-                {
-                    bonus_YPos = bonus_YPos + bonus_speed;
-                    bonus.Location = new Point(bonus_XPos, bonus_YPos);
-                    bonusRect = new Rectangle(bonus_XPos, bonus_YPos, 2 * ball_R, 2 * ball_R);
-                }
 
                 // this.splitContainer1.Panel1.Refresh();
                 // this.splitContainer1.Panel1.Invalidate();
@@ -156,12 +172,14 @@ namespace HitBrick_WinForm
             if (button1.Text == "Start")
             {
                 timer.Start();
+                timer_time.Start();
                 bgmPlayer.PlayLooping();
                 button1.Text = "Pause";
             }
             else
             {
                 timer.Stop();
+                timer_time.Stop();
                 bgmPlayer.Stop();
                 button1.Text = "Start";
             }
@@ -285,19 +303,39 @@ namespace HitBrick_WinForm
                     // Bounds
                     // 保证一个屏幕上只有一个奖励出现
                     // if ((new Random().Next(3, 8)) % 13 == 0)
-                    if(!have_one_bonus && i % 2 == 0)
+                    if(i % 5 == 0)
                     {
-                        have_one_bonus = true;
+                        Bonus bonus = new Bonus();
+                        bonus.xPos = Rects[i].rectangle.X;
+                        bonus.yPos = Rects[i].rectangle.Y;
+                        bonus.rect = new Rectangle(bonus.xPos, bonus.yPos,
+                            2 * ball_R, 2 * ball_R);
 
-                        bonus_XPos = Rects[i].rectangle.X;
-                        bonus_YPos = Rects[i].rectangle.Y;
-                        bonus.Location = new Point(bonus_XPos, bonus_YPos);
-                        ballRect = new Rectangle(bonus_XPos, bonus_YPos, 2 * ball_R, 2 * ball_R);
+                        bonus.pic = new PictureBox();
+                        bonus.pic.BackColor = Color.Transparent;
+                        bonus.pic.Location = new Point(bonus.xPos, bonus.yPos);
+                        bonus.pic.Size = new Size(2 * ball_R, 2 * ball_R);
+                        this.splitContainer1.Panel1.Controls.Add(bonus.pic);
+                        bonus.pic.BringToFront();
 
-                        bonus.Image = global::HitBrick_WinForm.Properties.Resources.xiaoqiu;
-                        bonus.Size = new Size(2 * ball_R, 2 * ball_R);
-                        this.splitContainer1.Panel1.Controls.Add(bonus);
-                        bonus.BringToFront();
+                        switch (random.Next(3))
+                        {
+                            case 0:
+                            default:
+                                bonus.type = Bonus_Type.INCREASE;
+                                bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.increaseLength;
+                                break;
+                            case 1:
+                                bonus.type = Bonus_Type.DECREASE;
+                                bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.decreaseLength;
+                                break;
+                            case 2:
+                                bonus.type = Bonus_Type.ADD_LIFE;
+                                bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.life_small;
+                                break;
+                        }
+
+                        bonuses.Add(bonus);
                     }
 
                     //删除砖块
@@ -313,80 +351,107 @@ namespace HitBrick_WinForm
             }
 
             //获得奖励
-            if (bonus.RectangleToScreen(bonus.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
+            for (int i = 0; i < bonuses.Count;)
             {
-                //奖励效果
-                score += 1;
-
-                have_one_bonus = false;
-                bonus.Dispose();
-                bonus = new PictureBox();
-            }
-
-            //奖励消失
-            if (bonus_YPos > this.Height)
-            {
-                have_one_bonus = false;
-            }
-
-            Point center = render.GetBarLocation();
-
-            //小球与挡板碰撞
-            if (pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) 
-                &&
-                pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
-            {
-                int dis_x = center.X - lastCenter.X;
-                int dis_y = center.Y - lastCenter.Y;
-                double angle = render.Angle;
-
-                if (angle < 0)
+                Bonus bonus = bonuses[i];
+                if (bonus.pic.RectangleToScreen(bonus.pic.DisplayRectangle)
+                    .IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
                 {
-                    angle = angle + Math.PI;
+                    //奖励效果
+                    score += 1;
+                    switch (bonus.type)
+                    {
+                        case Bonus_Type.INCREASE:
+                            render.type = Render.BarWidth.DOUBLE;
+                            break;
+                        case Bonus_Type.DECREASE:
+                            render.type = Render.BarWidth.HALF;
+                            break;
+                        case Bonus_Type.ADD_LIFE:
+                            if (remainLife < 3)
+                            {
+                                lifePics[remainLife].Visible = true;
+                                remainLife++;
+                            }
+                            break;
+                    }
+
+                    bonus.pic.Dispose();
+                    bonuses.Remove(bonus);
                 }
-
-                if (angle > Math.PI / 2)
+                //奖励消失
+                else if (bonus.yPos > this.Height)
                 {
-                    angle = Math.PI - angle;
-                }
-
-                // so now the v is this 
-                // along the board: x*cosα-y*sinα
-                // and x*sinα+y*cosα
-                // rules: along the board, no changes, the other, direction and speedup.
-                if ((dis_x > 0 && SpeedX > 0 && SpeedX > dis_x) || (dis_x < 0 && SpeedX < 0 && dis_x > SpeedX))
-                {
-                    SpeedX = dis_x * 1;
-                    SpeedY = dis_y * 1;
+                    bonus.pic.Dispose();
+                    bonuses.Remove(bonus);
                 }
                 else
                 {
-                    SpeedX = (int)((SpeedX * Math.Cos(2 * angle) - SpeedY * Math.Sin(2 * angle))
-                        + dis_x * speedup_x);
-                    SpeedY = (int)((SpeedX * Math.Sin(2 * angle) + SpeedY * Math.Cos(2 * angle))
-                        + dis_y * speedup_y);
-
-                    if(SpeedY == 0)
-                        SpeedY = 5;
+                    bonus.yPos = bonus.yPos + bonus_speed;
+                    bonus.pic.Location = new Point(bonus.xPos, bonus.yPos);
+                    bonus.rect = new Rectangle(bonus.xPos, bonus.yPos, 2 * ball_R, 2 * ball_R);
+                    i++;
                 }
-
-                // old version of math calculate.
-                //if (dis_x < 0)
-                //{
-                //    SpeedX = -Math.Abs(SpeedX);
-                //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
-                //}
-                //else if (dis_x > 0)
-                //{
-                //    SpeedX = -Math.Abs(SpeedX);
-                //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
-                //}
-                //else
-                //{
-                //}
             }
 
-            lastCenter = center;
+            //Point center = render.GetBarLocation();
+
+            //小球与挡板碰撞
+            //if (pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.barImage.RectangleToScreen(render.GetBarRect())) 
+            //    &&
+            //    pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
+            //{
+            //    int dis_x = center.X - lastCenter.X;
+            //    int dis_y = center.Y - lastCenter.Y;
+            //    double angle = render.Angle;
+
+            //    if (angle < 0)
+            //    {
+            //        angle = angle + Math.PI;
+            //    }
+
+            //    if (angle > Math.PI / 2)
+            //    {
+            //        angle = Math.PI - angle;
+            //    }
+
+            //    // so now the v is this 
+            //    // along the board: x*cosα-y*sinα
+            //    // and x*sinα+y*cosα
+            //    // rules: along the board, no changes, the other, direction and speedup.
+            //    if ((dis_x > 0 && SpeedX > 0 && SpeedX > dis_x) || (dis_x < 0 && SpeedX < 0 && dis_x > SpeedX))
+            //    {
+            //        SpeedX = dis_x * 1;
+            //        SpeedY = dis_y * 1;
+            //    }
+            //    else
+            //    {
+            //        SpeedX = (int)((SpeedX * Math.Cos(2 * angle) - SpeedY * Math.Sin(2 * angle))
+            //            + dis_x * speedup_x);
+            //        SpeedY = (int)((SpeedX * Math.Sin(2 * angle) + SpeedY * Math.Cos(2 * angle))
+            //            + dis_y * speedup_y);
+
+            //        if(SpeedY == 0)
+            //            SpeedY = 5;
+            //    }
+
+            //    // old version of math calculate.
+            //    //if (dis_x < 0)
+            //    //{
+            //    //    SpeedX = -Math.Abs(SpeedX);
+            //    //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
+            //    //}
+            //    //else if (dis_x > 0)
+            //    //{
+            //    //    SpeedX = -Math.Abs(SpeedX);
+            //    //    SpeedY = Math.Abs(SpeedY) * dis_y * 1;
+            //    //}
+            //    //else
+            //    //{
+            //    //}
+            //}
+
+            //lastCenter = center;
         }
 
         //游戏结束
@@ -394,7 +459,19 @@ namespace HitBrick_WinForm
         {
             if (ballRect.Y >= this.splitContainer1.Panel1.Height - ball_R + SpeedY)
             {
-                isGameOver = true;
+                lifePics[remainLife - 1].Visible = false;
+                remainLife -= 1;
+                if (remainLife <= 0)
+                {
+                    isGameOver = true;
+                }
+                else
+                {
+                    this.XPos = ori_XPos;
+                    this.YPos = ori_YPos;
+                    pbBall.Location = new Point(XPos, YPos);
+                    ballRect = new Rectangle(XPos, YPos, 2 * ball_R, 2 * ball_R);
+                }
             }
             return isGameOver;
         }
@@ -442,6 +519,13 @@ namespace HitBrick_WinForm
             this.button1.Text = "Pause";
             this.button1.Visible = true;
             this.isGameOver = false;
+
+            this.remainLife = 3;
+            for (int i = 0; i < maxLife; i++)
+            {
+                lifePics[i].Visible = true;
+            }
+
             timer.Start();
         }
     }

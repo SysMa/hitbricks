@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HitBrick_WinForm.Properties
-{
-
-
+namespace HitBrick_WinForm.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   一个强类型的资源类，用于查找本地化的字符串等。
     /// </summary>
@@ -87,6 +87,13 @@ namespace HitBrick_WinForm.Properties
             }
         }
         
+        internal static System.Drawing.Bitmap decreaseLength {
+            get {
+                object obj = ResourceManager.GetObject("decreaseLength", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap green {
             get {
                 object obj = ResourceManager.GetObject("green", resourceCulture);
@@ -97,6 +104,27 @@ namespace HitBrick_WinForm.Properties
         internal static System.IO.UnmanagedMemoryStream hitBricks {
             get {
                 return ResourceManager.GetStream("hitBricks", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap increaseLength {
+            get {
+                object obj = ResourceManager.GetObject("increaseLength", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap life {
+            get {
+                object obj = ResourceManager.GetObject("life", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap life_small {
+            get {
+                object obj = ResourceManager.GetObject("life_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
