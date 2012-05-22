@@ -29,12 +29,11 @@ namespace HitBrick_WinForm
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtTime = new System.Windows.Forms.TextBox();
-            this.txtScore = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.oversign = new System.Windows.Forms.Label();
             this.manImage = new System.Windows.Forms.PictureBox();
-            this.textLife = new System.Windows.Forms.TextBox();
+            this.txtTime = new System.Windows.Forms.Label();
+            this.txtScore = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -43,34 +42,6 @@ namespace HitBrick_WinForm
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txtTime
-            // 
-            this.txtTime.BackColor = System.Drawing.Color.Silver;
-            this.txtTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtTime.Enabled = false;
-            this.txtTime.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTime.ForeColor = System.Drawing.Color.White;
-            this.txtTime.Location = new System.Drawing.Point(10, 14);
-            this.txtTime.Name = "txtTime";
-            this.txtTime.ReadOnly = true;
-            this.txtTime.Size = new System.Drawing.Size(146, 23);
-            this.txtTime.TabIndex = 4;
-            this.txtTime.Text = "Time : 00:00:00";
-            // 
-            // txtScore
-            // 
-            this.txtScore.BackColor = System.Drawing.Color.Silver;
-            this.txtScore.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtScore.Enabled = false;
-            this.txtScore.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtScore.ForeColor = System.Drawing.Color.White;
-            this.txtScore.Location = new System.Drawing.Point(10, 48);
-            this.txtScore.Name = "txtScore";
-            this.txtScore.ReadOnly = true;
-            this.txtScore.Size = new System.Drawing.Size(146, 23);
-            this.txtScore.TabIndex = 3;
-            this.txtScore.Text = "Score: 0";
             // 
             // splitContainer1
             // 
@@ -89,14 +60,14 @@ namespace HitBrick_WinForm
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Silver;
-            this.splitContainer1.Panel2.Controls.Add(this.textLife);
-            this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Panel2.Controls.Add(this.txtScore);
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Transparent;
+            this.splitContainer1.Panel2.BackgroundImage = global::HitBrick_WinForm.Properties.Resources.side;
             this.splitContainer1.Panel2.Controls.Add(this.txtTime);
+            this.splitContainer1.Panel2.Controls.Add(this.txtScore);
+            this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
-            this.splitContainer1.Size = new System.Drawing.Size(793, 523);
-            this.splitContainer1.SplitterDistance = 600;
+            this.splitContainer1.Size = new System.Drawing.Size(762, 523);
+            this.splitContainer1.SplitterDistance = 576;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -121,37 +92,59 @@ namespace HitBrick_WinForm
             this.manImage.TabIndex = 2;
             this.manImage.TabStop = false;
             // 
-            // textLife
+            // txtTime
             // 
-            this.textLife.BackColor = System.Drawing.Color.Silver;
-            this.textLife.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textLife.Enabled = false;
-            this.textLife.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textLife.ForeColor = System.Drawing.Color.White;
-            this.textLife.Location = new System.Drawing.Point(10, 77);
-            this.textLife.Name = "textLife";
-            this.textLife.ReadOnly = true;
-            this.textLife.Size = new System.Drawing.Size(52, 23);
-            this.textLife.TabIndex = 7;
-            this.textLife.Text = "Life ：";
+            this.txtTime.BackColor = System.Drawing.Color.Transparent;
+            this.txtTime.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTime.ForeColor = System.Drawing.Color.Lime;
+            this.txtTime.Location = new System.Drawing.Point(64, 64);
+            this.txtTime.Margin = new System.Windows.Forms.Padding(3);
+            this.txtTime.Name = "txtTime";
+            this.txtTime.Size = new System.Drawing.Size(102, 23);
+            this.txtTime.TabIndex = 8;
+            this.txtTime.Text = "00:00:00";
+            this.txtTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtScore
+            // 
+            this.txtScore.BackColor = System.Drawing.Color.Transparent;
+            this.txtScore.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtScore.ForeColor = System.Drawing.Color.Lime;
+            this.txtScore.Location = new System.Drawing.Point(64, 130);
+            this.txtScore.Margin = new System.Windows.Forms.Padding(3);
+            this.txtScore.Name = "txtScore";
+            this.txtScore.Size = new System.Drawing.Size(102, 23);
+            this.txtScore.TabIndex = 7;
+            this.txtScore.Text = "0";
+            this.txtScore.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(64, 355);
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.Lime;
+            this.button2.Image = global::HitBrick_WinForm.Properties.Resources.restartButton;
+            this.button2.Location = new System.Drawing.Point(21, 327);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(140, 50);
             this.button2.TabIndex = 6;
-            this.button2.Text = "Restart";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(64, 413);
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.Lime;
+            this.button1.Image = global::HitBrick_WinForm.Properties.Resources.startButton;
+            this.button1.Location = new System.Drawing.Point(21, 400);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(140, 50);
             this.button1.TabIndex = 5;
-            this.button1.Text = "Start";
+            this.button1.Tag = "Start";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -160,7 +153,7 @@ namespace HitBrick_WinForm
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(793, 523);
+            this.ClientSize = new System.Drawing.Size(762, 523);
             this.Controls.Add(this.splitContainer1);
             this.Name = "KinectForm";
             this.Text = "HitBricks";
@@ -169,7 +162,6 @@ namespace HitBrick_WinForm
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.manImage)).EndInit();
@@ -179,14 +171,13 @@ namespace HitBrick_WinForm
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtTime;
-        private System.Windows.Forms.TextBox txtScore;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.PictureBox manImage;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label oversign;
-        private System.Windows.Forms.TextBox textLife;
+        private System.Windows.Forms.Label txtScore;
+        private System.Windows.Forms.Label txtTime;
     }
 }
 

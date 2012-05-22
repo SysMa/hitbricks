@@ -141,6 +141,18 @@
   <ItemGroup>
     <None Include="data\life_small.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data\side.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\pauseButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\restartButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\startButton.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
