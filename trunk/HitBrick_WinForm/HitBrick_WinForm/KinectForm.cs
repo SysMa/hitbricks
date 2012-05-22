@@ -336,40 +336,6 @@ namespace HitBrick_WinForm
                 &&
                 pbBall.RectangleToScreen(pbBall.DisplayRectangle).IntersectsWith(render.manImage.RectangleToScreen(render.manImage.DisplayRectangle)))
             {
-                // calculate if hit the board.
-                // line， assume a = 0
-                // x1 + by1 + c = 0;
-                // x2 + by2 + c = 0;
-                //double x1 = this.render.LeftHand.X;
-                //double y1 = this.render.LeftHand.Y;
-                //double x2 = this.render.RightHand.X;
-                //double y2 = this.render.RightHand.Y;
-
-                //double b = (x1 - x2) / (y2 - y1);
-                //double c = (x2 * y1 - x1 * y2) / (y2 - y1);
-
-                //int count = 0;
-                //int[] px = new int[4];
-                //int[] py = new int[4];
-                //px[0] = ballRect.X;
-                //py[0] = ballRect.Y;
-
-                //px[1] = ballRect.X + 2 * ball_R;
-                //py[1] = ballRect.Y;
-                
-                //px[2] = ballRect.X;
-                //py[2] = ballRect.Y + 2 * ball_R;
-                
-                //px[3] = ballRect.X + 2 * ball_R;
-                //py[3] = ballRect.Y + 2 * ball_R;
-                
-                //for(int i = 0; i < 4; i++)
-                //{
-                //    if (px[i] + b * py[i] + c <= 0)
-                //        count++;
-                //}
-                //if (count >= 1 && count <= 3)
-                //{
                 int dis_x = center.X - lastCenter.X;
                 int dis_y = center.Y - lastCenter.Y;
                 double angle = render.Angle;
@@ -388,12 +354,21 @@ namespace HitBrick_WinForm
                 // along the board: x*cosα-y*sinα
                 // and x*sinα+y*cosα
                 // rules: along the board, no changes, the other, direction and speedup.
-                
-                SpeedX = (int)((SpeedX * Math.Cos(2 * angle) - SpeedY * Math.Sin(2 * angle))
-                    + dis_x * speedup_x);
-                SpeedY = (int)((SpeedX * Math.Sin(2 * angle) + SpeedY * Math.Cos(2 * angle))
+                if ((dis_x > 0 && SpeedX > 0 && SpeedX > dis_x) || (dis_x < 0 && SpeedX < 0 && dis_x > SpeedX))
+                {
+                    SpeedX = dis_x * 1;
+                    SpeedY = dis_y * 1;
+                }
+                else
+                {
+                    SpeedX = (int)((SpeedX * Math.Cos(2 * angle) - SpeedY * Math.Sin(2 * angle))
+                        + dis_x * speedup_x);
+                    SpeedY = (int)((SpeedX * Math.Sin(2 * angle) + SpeedY * Math.Cos(2 * angle))
                         + dis_y * speedup_y);
-                //}
+
+                    if(SpeedY == 0)
+                        SpeedY = 5;
+                }
 
                 // old version of math calculate.
                 //if (dis_x < 0)
