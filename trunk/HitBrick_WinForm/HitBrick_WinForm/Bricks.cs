@@ -28,8 +28,8 @@ namespace HitBrick_WinForm
             switch(stage)
             {
                 case 1:
-                    //draw_stage_one();
-                    //break;
+                    draw_stage_one();
+                    break;
                 case 2:
                 default:
                     draw_stage_two();
