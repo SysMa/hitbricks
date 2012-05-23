@@ -1,0 +1,3 @@
+this.MaximizeBox = false;
+this.MinimizeBox = false;
+this.FormBorderStyle = FormBorderStyle.FixedSingle;

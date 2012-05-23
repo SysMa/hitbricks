@@ -35,7 +35,6 @@ namespace HitBrick_WinForm
             this.txtTime = new System.Windows.Forms.Label();
             this.txtScore = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -65,7 +64,6 @@ namespace HitBrick_WinForm
             this.splitContainer1.Panel2.Controls.Add(this.txtTime);
             this.splitContainer1.Panel2.Controls.Add(this.txtScore);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Size = new System.Drawing.Size(762, 523);
             this.splitContainer1.SplitterDistance = 576;
             this.splitContainer1.SplitterWidth = 1;
@@ -74,7 +72,7 @@ namespace HitBrick_WinForm
             // oversign
             // 
             this.oversign.AutoSize = true;
-            this.oversign.Font = new System.Drawing.Font("宋体", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.oversign.Font = new System.Drawing.Font("SimSun", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.oversign.ForeColor = System.Drawing.Color.Yellow;
             this.oversign.Location = new System.Drawing.Point(78, 112);
             this.oversign.Name = "oversign";
@@ -84,7 +82,7 @@ namespace HitBrick_WinForm
             // 
             // manImage
             // 
-            this.manImage.BackColor = System.Drawing.Color.White;
+            this.manImage.BackColor = System.Drawing.Color.Transparent;
             this.manImage.Location = new System.Drawing.Point(-2, 355);
             this.manImage.Name = "manImage";
             this.manImage.Size = new System.Drawing.Size(178, 161);
@@ -133,20 +131,6 @@ namespace HitBrick_WinForm
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
-            // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.Lime;
-            this.button1.Image = global::HitBrick_WinForm.Properties.Resources.startButton;
-            this.button1.Location = new System.Drawing.Point(21, 400);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 50);
-            this.button1.TabIndex = 5;
-            this.button1.Tag = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // KinectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -172,7 +156,6 @@ namespace HitBrick_WinForm
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.PictureBox manImage;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label oversign;
         private System.Windows.Forms.Label txtScore;

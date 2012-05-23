@@ -74,7 +74,7 @@ namespace HitBrick_WinForm
             public int speedX { get; set; }
             public int speedY { get; set; }
         }
-        public List<Bullet> bullets { get; set; }
+        public List<Bullet> bullets = new List<Bullet>();
         private int numberOfBullets = 0;
 
         public KinectForm()
@@ -159,7 +159,6 @@ namespace HitBrick_WinForm
                     brick.pictureBox.Dispose();
                 }
                 Rects.Clear();
-                this.button1.Visible = false;
                 this.oversign.Visible = true;
             }
         }
@@ -185,21 +184,24 @@ namespace HitBrick_WinForm
 
             if ( (numberOfBullets > 0) && (render.getBegin() == 1))
             {
+                render.setBegin(0);
                 Bullet one_bullet = new Bullet();
-                one_bullet.xPos = manImage.DisplayRectangle.X + manImage.DisplayRectangle.Width / 2;
-                one_bullet.yPos = manImage.DisplayRectangle.Y - 2 * ball_R;
+                one_bullet.xPos = render.manImage.Location.X + render.manImage.ClientRectangle.Width / 2;
+                one_bullet.yPos = render.manImage.Location.Y - 2 * ball_R;
                 one_bullet.rect = new Rectangle(one_bullet.xPos, one_bullet.yPos, 2 * ball_R, 2 * ball_R);
 
                 one_bullet.pic = new PictureBox();
+                one_bullet.pic.Image = global::HitBrick_WinForm.Properties.Resources.lighting_left;
                 one_bullet.pic.BackColor = Color.Transparent;
                 one_bullet.pic.Location = new Point(one_bullet.xPos, one_bullet.yPos);
                 one_bullet.pic.Size = new Size(2 * ball_R, 2 * ball_R);
                 this.splitContainer1.Panel1.Controls.Add(one_bullet.pic);
                 one_bullet.pic.BringToFront();
-                one_bullet.pic.Image = global::HitBrick_WinForm.Properties.Resources.ball;
 
                 one_bullet.speedX = 0;
-                one_bullet.speedY = 3;
+                one_bullet.speedY = 1;
+
+                numberOfBullets--;
 
                 bullets.Add(one_bullet);
             }
@@ -222,6 +224,7 @@ namespace HitBrick_WinForm
         {
             if (this.render.getBegin() == 1)
             {
+                render.setBegin(0);
                 start_timer.Stop();
                 start_timer.Dispose();
                 timer.Start();
@@ -303,9 +306,6 @@ namespace HitBrick_WinForm
             score = 0;
             txtScore.Text = "0";
 
-            this.button1.Tag = "Pause";
-            this.button1.Image = global::HitBrick_WinForm.Properties.Resources.startButton;
-            this.button1.Visible = true;
             this.isGameOver = false;
 
             this.remainLife = 3;

@@ -16,20 +16,41 @@ namespace HitBrick_WinForm
         {
             // 这部分和下面一部分最好不要合并。
             // 意外是：子弹和小球同时击中。
-            for (int i = 0; i < Rects.Count; i++)
+            bool bullet_hit = false;
+            for (int i = 0; i < Rects.Count;)
             {
-                for (int k = 0; k < bullets.Count; k++)
+                if (bullets.Count == 0)
+                {
+                    break;
+                }
+                for (int k = 0; k < bullets.Count;)
                 {
                     if (bullets[k].rect.IntersectsWith(Rects[i].rectangle))
                     {
                         Rects[i].pictureBox.Visible = false;
                         Rects[i].pictureBox.Dispose();
                         Rects.Remove(Rects[i]);
+                        bullet_hit = true;
 
                         bullets[k].pic.Visible = false;
                         bullets[k].pic.Dispose();
                         bullets.Remove(bullets[k]);
+
+                        // numberOfBullets--;
+                        break;
                     }
+                    else
+                    {
+                        k++;
+                    }
+                }
+                if (bullet_hit)
+                {
+                    bullet_hit = false;
+                }
+                else
+                {
+                    i++;
                 }
             }
 
@@ -224,7 +245,7 @@ namespace HitBrick_WinForm
                                 case (int)Bonus_Type.BULLET:
                                 default:
                                     bonus.type = Bonus_Type.BULLET;
-                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.heavyBall;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.lighting;
                                     break;
                             }
 
@@ -290,7 +311,6 @@ namespace HitBrick_WinForm
                             }
                             break;
                         case Bonus_Type.HEAVY_BALL:
-                        default:
                             {
                                 isHeavy = true;
                                 for (int j = 0; j < balls.Count; j++)
@@ -299,6 +319,13 @@ namespace HitBrick_WinForm
                                 }
                             }
                             break;
+                        case Bonus_Type.BULLET:
+                        default:
+                            {
+                                render.setBegin(0);
+                                numberOfBullets = 10;
+                                break;
+                            }
                     }
 
                     bonus.pic.Dispose();

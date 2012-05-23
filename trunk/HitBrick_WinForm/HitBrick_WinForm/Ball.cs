@@ -89,14 +89,26 @@ namespace HitBrick_WinForm
 
         public void BulletsRun()
         {
-            for (int i = 0; i < bullets.Count; i++)
+            for (int i = 0; i < bullets.Count;)
             {
 
                 bullets[i].xPos = bullets[i].xPos + bullets[i].speedX;
                 bullets[i].yPos = bullets[i].yPos - bullets[i].speedY;
 
-                bullets[i].pic.Location = new Point(bullets[i].xPos, bullets[i].yPos);
-                bullets[i].rect = new Rectangle(bullets[i].xPos, bullets[i].yPos, 2 * ball_R, 2 * ball_R);
+                if (bullets[i].yPos < 0)
+                {
+                    bullets[i].pic.Visible = false;
+                    bullets[i].pic.Dispose();
+                    bullets.Remove(bullets[i]);
+                    // numberOfBullets--;
+                }
+                else
+                {
+                    bullets[i].pic.Location = new Point(bullets[i].xPos, bullets[i].yPos);
+                    bullets[i].rect = new Rectangle(bullets[i].xPos, bullets[i].yPos, 2 * ball_R, 2 * ball_R);
+                    i++;
+                }
+
             }
         }
 
