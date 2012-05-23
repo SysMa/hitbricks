@@ -377,5 +377,10 @@ namespace HitBrick_WinForm
         public int getBegin(){
             return begin;
         }
+
+        public void setBegin(int value)
+        {
+            begin = value;
+        }
     }
 }
