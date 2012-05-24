@@ -22,6 +22,8 @@ namespace HitBrick_WinForm
         double manImageHeight = 0;
 
         private int begin = 0;//0表示未开始，1表示开始
+        private int leftHandUp = 0;//0表示未举起，1表示举起
+        private int rightHandUp = 0;
 
         const int DEFAULTWIDTH = 60;
         public enum BarWidth {NORMAL,HALF,DOUBLE,AUTO };
@@ -39,7 +41,7 @@ namespace HitBrick_WinForm
 
         Graphics barImageGraphic;
         Rectangle barRect;
-        SolidBrush barBrush;
+        TextureBrush barBrush;
 
         //注册图形
         public PictureBox manImage;
@@ -65,7 +67,7 @@ namespace HitBrick_WinForm
             this.barImage.BackColor = Color.Transparent;            
             this.barImage.SizeMode = PictureBoxSizeMode.StretchImage;
            
-            barBrush = new SolidBrush(Color.Red);
+            barBrush = new TextureBrush(new Bitmap("data/bar.PNG"));
 
             barImageBitmap = new Bitmap(barImage.Width, barImage.Height);
             barImage.Image = barImageBitmap;
@@ -138,7 +140,6 @@ namespace HitBrick_WinForm
 
         private void sensor_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
         {
-            //manImageGraphic.FillRectangle(barBrush, barRect);
             using (DepthImageFrame dframe = e.OpenDepthImageFrame())
             {
                 using (ColorImageFrame cframe = sensor.ColorStream.OpenNextFrame(2))
@@ -153,7 +154,6 @@ namespace HitBrick_WinForm
 
         private void sensor_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
-            //manImageGraphic.FillRectangle(barBrush, barRect);
             SkeletonFrame skeletonFrame = e.OpenSkeletonFrame();
 
             if (skeletonFrame == null)
@@ -178,6 +178,14 @@ namespace HitBrick_WinForm
             if (begin != 1)
             {
                 begin=checkBegin(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.Head]);
+            }
+            if (leftHandUp != 1)
+            {
+                leftHandUp = checkLeftHandUp(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.Head]);
+            }
+            if (rightHandUp != 1)
+            {
+                rightHandUp = checkRightHandUp(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.Head]);
             }
         }
 
@@ -251,10 +259,10 @@ namespace HitBrick_WinForm
                     w = DEFAULTWIDTH;
                     break;
                 case BarWidth.HALF:
-                    w = DEFAULTWIDTH/2;
+                    w = DEFAULTWIDTH*2/3;
                     break;
                 case BarWidth.DOUBLE:
-                    w = DEFAULTWIDTH*2;
+                    w = DEFAULTWIDTH*3/2;
                     break;
                 case BarWidth.AUTO:
                     w = (int)Math.Sqrt((rightP.Y - leftP.Y) * (rightP.Y - leftP.Y) + (rightP.X - leftP.X) * (rightP.X - leftP.X));
@@ -273,20 +281,31 @@ namespace HitBrick_WinForm
                 barRect = new Rectangle(new Point(0, 0), new Size(w, 10));
                 Rectangle rect = new Rectangle(new Point(0, 0), new Size(w, 10));
                 barImageGraphic.Clear(Color.Transparent);
-                
+
+                Point halfP= new Point((leftP.X + rightHand.X) / 2, (leftP.Y + rightHand.Y) / 2);
+
                 barImageGraphic.ResetTransform();
-                if (leftP.X > rightP.X)
-                {
-                    barImageGraphic.TranslateTransform(rightP.X, rightP.Y);
-                    barRect.X += rightP.X;
-                    barRect.Y += rightP.Y;
-                }
-                else
-                {
-                    barImageGraphic.TranslateTransform(leftP.X, leftP.Y);
-                    barRect.X += leftP.X;
-                    barRect.Y += leftP.Y;
-                }
+                barImageGraphic.TranslateTransform(halfP.X - w / 2, halfP.Y);
+                barRect.X = halfP.X - w / 2;
+                barRect.Y = halfP.Y;
+                //if (leftP.X > rightP.X)
+                //{
+                //    barImageGraphic.TranslateTransform(halfP.X - w / 2, halfP.Y);
+                //    barRect.X += halfP.X - w / 2;
+                //    barRect.Y += rightP.Y;
+                //    //barImageGraphic.TranslateTransform(rightP.X, rightP.Y);
+                //    //barRect.X += rightP.X;
+                //    //barRect.Y += rightP.Y;
+                //}
+                //else
+                //{
+                //    barImageGraphic.TranslateTransform(halfP.X - w / 2, halfP.Y);
+                //    barRect.X += halfP.X - w / 2;
+                //    barRect.Y += leftP.Y;
+                //    //barImageGraphic.TranslateTransform(leftP.X, leftP.Y);
+                //    //barRect.X += leftP.X;
+                //    //barRect.Y += leftP.Y;
+                //}
                 
                 barImageGraphic.RotateTransform(angle, MatrixOrder.Prepend);
 
@@ -296,7 +315,6 @@ namespace HitBrick_WinForm
                 rightHand.X = (int)(screenX + Math.Cos(angle) * w);
                 rightHand.Y = (int)(screenY + Math.Sin(angle) * w);
 
-                //barImageGraphic.FillRectangle(barBrush, barRect);
                 barImageGraphic.FillRectangle(barBrush, rect);
             }
         }
@@ -304,6 +322,24 @@ namespace HitBrick_WinForm
         private int checkBegin(Joint leftHandJ, Joint rightHandJ, Joint headJ)
         {
             if (leftHandJ.Position.Y > headJ.Position.Y && rightHandJ.Position.Y > headJ.Position.Y)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        private int checkLeftHandUp(Joint leftHandJ, Joint rightHandJ, Joint headJ)
+        {
+            if (leftHandJ.Position.Y > headJ.Position.Y && rightHandJ.Position.Y < headJ.Position.Y)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        private int checkRightHandUp(Joint leftHandJ, Joint rightHandJ, Joint headJ)
+        {
+            if (leftHandJ.Position.Y < headJ.Position.Y && rightHandJ.Position.Y > headJ.Position.Y)
             {
                 return 1;
             }
@@ -364,7 +400,7 @@ namespace HitBrick_WinForm
             get { return head; }
             set { head = value; }
         }
-        public SolidBrush BarBrush
+        public TextureBrush BarBrush
         {
             get { return barBrush; }
             set { barBrush = value; }
@@ -381,6 +417,26 @@ namespace HitBrick_WinForm
         public void setBegin(int value)
         {
             begin = value;
+        }
+
+        public int getLeftHandUp()
+        {
+            return leftHandUp;
+        }
+
+        public void setLeftHandUp(int value)
+        {
+            leftHandUp = value;
+        }
+
+        public int getRightHandUp()
+        {
+            return rightHandUp;
+        }
+
+        public void setRightHandUp(int value)
+        {
+            rightHandUp = value;
         }
     }
 }
