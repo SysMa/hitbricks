@@ -36,7 +36,9 @@ namespace HitBrick_WinForm
                         bullets[k].pic.Dispose();
                         bullets.Remove(bullets[k]);
 
-                        // numberOfBullets--;
+                        Mp3 mp3 = new Mp3();
+                        mp3.FileName = @"..\..\Resources\hitBricks.wav";
+                        mp3.play();
                         break;
                     }
                     else
@@ -256,7 +258,6 @@ namespace HitBrick_WinForm
                         Rects[i].pictureBox.Visible = false;
                         Rects[i].pictureBox.Dispose();
                         Rects.Remove(Rects[i]);
-
                         Mp3 mp3 = new Mp3();
                         mp3.FileName = @"..\..\Resources\hitBricks.wav";
                         mp3.play();

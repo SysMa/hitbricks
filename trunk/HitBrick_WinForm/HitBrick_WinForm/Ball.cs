@@ -100,7 +100,6 @@ namespace HitBrick_WinForm
                     bullets[i].pic.Visible = false;
                     bullets[i].pic.Dispose();
                     bullets.Remove(bullets[i]);
-                    // numberOfBullets--;
                 }
                 else
                 {
