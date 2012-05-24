@@ -186,8 +186,30 @@ namespace HitBrick_WinForm
             {
                 render.setBegin(0);
                 Bullet one_bullet = new Bullet();
-                one_bullet.xPos = render.manImage.Location.X + render.manImage.ClientRectangle.Width / 2;
-                one_bullet.yPos = render.manImage.Location.Y - 2 * ball_R;
+                if (render.getLeftHandUp() == 1 && render.getRightHandUp() != 1)
+                {
+                    render.setLeftHandUp(0);
+                    one_bullet.xPos = render.manImage.Location.X;
+                    one_bullet.yPos = render.manImage.Location.Y - 2 * ball_R;
+                }
+                else if (render.getLeftHandUp() != 1 && render.getRightHandUp() == 1)
+                {
+                    render.setRightHandUp(0);
+                    one_bullet.xPos = render.manImage.Location.X + manImage.Width;
+                    one_bullet.yPos = render.manImage.Location.Y - 2 * ball_R;
+                }
+                else //双手
+                {
+                    timer_time.Stop();
+                    timer.Stop();
+                    render.setLeftHandUp(0);
+                    render.setRightHandUp(0);
+                    start_timer = new Timer();
+                    start_timer.Interval = ms_to_second;
+                    start_timer.Tick += new EventHandler(judge_begin);
+                    start_timer.Start();
+                }
+
                 one_bullet.rect = new Rectangle(one_bullet.xPos, one_bullet.yPos, 2 * ball_R, 2 * ball_R);
 
                 one_bullet.pic = new PictureBox();
