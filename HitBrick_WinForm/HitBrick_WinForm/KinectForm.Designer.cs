@@ -34,7 +34,6 @@ namespace HitBrick_WinForm
             this.manImage = new System.Windows.Forms.PictureBox();
             this.txtTime = new System.Windows.Forms.Label();
             this.txtScore = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -64,9 +63,8 @@ namespace HitBrick_WinForm
             this.splitContainer1.Panel2.BackgroundImage = global::HitBrick_WinForm.Properties.Resources.side;
             this.splitContainer1.Panel2.Controls.Add(this.txtTime);
             this.splitContainer1.Panel2.Controls.Add(this.txtScore);
-            this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Size = new System.Drawing.Size(762, 523);
-            this.splitContainer1.SplitterDistance = 579;
+            this.splitContainer1.Size = new System.Drawing.Size(790, 768);
+            this.splitContainer1.SplitterDistance = 608;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -117,32 +115,19 @@ namespace HitBrick_WinForm
             this.txtScore.Text = "0";
             this.txtScore.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // button2
-            // 
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.Lime;
-            this.button2.Image = global::HitBrick_WinForm.Properties.Resources.restartButton;
-            this.button2.Location = new System.Drawing.Point(21, 327);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(140, 50);
-            this.button2.TabIndex = 6;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // KinectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(762, 523);
+            this.ClientSize = new System.Drawing.Size(790, 768);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "KinectForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HitBricks";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.KinectForm_Load);
             this.Disposed += new System.EventHandler(this.KinectForm_Disposed);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -159,7 +144,6 @@ namespace HitBrick_WinForm
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.PictureBox manImage;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label oversign;
         private System.Windows.Forms.Label txtScore;
         private System.Windows.Forms.Label txtTime;
