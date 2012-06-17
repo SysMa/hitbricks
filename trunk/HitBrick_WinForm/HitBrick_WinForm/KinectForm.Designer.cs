@@ -47,6 +47,7 @@ namespace HitBrick_WinForm
             this.splitContainer1.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -65,14 +66,14 @@ namespace HitBrick_WinForm
             this.splitContainer1.Panel2.Controls.Add(this.txtScore);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Size = new System.Drawing.Size(762, 523);
-            this.splitContainer1.SplitterDistance = 576;
+            this.splitContainer1.SplitterDistance = 579;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 5;
             // 
             // oversign
             // 
             this.oversign.AutoSize = true;
-            this.oversign.Font = new System.Drawing.Font("SimSun", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.oversign.Font = new System.Drawing.Font("宋体", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.oversign.ForeColor = System.Drawing.Color.Yellow;
             this.oversign.Location = new System.Drawing.Point(78, 112);
             this.oversign.Name = "oversign";
@@ -138,8 +139,10 @@ namespace HitBrick_WinForm
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(762, 523);
             this.Controls.Add(this.splitContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "KinectForm";
             this.Text = "HitBricks";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.KinectForm_Load);
             this.Disposed += new System.EventHandler(this.KinectForm_Disposed);
             this.splitContainer1.Panel1.ResumeLayout(false);
