@@ -200,9 +200,6 @@ namespace HitBrick_WinForm
                         score += (Rects[i].type + 1) * 10;
                         txtScore.Text = score.ToString();
 
-                        // Bounds
-                        // 保证一个屏幕上只有一个奖励出现
-                        // if ((new Random().Next(3, 8)) % 13 == 0)
                         if (i % 5 == 0)
                         {
                             Bonus bonus = new Bonus();
@@ -220,30 +217,30 @@ namespace HitBrick_WinForm
 
                             switch (random.Next(0, (int)(Bonus_Type.COUNT)))
                             {
-                                case (int)Bonus_Type.INCREASE:
-                                    bonus.type = Bonus_Type.INCREASE;
-                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.increaseLength;
-                                    break;
-                                case (int)Bonus_Type.DECREASE:
-                                    bonus.type = Bonus_Type.DECREASE;
-                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.decreaseLength;
-                                    break;
-                                case (int)Bonus_Type.ADD_LIFE:
-                                    bonus.type = Bonus_Type.ADD_LIFE;
-                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.life_small;
-                                    break;
-                                case (int)Bonus_Type.BOMB:
-                                    bonus.type = Bonus_Type.BOMB;
-                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.bomb;
-                                    break;
-                                case (int)Bonus_Type.THREE_BALLS:
-                                    bonus.type = Bonus_Type.THREE_BALLS;
-                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.ball;
-                                    break;
-                                case (int)Bonus_Type.HEAVY_BALL:
-                                    bonus.type = Bonus_Type.HEAVY_BALL;
-                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.heavyBall;
-                                    break;
+                                //case (int)Bonus_Type.INCREASE:
+                                //    bonus.type = Bonus_Type.INCREASE;
+                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.increaseLength;
+                                //    break;
+                                //case (int)Bonus_Type.DECREASE:
+                                //    bonus.type = Bonus_Type.DECREASE;
+                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.decreaseLength;
+                                //    break;
+                                //case (int)Bonus_Type.ADD_LIFE:
+                                //    bonus.type = Bonus_Type.ADD_LIFE;
+                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.life_small;
+                                //    break;
+                                //case (int)Bonus_Type.BOMB:
+                                //    bonus.type = Bonus_Type.BOMB;
+                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.bomb;
+                                //    break;
+                                //case (int)Bonus_Type.THREE_BALLS:
+                                //    bonus.type = Bonus_Type.THREE_BALLS;
+                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.ball;
+                                //    break;
+                                //case (int)Bonus_Type.HEAVY_BALL:
+                                //    bonus.type = Bonus_Type.HEAVY_BALL;
+                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.heavyBall;
+                                //    break;
                                 case (int)Bonus_Type.BULLET:
                                 default:
                                     bonus.type = Bonus_Type.BULLET;
@@ -323,7 +320,7 @@ namespace HitBrick_WinForm
                         case Bonus_Type.BULLET:
                         default:
                             {
-                                render.setBegin(0);
+                                //render.setBegin(0);
                                 numberOfBullets = 10;
                                 break;
                             }

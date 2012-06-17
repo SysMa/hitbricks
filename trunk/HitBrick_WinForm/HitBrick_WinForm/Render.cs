@@ -67,7 +67,7 @@ namespace HitBrick_WinForm
             this.barImage.BackColor = Color.Transparent;            
             this.barImage.SizeMode = PictureBoxSizeMode.StretchImage;
            
-            barBrush = new TextureBrush(new Bitmap("data/bar.PNG"));
+            barBrush = new TextureBrush(global::HitBrick_WinForm.Properties.Resources.bar);
 
             barImageBitmap = new Bitmap(barImage.Width, barImage.Height);
             barImage.Image = barImageBitmap;
@@ -175,10 +175,14 @@ namespace HitBrick_WinForm
             //head = getDisplayPosition(skeleton.Joints[JointType.Head]);
 
             SetBarPosition(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], barImage);
-            if (begin != 1)
-            {
-                begin=checkBegin(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.Head]);
-            }
+
+            //if (begin == 0)
+            //{
+            begin = /*checkBegin(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.Head]);*/
+            checkState(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight],
+                skeleton.Joints[JointType.ElbowLeft], skeleton.Joints[JointType.ElbowRight]);
+
+            
             if (leftHandUp != 1)
             {
                 leftHandUp = checkLeftHandUp(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.Head]);
@@ -187,6 +191,16 @@ namespace HitBrick_WinForm
             {
                 rightHandUp = checkRightHandUp(skeleton.Joints[JointType.HandLeft], skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.Head]);
             }
+        }
+
+        private int checkState(Joint leftHandJ, Joint rightHandJ, Joint leftElbowJ, Joint rightElbowJ)
+        {
+            if (leftHandJ.Position.X > rightHandJ.Position.X && leftElbowJ.Position.X < rightElbowJ.Position.X
+                && rightHandJ.Position.Y > leftElbowJ.Position.Y && leftHandJ.Position.Y > rightElbowJ.Position.Y)
+            {
+                return 1;
+            }
+            return 0;
         }
 
         private void RenderScreen(DepthImageFrame depthFrame, ColorImageFrame colorFrame)
@@ -285,27 +299,19 @@ namespace HitBrick_WinForm
                 Point halfP= new Point((leftP.X + rightHand.X) / 2, (leftP.Y + rightHand.Y) / 2);
 
                 barImageGraphic.ResetTransform();
-                barImageGraphic.TranslateTransform(halfP.X - w / 2, halfP.Y);
-                barRect.X = halfP.X - w / 2;
-                barRect.Y = halfP.Y;
-                //if (leftP.X > rightP.X)
-                //{
-                //    barImageGraphic.TranslateTransform(halfP.X - w / 2, halfP.Y);
-                //    barRect.X += halfP.X - w / 2;
-                //    barRect.Y += rightP.Y;
-                //    //barImageGraphic.TranslateTransform(rightP.X, rightP.Y);
-                //    //barRect.X += rightP.X;
-                //    //barRect.Y += rightP.Y;
-                //}
-                //else
-                //{
-                //    barImageGraphic.TranslateTransform(halfP.X - w / 2, halfP.Y);
-                //    barRect.X += halfP.X - w / 2;
-                //    barRect.Y += leftP.Y;
-                //    //barImageGraphic.TranslateTransform(leftP.X, leftP.Y);
-                //    //barRect.X += leftP.X;
-                //    //barRect.Y += leftP.Y;
-                //}
+
+                if (leftP.X > rightP.X)
+                {
+                    barImageGraphic.TranslateTransform(rightP.X, rightP.Y);
+                    barRect.X += rightP.X;
+                    barRect.Y += rightP.Y;
+                }
+                else
+                {
+                    barImageGraphic.TranslateTransform(leftP.X, leftP.Y);
+                    barRect.X += leftP.X;
+                    barRect.Y += leftP.Y;
+                }
                 
                 barImageGraphic.RotateTransform(angle, MatrixOrder.Prepend);
 

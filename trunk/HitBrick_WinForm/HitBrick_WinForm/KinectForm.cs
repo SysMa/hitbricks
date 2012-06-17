@@ -182,50 +182,74 @@ namespace HitBrick_WinForm
                 }
             }
 
-            if ( (numberOfBullets > 0) && (render.getBegin() == 1))
+            if (render.getBegin() == 0)
             {
-                render.setBegin(0);
+                //render.setBegin(0);
                 Bullet one_bullet = new Bullet();
-                if (render.getLeftHandUp() == 1 && render.getRightHandUp() != 1)
+                if (render.getLeftHandUp() == 1 && render.getRightHandUp() != 1 && numberOfBullets > 0)
                 {
                     render.setLeftHandUp(0);
                     one_bullet.xPos = render.manImage.Location.X;
                     one_bullet.yPos = render.manImage.Location.Y - 2 * ball_R;
+
+
+                    one_bullet.rect = new Rectangle(one_bullet.xPos, one_bullet.yPos, 2 * ball_R, 2 * ball_R);
+
+                    one_bullet.pic = new PictureBox();
+                    one_bullet.pic.Image = global::HitBrick_WinForm.Properties.Resources.lighting_left;
+                    one_bullet.pic.BackColor = Color.Transparent;
+                    one_bullet.pic.Location = new Point(one_bullet.xPos, one_bullet.yPos);
+                    one_bullet.pic.Size = new Size(2 * ball_R, 2 * ball_R);
+                    this.splitContainer1.Panel1.Controls.Add(one_bullet.pic);
+                    one_bullet.pic.BringToFront();
+
+                    one_bullet.speedX = 0;
+                    one_bullet.speedY = 1;
+
+                    numberOfBullets--;
+
+                    bullets.Add(one_bullet);
                 }
-                else if (render.getLeftHandUp() != 1 && render.getRightHandUp() == 1)
+                else if (render.getLeftHandUp() != 1 && render.getRightHandUp() == 1 && numberOfBullets > 0)
                 {
                     render.setRightHandUp(0);
                     one_bullet.xPos = render.manImage.Location.X + manImage.Width;
                     one_bullet.yPos = render.manImage.Location.Y - 2 * ball_R;
+
+
+                    one_bullet.rect = new Rectangle(one_bullet.xPos, one_bullet.yPos, 2 * ball_R, 2 * ball_R);
+
+                    one_bullet.pic = new PictureBox();
+                    one_bullet.pic.Image = global::HitBrick_WinForm.Properties.Resources.lighting_left;
+                    one_bullet.pic.BackColor = Color.Transparent;
+                    one_bullet.pic.Location = new Point(one_bullet.xPos, one_bullet.yPos);
+                    one_bullet.pic.Size = new Size(2 * ball_R, 2 * ball_R);
+                    this.splitContainer1.Panel1.Controls.Add(one_bullet.pic);
+                    one_bullet.pic.BringToFront();
+
+                    one_bullet.speedX = 0;
+                    one_bullet.speedY = 1;
+
+                    numberOfBullets--;
+
+                    bullets.Add(one_bullet);
                 }
-                else //双手
+                else
                 {
-                    timer_time.Stop();
-                    timer.Stop();
                     render.setLeftHandUp(0);
                     render.setRightHandUp(0);
-                    start_timer = new Timer();
-                    start_timer.Interval = ms_to_second;
-                    start_timer.Tick += new EventHandler(judge_begin);
-                    start_timer.Start();
                 }
-
-                one_bullet.rect = new Rectangle(one_bullet.xPos, one_bullet.yPos, 2 * ball_R, 2 * ball_R);
-
-                one_bullet.pic = new PictureBox();
-                one_bullet.pic.Image = global::HitBrick_WinForm.Properties.Resources.lighting_left;
-                one_bullet.pic.BackColor = Color.Transparent;
-                one_bullet.pic.Location = new Point(one_bullet.xPos, one_bullet.yPos);
-                one_bullet.pic.Size = new Size(2 * ball_R, 2 * ball_R);
-                this.splitContainer1.Panel1.Controls.Add(one_bullet.pic);
-                one_bullet.pic.BringToFront();
-
-                one_bullet.speedX = 0;
-                one_bullet.speedY = 1;
-
-                numberOfBullets--;
-
-                bullets.Add(one_bullet);
+            }
+            else
+            {
+                timer_time.Stop();
+                timer.Stop();
+                render.setLeftHandUp(0);
+                render.setRightHandUp(0);
+                start_timer = new Timer();
+                start_timer.Interval = ms_to_second;
+                start_timer.Tick += new EventHandler(judge_begin);
+                start_timer.Start();
             }
 
             if (second >= 59)
@@ -246,7 +270,7 @@ namespace HitBrick_WinForm
         {
             if (this.render.getBegin() == 1)
             {
-                render.setBegin(0);
+                //render.setBegin(0);
                 start_timer.Stop();
                 start_timer.Dispose();
                 timer.Start();
