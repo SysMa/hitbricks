@@ -217,30 +217,30 @@ namespace HitBrick_WinForm
 
                             switch (random.Next(0, (int)(Bonus_Type.COUNT)))
                             {
-                                //case (int)Bonus_Type.INCREASE:
-                                //    bonus.type = Bonus_Type.INCREASE;
-                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.increaseLength;
-                                //    break;
-                                //case (int)Bonus_Type.DECREASE:
-                                //    bonus.type = Bonus_Type.DECREASE;
-                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.decreaseLength;
-                                //    break;
-                                //case (int)Bonus_Type.ADD_LIFE:
-                                //    bonus.type = Bonus_Type.ADD_LIFE;
-                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.life_small;
-                                //    break;
-                                //case (int)Bonus_Type.BOMB:
-                                //    bonus.type = Bonus_Type.BOMB;
-                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.bomb;
-                                //    break;
-                                //case (int)Bonus_Type.THREE_BALLS:
-                                //    bonus.type = Bonus_Type.THREE_BALLS;
-                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.ball;
-                                //    break;
-                                //case (int)Bonus_Type.HEAVY_BALL:
-                                //    bonus.type = Bonus_Type.HEAVY_BALL;
-                                //    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.heavyBall;
-                                //    break;
+                                case (int)Bonus_Type.INCREASE:
+                                    bonus.type = Bonus_Type.INCREASE;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.increaseLength;
+                                    break;
+                                case (int)Bonus_Type.DECREASE:
+                                    bonus.type = Bonus_Type.DECREASE;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.decreaseLength;
+                                    break;
+                                case (int)Bonus_Type.ADD_LIFE:
+                                    bonus.type = Bonus_Type.ADD_LIFE;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.life_small;
+                                    break;
+                                case (int)Bonus_Type.BOMB:
+                                    bonus.type = Bonus_Type.BOMB;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.bomb;
+                                    break;
+                                case (int)Bonus_Type.THREE_BALLS:
+                                    bonus.type = Bonus_Type.THREE_BALLS;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.ball;
+                                    break;
+                                case (int)Bonus_Type.HEAVY_BALL:
+                                    bonus.type = Bonus_Type.HEAVY_BALL;
+                                    bonus.pic.Image = global::HitBrick_WinForm.Properties.Resources.heavyBall;
+                                    break;
                                 case (int)Bonus_Type.BULLET:
                                 default:
                                     bonus.type = Bonus_Type.BULLET;
