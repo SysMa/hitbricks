@@ -78,8 +78,8 @@ namespace HitBrick_WinForm
                 }
 
                 //
-                if (balls[i].yPos >= this.splitContainer1.Panel1.Height - ball_R + balls[i].speedY)
-                    balls[i].speedY = -balls[i].speedY;
+                //if (balls[i].yPos >= this.splitContainer1.Panel1.Height - ball_R + balls[i].speedY)
+                //    balls[i].speedY = -balls[i].speedY;
                 //
 
                 balls[i].pic.Location = new Point(balls[i].xPos, balls[i].yPos);

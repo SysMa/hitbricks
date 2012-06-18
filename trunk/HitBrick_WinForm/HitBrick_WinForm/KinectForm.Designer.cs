@@ -63,15 +63,15 @@ namespace HitBrick_WinForm
             this.splitContainer1.Panel2.BackgroundImage = global::HitBrick_WinForm.Properties.Resources.side;
             this.splitContainer1.Panel2.Controls.Add(this.txtTime);
             this.splitContainer1.Panel2.Controls.Add(this.txtScore);
-            this.splitContainer1.Size = new System.Drawing.Size(790, 768);
-            this.splitContainer1.SplitterDistance = 608;
+            this.splitContainer1.Size = new System.Drawing.Size(790, 691);
+            this.splitContainer1.SplitterDistance = 611;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 5;
             // 
             // oversign
             // 
             this.oversign.AutoSize = true;
-            this.oversign.Font = new System.Drawing.Font("宋体", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.oversign.Font = new System.Drawing.Font("SimSun", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.oversign.ForeColor = System.Drawing.Color.Yellow;
             this.oversign.Location = new System.Drawing.Point(78, 112);
             this.oversign.Name = "oversign";
@@ -120,7 +120,7 @@ namespace HitBrick_WinForm
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(790, 768);
+            this.ClientSize = new System.Drawing.Size(790, 691);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
