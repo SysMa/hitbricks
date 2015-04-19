@@ -1,0 +1,1 @@
+The project's goal is to achieve a classic game-hit bricks-based on kinect, which is a motion sensing input device by Microsoft for the Xbox 360 video game console and Windows PCs.
